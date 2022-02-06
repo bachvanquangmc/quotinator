@@ -1,4 +1,4 @@
-import react from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const MainCont = styled.div`
@@ -6,16 +6,19 @@ const MainCont = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #E5DED6;
-    width: 140px;
-    height: 160px;
+    background-color: ${props => props.bgcolor};
+    border: 1px solid ${props => props.bordercolor};
+    width: 120px;
+    height: 140px;
+
 `;
 
 const Icon = styled.img`
     display: flex;
-    width: 60px;
-    height: 60px;
-    src: ${props =>props.src};
+    width: 50px;
+    height: 50px;
+    margin-top: 15px;
+    src: ${props => props.src};
 `;
 
 const Text = styled.p`
@@ -25,11 +28,22 @@ const Text = styled.p`
 
 const TopicCard = ({
     text = "default",
-    fontsize = "18px",
-    src="/TopicCardIcons/love.png"
+    fontsize = "16px",
+    src = "/TopicCardIcons/love.png",
+    bgcolor = "#E5DED6",
+    bordercolor = "#E5DED6",
+    onClick = () => { }
 }) => {
-    return <MainCont>
-        <Icon src={src}/>
+
+
+    // const handleClick = () => {
+    //     setClick(backgroundColor="#fff")
+    // }
+
+
+
+    return <MainCont onClick={onClick} bgcolor={bgcolor} bordercolor={bordercolor}>
+        <Icon src={src} />
         <Text fsize={fontsize}>{text}</Text>
     </MainCont>
 }

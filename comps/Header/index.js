@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const MainCont = styled.div`
@@ -10,7 +10,7 @@ const HeaderText = styled.h1`
 `;
 
 const Header = ({
-    header="Select a Category"
+    header="Default"
 }) => {
     return <MainCont>
         <HeaderText>{header}</HeaderText>
