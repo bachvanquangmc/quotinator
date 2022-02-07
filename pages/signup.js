@@ -1,10 +1,10 @@
 import SignUpForm from "../comps/SignUpForm";
 import styled from "styled-components";
-import logo from "../public/logo.svg"
+import NavBar from "../comps/Navbar";
 
 const Cont = styled.div`
-  max-width:320px;
-  min-height:630px;
+  max-width:390px;
+  min-height:844px;
   background:#F2F0EE;
   display:flex;
   flex-direction:column;
@@ -15,13 +15,29 @@ const Cont = styled.div`
 const Logo = styled.img`
   width:50%;
 `
+const Item = styled.div`
+  // background:red;
+  // flex-grow:1;
+  width:100%;
+` 
 
 export default function SignUp() {
   return (
-    <Cont>
-      <Logo src={"/logo.svg"}/>
-     <SignUpForm/>
 
-    </Cont>
+      <Cont>
+        <Item>
+
+        <NavBar/>
+        </Item>
+        <Item>
+
+        <Logo src={"/logo.svg"}/>
+        </Item>
+        <Item>
+
+      <SignUpForm/>
+        </Item>
+
+      </Cont>
   )
 }
