@@ -10,13 +10,12 @@ const MainCont = styled.div`
     border: 1px solid ${props => props.bordercolor};
     width: 120px;
     height: 140px;
-
 `;
 
 const Icon = styled.img`
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     margin-top: 15px;
     src: ${props => props.src};
 `;
@@ -35,12 +34,9 @@ const TopicCard = ({
     onClick = () => { }
 }) => {
 
-
     // const handleClick = () => {
     //     setClick(backgroundColor="#fff")
     // }
-
-
 
     return <MainCont onClick={onClick} bgcolor={bgcolor} bordercolor={bordercolor}>
         <Icon src={src} />

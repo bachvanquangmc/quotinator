@@ -7,13 +7,17 @@ const MainCont = styled.div`
 
 const HeaderText = styled.h1`
     display: flex;
+    font-size: ${props=>props.fsize};
+    font-weight: ${props=>props.fweight};
 `;
 
 const Header = ({
-    header="Default"
+    header="Default",
+    fontsize="28px",
+    fontweight="600",
 }) => {
     return <MainCont>
-        <HeaderText>{header}</HeaderText>
+        <HeaderText fsize={fontsize} fweight={fontweight}>{header}</HeaderText>
     </MainCont>
 }
 

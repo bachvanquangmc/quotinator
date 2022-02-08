@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Navbar from '../comps/Navbar';
@@ -7,6 +7,8 @@ import Subheader from '../comps/Subheader';
 import TopicCard from '../comps/TopicCard';
 import SearchBar from '../comps/SearchBar';
 import Btn from '../comps/Btn';
+
+import Switch from '../comps/Switch';
 
 const MainCont = styled.div`
     display: flex;
@@ -18,19 +20,34 @@ const MainCont = styled.div`
 
 const TCMainCont = styled.div`
     display: flex;
+    justify-content: flex-start;
     flex-wrap: wrap;
+    width: 100%;
 `;
 
 const CardCont = styled.div`
     display: flex;
-    margin: 15px 30px 15px 0px;
+    justify-content: center;
+    align-items: center;
+    /* margin: 30px; */
+    margin: 30px 40px 10px 0px;
 `;
 
-
-
 export default function Filter() {
+
+    const [value, setValue] = useState(false);
     return <MainCont>
+
+        <div className="switch">
+            <Switch 
+            isOn={value}
+            handleToggle={()=>setValue(!value)}
+            />
+        </div>
         <Header header="Select a Category" />
+
+        <SearchBar />
+
         <TCMainCont>
             <CardCont>
                 <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
@@ -69,5 +86,6 @@ export default function Filter() {
                 <TopicCard text="Art" src="/TopicCardIcons/art.png" />
             </CardCont>
         </TCMainCont>
+
     </MainCont>
 }
