@@ -61,7 +61,9 @@ export default function LoginForm(){
         }})} placeholder="Password"/>
       </Label>
       <Error>{errors.password?.message}</Error>
+      <p>Forgot Password?</p>
       <Button>Login</Button>
+      <p>Don't have an account yet? SignUp</p>
     </Form>
   </FormCont>
 }

@@ -21,7 +21,7 @@ const Item = styled.div`
   // background:red;
   display:flex;
   justify-content:center;
-  margin-bottom:80px;
+  margin-bottom:30px;
 ` 
 
 export default function SignUp() {
@@ -37,7 +37,7 @@ export default function SignUp() {
         <Logo src={"/logo.svg"}/>
         </Item>
         <Item>
-          <Header/>
+          <Header header="“Quotinator”" fontweight="1000"/>
         </Item>
         <Item>
 

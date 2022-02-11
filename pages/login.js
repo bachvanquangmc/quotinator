@@ -1,6 +1,7 @@
 import LoginForm from "../comps/LoginForm";
 import styled from "styled-components";
 import NavBar from "../comps/Navbar";
+import Header from "../comps/Header";
 
 const Cont = styled.div`
   height:100vh;
@@ -20,7 +21,7 @@ const Item = styled.div`
   // background:red;
   display:flex;
   justify-content:center;
-  margin-bottom:80px;
+  margin-bottom:10px;
 ` 
 
 export default function login() {
@@ -34,6 +35,9 @@ export default function login() {
         <Item>
 
         <Logo src={"/logo.svg"}/>
+        </Item>
+        <Item>
+          <Header header="“Quotinator”"/>
         </Item>
         <Item>
 
