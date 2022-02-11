@@ -11,7 +11,7 @@ const BtnCont = styled.button`
     background-color: #7B9582; 
     border: none;
     cursor: pointer;
-    /* margin: 20px; */
+    margin: 20px;
 
     /* &:hover {
         background-color: #758B7B;

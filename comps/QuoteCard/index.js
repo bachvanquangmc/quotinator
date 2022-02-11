@@ -41,7 +41,7 @@ const ImgCont = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-left: 10px;
+    margin: 2px 2px 2px 10px;
 `;
 
 const Img = styled.img`
@@ -58,6 +58,7 @@ const QuoteCard = ({
     text = "Don't cry because it's over, smile because it happened.",
     subText = "Dr. Seuss",
     imgSrc = "/heart.png" ,
+    imgSrc2 = "/copy.png" ,
     // onClick = () => {}
 }) => {
 
@@ -72,7 +73,7 @@ const QuoteCard = ({
             </TextCont>
             <ImgCont>
                 <Img src={imgSrc}/>
-                <Img src={imgSrc}/>
+                <Img src={imgSrc2}/>
             </ImgCont>
         </QuoteCont>
     )
