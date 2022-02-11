@@ -1,7 +1,7 @@
-import SignUpForm from "../comps/SignUpForm";
+import LoginForm from "../comps/LoginForm";
 import styled from "styled-components";
 import NavBar from "../comps/Navbar";
-import Header from "../comps/Header"
+import Header from "../comps/Header";
 
 const Cont = styled.div`
   height:100vh;
@@ -21,10 +21,10 @@ const Item = styled.div`
   // background:red;
   display:flex;
   justify-content:center;
-  margin-bottom:30px;
+  margin-bottom:10px;
 ` 
 
-export default function SignUp() {
+export default function login() {
   return (
 
       <Cont>
@@ -37,11 +37,11 @@ export default function SignUp() {
         <Logo src={"/logo.svg"}/>
         </Item>
         <Item>
-          <Header header="“Quotinator”" fontweight="1000"/>
+          <Header header="“Quotinator”"/>
         </Item>
         <Item>
 
-      <SignUpForm/>
+      <LoginForm/>
         </Item>
 
       </Cont>
