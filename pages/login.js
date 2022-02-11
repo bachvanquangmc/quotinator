@@ -1,7 +1,6 @@
-import SignUpForm from "../comps/SignUpForm";
+import LoginForm from "../comps/LoginForm";
 import styled from "styled-components";
 import NavBar from "../comps/Navbar";
-import Header from "../comps/Header"
 
 const Cont = styled.div`
   height:100vh;
@@ -24,7 +23,7 @@ const Item = styled.div`
   margin-bottom:80px;
 ` 
 
-export default function SignUp() {
+export default function login() {
   return (
 
       <Cont>
@@ -37,11 +36,8 @@ export default function SignUp() {
         <Logo src={"/logo.svg"}/>
         </Item>
         <Item>
-          <Header/>
-        </Item>
-        <Item>
 
-      <SignUpForm/>
+      <LoginForm/>
         </Item>
 
       </Cont>

@@ -6,19 +6,18 @@ const NavCont = styled.nav`
   height:40px;
   display:flex;
   justify-content:space-between;
-  padding:0 5px;
+  padding:20px 0px 20px 20px;
 `
 const Ul = styled.ul`
   list-style:none;
-  background:white;
+  background:green;
   height:170px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   position:fixed;
-  margin-top:0px;
   top:0;
-  left:254px;
+  right:0px;
   transform: ${({open}) => open ? 'translateX(0%)' : 'translateX(100%)'};
   transition: transform 0.3s ease-in-out;
 `

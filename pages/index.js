@@ -8,14 +8,8 @@ import NavBar from '../comps/Navbar';
 export default function Home() {
   return (
     <div>
-      <PageBtn />
-      <div
-        style={{margin: 10}}
-      >
-        <Sliders />
-        <Subheader/>
+
         <NavBar/>
-      </div>
     </div>
   )
 }
