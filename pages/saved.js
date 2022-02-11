@@ -12,22 +12,24 @@ const MainCont = styled.div`
     justify-content:center;
     align-items:center;
     background-color: #F2F0EE;
-    width: 375px;
-    min-height: 812px;
+    height: 100vh;
+    /* width: 375px;
+    min-height: 812px; */
 
-    @media only screen and (min-width: 992px) {
+    /* @media only screen and (min-width: 992px) {
         display:flex;
         width: 100%;
         height: auto;
-    }
+    } */
 `;
 
-const NavCont = styled.div`
-    display: flex;
-    min-width: 320px;
-    min-height: 40px;
-    margin-top: 5px;
-`;
+// const NavCont = styled.div`
+//     display: flex;
+//     justify-content:center;
+//     min-width: 320px;
+//     min-height: 40px;
+//     margin-top: 5px;
+// `;
 
 const HeaderCont = styled.div`
     display: flex;
@@ -57,9 +59,9 @@ const FooterCont = styled.div`
 export default function Saved() {
     return (
         <MainCont>
-            <NavCont>
-                {/* <Navbar /> */}
-            </NavCont>
+            {/* <NavCont> */}
+                <Navbar />
+            {/* </NavCont> */}
 
             <HeaderCont>
                 <Header header="Saved" />
