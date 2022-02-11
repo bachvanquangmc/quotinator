@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const MainCont = styled.div`
     display: flex;
-    margin: ${props=>props.margin};
 `;
 
 const HeaderText = styled.h1`
@@ -16,9 +15,8 @@ const Header = ({
     header="Default",
     fontsize="28px",
     fontweight="600",
-    margin="0px",
 }) => {
-    return <MainCont margin={margin}>
+    return <MainCont>
         <HeaderText fsize={fontsize} fweight={fontweight}>{header}</HeaderText>
     </MainCont>
 }

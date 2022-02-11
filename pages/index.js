@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useRouter, router } from "next/router";
 import Btn from '../comps/Btn';
 import Header from '../comps/Header'
+import Subheader from '../comps/Subheader'
 
 const MainCont = styled.div`
   display:flex;
@@ -13,10 +14,14 @@ const MainCont = styled.div`
   justify-content:center;
   align-items:center;
   background-color: #F2F0EE;
-  max-width: 375px;
+  width: 375px;
   min-height: 812px;
-  /* max-width:320px;
-  min-height:630px; */
+
+  @media only screen and (min-width: 992px) {
+    display:flex;
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const LogoCont = styled.div`
@@ -50,7 +55,7 @@ const Title = styled.h1`
 const HeadBtnCont = styled.h1`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   margin-bottom: 40px;
 `;
@@ -68,7 +73,8 @@ export default function Home() {
         <Title>"Quotinator"</Title>
       </LogoTitleCont>
       <HeadBtnCont>
-        <Header header="Find your quote by..." fontsize="23px" margin="15px" ></Header>
+        <Subheader subheader="Find your quote by..." fontSize="22"/>
+        {/* <Header header="Find your quote by..." fontsize="23px" margin="15px" ></Header> */}
         <Btn text="Search" onClick={() => router.push("/")}/>
         <Btn text="Filter by Category" onClick={() => router.push("/")}/>
       </HeadBtnCont>
