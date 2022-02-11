@@ -9,20 +9,22 @@ import Btn from '../comps/Btn';
 import Header from '../comps/Header'
 import Subheader from '../comps/Subheader'
 
+
 const MainCont = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   background-color: #F2F0EE;
-  width: 375px;
-  min-height: 812px;
+  height: 100vh;
+  /* width: 375px;
+  min-height: 812px; */
 
-  @media only screen and (min-width: 992px) {
+  /* @media only screen and (min-width: 992px) {
     display:flex;
     width: 100%;
     height: auto;
-  }
+  } */
 `;
 
 const LogoCont = styled.div`
@@ -39,7 +41,7 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
-const LogoTitleCont = styled.h1`
+const LogoTitleCont = styled.div`
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -53,7 +55,7 @@ const Title = styled.h1`
   margin-bottom: 5px;
 `;
 
-const HeadBtnCont = styled.h1`
+const HeadBtnCont = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
