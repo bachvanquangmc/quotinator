@@ -12,7 +12,8 @@ const FormInput = styled.input`
 `
 
 const FormCont = styled.div`
-  
+  display:flex;
+  justify-content:center;
 `
 const Label = styled.label``
 

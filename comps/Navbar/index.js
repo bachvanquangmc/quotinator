@@ -16,7 +16,7 @@ const Ul = styled.ul`
   flex-direction:column;
   justify-content:center;
   position:fixed;
-  margin-top:100px;
+  margin-top:0px;
   top:0;
   left:254px;
   transform: ${({open}) => open ? 'translateX(0%)' : 'translateX(100%)'};
