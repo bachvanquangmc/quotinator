@@ -1,60 +1,79 @@
-import styled from 'styled-components';
-import React, { useState } from 'react';
+import styled from "styled-components";
+import React, { useState } from "react";
 
 const SortTabCont = styled.div`
-    display: flex;
-    width: 316px;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    /* padding: 5px; */
-    margin: 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  margin: 15px 0px;
 `;
 
-const SortButton = styled.button`
-    display: flex;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-    background-color: ${props => props.background};
-    box-shadow: ${props => props.boxShadow};
-    border: none;
-    cursor: pointer;
+const SortButton_Pop = styled.button`
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.select ? "#fff" : "#C8BDB0")};
+  box-shadow: ${(props) =>
+    props.select ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+  border: none;
+  cursor: pointer;
 
-    /* &:hover {
+  /* &:hover {
+        background-color: #758B7B;
+        color: #FFF;
+    }; */
+`;
+
+const SortButton_Aut = styled.button`
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.unselect ? "#fff" : "#C8BDB0")};
+  box-shadow: ${(props) =>
+    props.unselect ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+  border: none;
+  cursor: pointer;
+
+  /* &:hover {
         background-color: #758B7B;
         color: #FFF;
     }; */
 `;
 
 const Text = styled.p`
-    font-size: 16px;
-    font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
 `;
 
+const SortTab = ({}) => {
+  const [selected, setSelected] = useState(false);
+  const [unselected, setUnselected] = useState(false);
 
-const SortTab = ({
-    background = "#FFF",
-    boxShadow = "inset 1px 2px 5px rgba(0, 0, 0, 0.18)",
-    text = "popular",
-    // onClick = () => {}
-}) => {
-    return <SortTabCont>
-        <SortButton
-            background={background}
-            boxShadow={boxShadow}
-            // onClick={onClick}
-        >
-            <Text>Popular</Text>
-        </SortButton>
-        <SortButton
-            background="#C8BDB0"
-            boxShadow="none"
-            // onClick={onClick}
-        >
-            <Text>Authors</Text>
-        </SortButton>
+  return (
+    <SortTabCont>
+      <SortButton_Pop
+        select={selected}
+        onClick={() => {
+          setSelected(true);
+          setUnselected(false);
+        }}
+      >
+        <Text>Popular</Text>
+      </SortButton_Pop>
+      <SortButton_Aut
+        unselect={unselected}
+        onClick={() => {
+          setSelected(false);
+          setUnselected(true);
+        }}
+      >
+        <Text>Authors</Text>
+      </SortButton_Aut>
     </SortTabCont>
-}
+  );
+};
 
 export default SortTab;
