@@ -58,11 +58,17 @@ const Burger = styled.div`
     }
   }
 `
+const Icon = styled.img`
+  width:20px;
+  height:20px;
+  margin-right:10px;
+`
 export default function NavBar(){
   const [open, setOpen] = useState(false)
   return <NavCont>
     <div>
       Quotinator
+
     </div>
 
     <Burger open={open} onClick={()=>setOpen(!open)}>
@@ -72,10 +78,12 @@ export default function NavBar(){
     </Burger>
 
     <Ul open={open}>
-      <Li open={open}>HOME</Li>
-      <Li open={open}>SAVED</Li>
-      <Li open={open}>SETTINGS</Li>
-      <Li open={open}>LOG OUT</Li>
+
+      
+      <Li open={open}><Icon src="/home.svg"/>  HOME</Li>
+      <Li open={open}><Icon src="/saved.svg"/> SAVED</Li>
+      <Li open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
+      <Li open={open}><Icon src="/logout.png"/> LOG OUT</Li>
     </Ul>
   </NavCont>
 }
