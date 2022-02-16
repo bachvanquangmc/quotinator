@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 const QuoteCont = styled.div`
     display: flex;
-    width: ${props => props.width}px;
-    height: ${props => props.height}px;
+    min-width: 350px;
+    max-width: 600px;
     justify-content: center;
     background-color: #E5DED6;
     font-family: 'Inter', sans-serif;
@@ -41,7 +41,7 @@ const ImgCont = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-left: 10px;
+    margin: 2px 2px 2px 10px;
 `;
 
 const Img = styled.img`
@@ -54,25 +54,22 @@ const Img = styled.img`
 
 const QuoteCard = ({
     width = 316,
-    height = 105,
     text = "Don't cry because it's over, smile because it happened.",
     subText = "Dr. Seuss",
     imgSrc = "/heart.png" ,
+    imgSrc2 = "/copy.png" ,
     // onClick = () => {}
 }) => {
 
     return (
-        <QuoteCont
-            width={width}
-            height={height}
-        >
+        <QuoteCont>
             <TextCont>
                 <Text>"{text}"</Text>
                 <SubText> - {subText}</SubText>
             </TextCont>
             <ImgCont>
                 <Img src={imgSrc}/>
-                <Img src={imgSrc}/>
+                <Img src={imgSrc2}/>
             </ImgCont>
         </QuoteCont>
     )

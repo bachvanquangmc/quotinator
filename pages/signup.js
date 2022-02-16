@@ -1,27 +1,49 @@
 import SignUpForm from "../comps/SignUpForm";
 import styled from "styled-components";
-import logo from "../public/logo.svg"
+import NavBar from "../comps/Navbar";
+import Header from "../comps/Header"
 
 const Cont = styled.div`
-  max-width:320px;
-  min-height:630px;
+  height:100vh;
   background:#F2F0EE;
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   
 `
 const Logo = styled.img`
-  width:50%;
+  width:200px;
 `
+const Item = styled.div`
+  width:100%;
+  height:100%;
+  // background:red;
+  display:flex;
+  justify-content:center;
+  margin-bottom:30px;
+` 
 
 export default function SignUp() {
   return (
-    <Cont>
-      <Logo src={"/logo.svg"}/>
-     <SignUpForm/>
 
-    </Cont>
+      <Cont>
+        <Item>
+
+        <NavBar/>
+        </Item>
+        <Item>
+
+        <Logo src={"/logo.svg"}/>
+        </Item>
+        <Item>
+          <Header header="“Quotinator”" fontweight="1000"/>
+        </Item>
+        <Item>
+
+      <SignUpForm/>
+        </Item>
+
+      </Cont>
   )
 }
