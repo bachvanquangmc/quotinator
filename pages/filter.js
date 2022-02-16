@@ -23,27 +23,27 @@ const TCMainCont = styled.div`
     justify-content: flex-start;
     flex-wrap: wrap;
     width: 100%;
+    margin-bottom: 10%;
 `;
 
 const CardCont = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    /* margin: 30px; */
     margin: 30px 40px 10px 0px;
 `;
 
 export default function Filter() {
 
-    const [value, setValue] = useState(false);
+    // const [value, setValue] = useState(false);
     return <MainCont>
-
+        {/* <Navbar/> */}
+        
+        {/* 
         <div className="switch">
             <Switch 
             isOn={value}
             handleToggle={()=>setValue(!value)}
             />
-        </div>
+        </div> */}
         <Header header="Select a Category" />
 
         <SearchBar />
@@ -86,6 +86,8 @@ export default function Filter() {
                 <TopicCard text="Art" src="/TopicCardIcons/art.png" />
             </CardCont>
         </TCMainCont>
+
+        <Btn text="Continue" />
 
     </MainCont>
 }

@@ -6,8 +6,9 @@ const MainCont = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: ${props => props.bgcolor};
-    border: 1px solid ${props => props.bordercolor};
+    background-color: #E5DED6;
+    border: 1px solid #E5DED6;
+
     width: 120px;
     height: 140px;
 `;
@@ -31,15 +32,12 @@ const TopicCard = ({
     src = "/TopicCardIcons/love.png",
     bgcolor = "#E5DED6",
     bordercolor = "#E5DED6",
-    onClick = () => { }
 }) => {
+    const [bgcol, setBgcol] = useState(false);
 
-    // const handleClick = () => {
-    //     setClick(backgroundColor="#fff")
-    // }
-
-    return <MainCont onClick={onClick} bgcolor={bgcolor} bordercolor={bordercolor}>
-        <Icon src={src} />
+    
+    return <MainCont onClick={()=>setBgcol(!bgcol)} bgcolor={bgcolor} bordercolor={bordercolor}>
+        <Icon src={src}/>
         <Text fsize={fontsize}>{text}</Text>
     </MainCont>
 }

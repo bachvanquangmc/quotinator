@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import styled from 'styled-components';
 
-
 const SwitchCont = styled.div`
   display: flex;
   justify-content: center;
