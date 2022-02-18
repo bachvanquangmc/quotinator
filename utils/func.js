@@ -1,3 +1,10 @@
+
+export function GoToPage(qts=[], page=1, num=5){
+    const results = qts.slice((page-1)*num, page*num);
+    console.log(results);
+    return(results);
+}
+
 export function filtering(
     arr = [],
     config = {humor:null, life:null, success:null, inspirational:null, religion:null, love:null, philosophy:null, books:null, death:null, hope:null, wisdom:null, art:null}
@@ -57,3 +64,4 @@ export function filtering(
 const quotes = require('./quotes.json')
 
 // filtering(quotes, {humor:"humor", life:"life"})
+
