@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import '../switch';
 
-const Switch = ({ isOn, handleToggle }) => {
+const Switch = ({ isOn, handleToggle,   onSwitchClick = ()=>{} }) => {
     return (
-        <>
-            <input
+        <div >
+            <input onClick={onSwitchClick}
                 checked={isOn}
                 onChange={handleToggle}
                 className="react-switch-checkbox"
@@ -19,7 +19,7 @@ const Switch = ({ isOn, handleToggle }) => {
             >
                 <span className={`react-switch-button`} />
             </label>
-        </>
+        </div>
     );
 };
 

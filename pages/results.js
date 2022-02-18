@@ -21,12 +21,13 @@ const SubCont = styled.div`
 `;
 
 const QuotCont = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
 `;
-
+const Test = styled.div`
+flex-basis:60%;
+`
 export default function results() {
   const [data, setData] = useState([]);
 
@@ -50,9 +51,9 @@ export default function results() {
 
       <QuotCont>
         {data.map((o, i) => (
-          <div key={i}>
-            <QuoteCard text={o.Quote} subText={o.Author} />
-          </div>
+          <Test key={i}>
+            <QuoteCard  text={o.Quote} subText={o.Author} />
+          </Test>
         ))}
       </QuotCont>
     </MainCont>

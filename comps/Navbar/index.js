@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useTheme } from "../../utils/provider"
+import { global_theme } from "../../utils/variables";
+
 
 const NavCont = styled.nav`
   width:100%;
@@ -10,7 +13,7 @@ const NavCont = styled.nav`
 `
 const Ul = styled.ul`
   list-style:none;
-  background:green;
+  background:white;
   height:170px;
   display:flex;
   flex-direction:column;
@@ -25,7 +28,8 @@ const Li = styled.li`
   padding:8px 0;
   padding-right:20px;
   transition: all 0.1s ease-in-out;
-  opacity:${({open}) => open ? 1 : 0}
+  opacity:${({open}) => open ? 1 : 0};
+  color:black;
 `
 
 const Burger = styled.div`
@@ -41,7 +45,8 @@ const Burger = styled.div`
   div{
     width:2rem;
     height:0.25rem;
-    background:${({open}) => open ? '#ccc' : '#333'};
+    // background:${({open}) => open ? '#ccc' : '#333'};
+    background:${props => props.menucolor};
     border-radius:10px;
     transform-origin: 1px;
     transition: all 0.3s linear;
@@ -58,24 +63,33 @@ const Burger = styled.div`
     }
   }
 `
+const Icon = styled.img`
+  width:20px;
+  height:20px;
+  margin-right:10px;
+`
 export default function NavBar(){
   const [open, setOpen] = useState(false)
+    const {theme, setTheme} = useTheme()
   return <NavCont>
     <div>
       Quotinator
+
     </div>
 
-    <Burger open={open} onClick={()=>setOpen(!open)}>
+    <Burger menucolor={open ? 'black' :  global_theme[theme].menu} open={open} onClick={()=>setOpen(!open)}>
       <div></div>
       <div></div>
       <div></div>
     </Burger>
 
     <Ul open={open}>
-      <Li open={open}>HOME</Li>
-      <Li open={open}>SAVED</Li>
-      <Li open={open}>SETTINGS</Li>
-      <Li open={open}>LOG OUT</Li>
+
+      
+      <Li open={open}><Icon src="/home.svg"/>  HOME</Li>
+      <Li open={open}><Icon src="/saved.svg"/> SAVED</Li>
+      <Li open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
+      <Li open={open}><Icon src="/logout.png"/> LOG OUT</Li>
     </Ul>
   </NavCont>
 }
