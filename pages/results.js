@@ -9,6 +9,10 @@ import SortTab from "../comps/SortTab";
 import QuoteCard from "../comps/QuoteCard";
 import PageBtn from "../comps/PageBtn";
 
+import { useRouter } from "next/router";
+import { useData } from "@/utils/provider";
+
+
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,11 +27,14 @@ const SubCont = styled.div`
 `;
 
 const QuotCont = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
 `;
+const Test = styled.div`
+flex-basis:60%;
+`
+
 
 const BtnCont = styled.div`
   display: flex;
@@ -37,6 +44,7 @@ const BtnCont = styled.div`
 `;
 
 export default function results() {
+
   const [data, setData] = useState([]);
   const [cutpage, setCutPage] = useState(1);
 
@@ -81,10 +89,14 @@ export default function results() {
 
       <QuotCont>
         {data.map((o, i) => (
+
           <div key={i}>
             <QuoteCard text={o.Quote} subText={o.Author} onclick={SaveQuote}/>
           </div>
-        ))}
+          <Test key={i}>
+            <QuoteCard  text={o.Quote} subText={o.Author} />
+          </Test>
+       ))}
         <BtnCont>
           {butt_arr.map((o,i) => 
             <PageBtn

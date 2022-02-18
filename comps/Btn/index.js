@@ -28,13 +28,13 @@ const BtnText = styled.p`
 const Btn = ({
     fColor = "#FFFFFF",
     text = "Sign Up",
-    // onClick = () => {}
+    onClick = () => {}
 
 }) => {
     const router = useRouter();
 
     return (
-        <BtnCont onClick={() => router.push("/")}>
+        <BtnCont onClick={onClick}>
             <BtnText fontColor={fColor}>
                 {text}
             </BtnText>

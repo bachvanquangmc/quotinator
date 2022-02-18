@@ -16,7 +16,7 @@ const SortButton_Pop = styled.button`
   align-items: center;
   background-color: ${(props) => (props.select ? "#fff" : "#C8BDB0")};
   box-shadow: ${(props) =>
-    props.select ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+    props.select ? "inset 1px 2px 5px rgba(0, 0, 0, 0.18)" :  "none"};
   border: none;
   cursor: pointer;
 
@@ -33,7 +33,7 @@ const SortButton_Aut = styled.button`
   align-items: center;
   background-color: ${(props) => (props.unselect ? "#fff" : "#C8BDB0")};
   box-shadow: ${(props) =>
-    props.unselect ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+    props.unselect ? "inset 1px 2px 5px rgba(0, 0, 0, 0.18)" :  "none" };
   border: none;
   cursor: pointer;
 
@@ -49,7 +49,7 @@ const Text = styled.p`
 `;
 
 const SortTab = ({}) => {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(true);
   const [unselected, setUnselected] = useState(false);
 
   return (
