@@ -9,21 +9,22 @@ import Btn from '../comps/Btn';
 import Header from '../comps/Header'
 import Subheader from '../comps/Subheader'
 
+
 const MainCont = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   background-color: #F2F0EE;
-  // width: 375px;
-  // min-height: 812px;
   height: 100vh;
+  /* width: 375px;
+  min-height: 812px; */
 
-  // @media only screen and (min-width: 992px) {
-  //   display:flex;
-  //   width: 100%;
-  //   height: auto;
-  // }
+  /* @media only screen and (min-width: 992px) {
+    display:flex;
+    width: 100%;
+    height: auto;
+  } */
 `;
 
 const LogoCont = styled.div`
