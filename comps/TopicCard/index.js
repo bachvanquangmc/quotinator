@@ -23,6 +23,7 @@ const Icon = styled.img`
 const Text = styled.p`
   display: flex;
   font-size: ${(props) => props.fsize};
+  color:black;
 `;
 
 const TopicCard = ({
@@ -37,13 +38,13 @@ const TopicCard = ({
   //     setClick(backgroundColor="#fff")
   // }
 
-  const [bgColor, setBgColor] = useState("pink");
+  const [bgColor, setBgColor] = useState("#E5DED6");
 
   const changeBgColor = () => {
-    if (bgColor == "blue") {
-      setBgColor("pink");
-    } else if (bgColor == "pink") {
-      setBgColor("blue");
+    if (bgColor == "white") {
+      setBgColor("#E5DED6");
+    } else if (bgColor == "#E5DED6") {
+      setBgColor("white");
     }
   };
 

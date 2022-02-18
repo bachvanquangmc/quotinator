@@ -2,10 +2,12 @@ import LoginForm from "../comps/LoginForm";
 import styled from "styled-components";
 import NavBar from "../comps/Navbar";
 import Header from "../comps/Header";
+import { useTheme } from "../utils/provider"
+import {global_theme } from '../utils/variables'
 
 const Cont = styled.div`
   height:100vh;
-  background:#F2F0EE;
+  // background:#F2F0EE;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -14,6 +16,7 @@ const Cont = styled.div`
 `
 const Logo = styled.img`
   width:200px;
+   filter: ${props => props.filter};
 `
 const Item = styled.div`
   width:100%;
@@ -25,6 +28,7 @@ const Item = styled.div`
 ` 
 
 export default function login() {
+    const {theme, setTheme} = useTheme()
   return (
 
       <Cont>
@@ -34,7 +38,9 @@ export default function login() {
         </Item>
         <Item>
 
-        <Logo src={"/logo.svg"}/>
+        <Logo filter={
+            global_theme[theme].filter
+          } src={"/logo.svg"}/>
         </Item>
         <Item>
           <Header header="“Quotinator”"/>

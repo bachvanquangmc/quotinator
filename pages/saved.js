@@ -6,12 +6,13 @@ import Subheader from '../comps/Subheader'
 import QuoteCard from '../comps/QuoteCard';
 import PageBtn from '../comps/PageBtn';
 
+
 const MainCont = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background-color: #F2F0EE;
+    // background-color: #F2F0EE;
     height: 100vh;
     /* width: 375px;
     min-height: 812px; */

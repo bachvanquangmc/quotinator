@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useTheme } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
-
+import {router, useRouter} from 'next/router'
 
 const NavCont = styled.nav`
   width:100%;
@@ -14,10 +14,11 @@ const NavCont = styled.nav`
 const Ul = styled.ul`
   list-style:none;
   background:white;
-  height:170px;
+  min-height:170px;
+  max-width:13em;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
   position:fixed;
   top:0;
   right:0px;
@@ -25,11 +26,19 @@ const Ul = styled.ul`
   transition: transform 0.3s ease-in-out;
 `
 const Li = styled.li`
-  padding:8px 0;
-  padding-right:20px;
+  padding:10px 10px;
   transition: all 0.1s ease-in-out;
   opacity:${({open}) => open ? 1 : 0};
   color:black;
+  cursor:pointer;
+  // background:red;
+  flex-basis:100%;
+&:nth-child(1){
+      margin-top:20px;
+    }
+&:nth-child(4){
+      margin-bottom:20px;
+    }
 `
 
 const Burger = styled.div`
@@ -71,8 +80,9 @@ const Icon = styled.img`
 export default function NavBar(){
   const [open, setOpen] = useState(false)
     const {theme, setTheme} = useTheme()
+    const router = useRouter()
   return <NavCont>
-    <div>
+    <div style={{cursor:"pointer"}} onClick={()=>{router.push('/')}}>
       Quotinator
 
     </div>
@@ -86,10 +96,10 @@ export default function NavBar(){
     <Ul open={open}>
 
       
-      <Li open={open}><Icon src="/home.svg"/>  HOME</Li>
-      <Li open={open}><Icon src="/saved.svg"/> SAVED</Li>
-      <Li open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
-      <Li open={open}><Icon src="/logout.png"/> LOG OUT</Li>
+      <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/home.svg"/>  HOME</Li>
+      <Li onClick={()=>{router.push('/saved')}} open={open}><Icon src="/saved.svg"/> SAVED</Li>
+      <Li onClick={()=>{router.push('/settings')}} open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
+      <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/logout.png"/> LOG OUT</Li>
     </Ul>
   </NavCont>
 }

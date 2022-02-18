@@ -7,13 +7,15 @@ import Header from "../comps/Header";
 import SearchBar from "../comps/SearchBar";
 import SortTab from "../comps/SortTab";
 import QuoteCard from "../comps/QuoteCard";
+import { useRouter } from "next/router";
+import { useData } from "@/utils/provider";
 
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  background-color: #f2f0ee;
+  // background-color: #f2f0ee;
 `;
 
 const SubCont = styled.div`
@@ -28,17 +30,24 @@ const QuotCont = styled.div`
 const Test = styled.div`
 flex-basis:60%;
 `
+
+
 export default function results() {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const getQuotes = async () => {
-      const resp = await ax.get("/api/quotes");
-      setData(resp.data);
-    };
+  // useEffect(() => {
+  //   const getQuotes = async () => {
+  //     const resp = await ax.get("/api/quotes");
+  //     setData(resp.data);
+  //   };
 
-    getQuotes();
-  }, []);
+  //   getQuotes();
+  // }, []);
+  useEffect(()=>{
+    console.log(data)
+  },[])
+  
+  const {data, setData} = useData()
 
   return (
     <MainCont>
