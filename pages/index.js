@@ -78,8 +78,8 @@ export default function Home() {
       <HeadBtnCont>
         <Subheader subheader="Find your quote by..." fontSize="22"/>
         {/* <Header header="Find your quote by..." fontsize="23px" margin="15px" ></Header> */}
-        <Btn text="Search" onClick={() => router.push("/")}/>
-        <Btn text="Filter by Category" onClick={() => router.push("/")}/>
+        <Btn text="Search"  onClick={() => router.push("/results")}/>
+        <Btn text="Filter by Category" onClick={() => router.push("/login")}/>
       </HeadBtnCont>
     </MainCont>
   )

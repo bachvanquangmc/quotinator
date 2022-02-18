@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 
 const QuoteCont = styled.div`
     display: flex;
-    min-width: 350px;
-    max-width: 600px;
     justify-content: center;
     background-color: #E5DED6;
     font-family: 'Inter', sans-serif;
