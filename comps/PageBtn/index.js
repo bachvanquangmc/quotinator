@@ -8,13 +8,14 @@ const Btn = styled.button`
   border: none;
   border-radius: 3px;
   padding: 5px 7px 5px 7px;
-
+  margin: 5px;
   cursor: pointer;
 `;
 const PageBtn = ({ page_num = "1", onclick = () => {} }) => {
   return (
     <MainCont>
-      <Btn onClick={onclick}>{page_num}</Btn>
+      <Btn 
+      onClick={onclick}>{page_num}</Btn>
     </MainCont>
   );
 };
