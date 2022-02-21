@@ -42,60 +42,82 @@ const BtnCont = styled.div`
   justify-content: center;
   margin-bottom: 20px;
 `;
+var timer = null
 
 export default function results() {
 
   const [data, setData] = useState([]);
-  const [cutpage, setCutPage] = useState(1);
+//   const [cutpage, setCutPage] = useState(1);
 
-  const itemsPerPage = 10;
-  var butt_arr = [];
+//   const itemsPerPage = 10;
+//   var butt_arr = [];
 
-  var start = 1;
-  for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push((i - 1) / itemsPerPage + 1);
-    start++;
+//   var start = 1;
+//   for (var i = 1; i < 2000; i += itemsPerPage) {
+//     butt_arr.push((i - 1) / itemsPerPage + 1);
+//     start++;
+//   }
+
+//   butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+
+//   const getQuotes = async (p) => {
+//     const res = await ax.get("/api/quotes", {
+//       params: {
+//         page: p,
+//         num: itemsPerPage,
+//       },
+//     });
+//     console.log(res.data);
+//     setData(res.data);
+//     setCutPage(p);
+//   };
+
+//   const SaveQuote = async() => {
+//     const res = await ax.post('/api/save', {
+//         uuid,
+//         fav
+//     });
+// };
+const inputFilter = async(txt)=>{
+  console.log(txt)
+  if(timer){
+    clearTimeout(timer);
+    timer=null;
   }
-
-  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
-
-  const getQuotes = async (p) => {
-    const res = await ax.get("/api/quotes", {
-      params: {
-        page: p,
-        num: itemsPerPage,
-      },
-    });
-    console.log(res.data);
-    setData(res.data);
-    setCutPage(p);
-  };
-
-  const SaveQuote = async() => {
-    const res = await ax.post('/api/save', {
-        uuid,
-        fav
-    });
-};
-
+  if(timer === null){
+    timer = setTimeout(async()=>{
+      console.log("async call")
+      const res = await ax.get("/api/quotes", {
+        params:{
+          txt:txt,
+          
+        }
+      })
+      console.log(res.data)
+      setData(res.data)
+      timer = null
+    }, 2000)
+  }
+}
   return (
     <MainCont>
       <Navbar />
       <SubCont>
         <Header header="Results" />
-        <SearchBar />
+        <SearchBar onChange={(e)=>inputFilter(e.target.value)} />
         <SortTab />
       </SubCont>
 
       <QuotCont>
-        {data.map((o, i) => (
+      {data.map((o,i)=><div>{o.title} - {o.average_rating}</div>)}
 
+        {/* {data.map((o, i) => (
           <div key={i}>
             <QuoteCard text={o.Quote} subText={o.Author} onclick={SaveQuote}/>
           </div>
-          <Test key={i}>
-            <QuoteCard  text={o.Quote} subText={o.Author} />
-          </Test>
+          // <Test key={i}>
+          //   <QuoteCard  text={o.Quote} subText={o.Author} />
+          // </Test>
        ))}
         <BtnCont>
           {butt_arr.map((o,i) => 
@@ -104,7 +126,7 @@ export default function results() {
               page_num={o}
             />
           )}
-        </BtnCont>
+        </BtnCont> */}
       </QuotCont>
 
     </MainCont>
