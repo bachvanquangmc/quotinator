@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
-import SwitchTab from "../comps/SwitchTab"
-import Switch from '../comps/switch'
-import { useTheme } from "../utils/provider"
-
+import SwitchTab from "../comps/SwitchTab";
+import Switch from "../comps/switch";
+import { useTheme } from "../utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -20,49 +19,53 @@ const SubCont = styled.div`
 `;
 
 const QuotCont = styled.div`
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 const CardCont = styled.div`
-flex-basis:90%;
-min-height:600px;
-background:#E5DED6;
-margin-bottom:5rem;
-`
+  flex-basis: 90%;
+  min-height: 600px;
+  background: #e5ded6;
+  margin-bottom: 5rem;
+`;
 const RowCont = styled.div`
-display: flex;
-margin:3rem;
-justify-content:space-between;
-align-items:center;
-
-`
+  display: flex;
+  margin: 3rem;
+  justify-content: space-between;
+  align-items: center;
+`;
 export default function settings() {
-
-  const {theme, setTheme} = useTheme()
-  console.log(theme)
+  const { theme, setTheme } = useTheme();
+  console.log(theme);
   return (
     <MainCont>
       <Navbar />
       <SubCont>
         <Header header="Settings" />
-        <Header fontsize={"14px"} fontweight={100 } header="Application settings" />
+        <Header
+          fontsize={"14px"}
+          fontweight={100}
+          header="Application settings"
+        />
       </SubCont>
 
       <QuotCont>
         <CardCont>
           <RowCont>
-            <p style={{color:"black"}}>DARK MODE</p>
-            <SwitchTab onSwitchClick={()=>{setTheme(
-              theme === 'dark' ? 'default' : 'dark'
-            )}}/>
+            <p style={{ color: "black" }}>DARK MODE</p>
+            <SwitchTab
+              onSwitchClick={() => {
+                setTheme(theme === "dark" ? "default" : "dark");
+              }}
+            />
           </RowCont>
           <RowCont>
-            <p style={{color:"black"}}>TEXT SIZE</p>
-             <SwitchTab/>
+            <p style={{ color: "black" }}>TEXT SIZE</p>
+            <SwitchTab />
           </RowCont>
           <RowCont>
-            <p style={{color:"black"}}>NUMBER OF QUOTES</p>
+            <p style={{ color: "black" }}>NUMBER OF QUOTES</p>
           </RowCont>
         </CardCont>
       </QuotCont>
