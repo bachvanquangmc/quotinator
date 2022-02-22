@@ -1,5 +1,5 @@
 import quotes from '../../utils/quotes.json';
-import { GoToPage, filtering } from '../../utils/func';
+import { GoToPage, filtering, sorting } from '../../utils/func';
 
 export default function handler(req, res) {
     
@@ -17,12 +17,7 @@ export default function handler(req, res) {
     //     }
     // })
     var lists = []
-    const {txt, sort_rating} = req.query
-    if(txt){
-        lists = filtering(quotes, {
-          humor:txt
-        })
-      }
+    const {sort_popularity, sort_popularity_type, sort_author, sort_author_type} = req.query
  
   const {humor, life, success, inspirational, religion, love, philosophy, books, death, hope, wisdom, art} = req.query
     // const quote = quotes.slice(0,10);
@@ -41,7 +36,23 @@ export default function handler(req, res) {
             wisdom:wisdom, 
             art:art
         })
+       
     }
+    if(sort_author){
+      lists = sorting(lists, {
+        key:"Author",
+        type:sort_author_type
+      })
+      console.log(lists)
+    }      
+    if(sort_popularity){
+      lists = sorting(lists, {
+        key:"Popularity",
+        type:sort_popularity_type
+      })
+      console.log(lists)
+    } 
+ 
     lists = lists.slice(0,20)
 
 res.status(200).json(lists);

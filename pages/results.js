@@ -78,27 +78,7 @@ export default function results() {
 //         fav
 //     });
 // };
-const inputFilter = async(txt)=>{
-  console.log(txt)
-  if(timer){
-    clearTimeout(timer);
-    timer=null;
-  }
-  if(timer === null){
-    timer = setTimeout(async()=>{
-      console.log("async call")
-      const res = await ax.get("/api/quotes", {
-        params:{
-          txt:txt,
-          
-        }
-      })
-      console.log(res.data)
-      setData(res.data)
-      timer = null
-    }, 2000)
-  }
-}
+
   return (
     <MainCont>
       <Navbar />
@@ -109,17 +89,12 @@ const inputFilter = async(txt)=>{
       </SubCont>
 
       <QuotCont>
-      {data.map((o,i)=><div>{o.title} - {o.average_rating}</div>)}
-
-        {/* {data.map((o, i) => (
-          <div key={i}>
-            <QuoteCard text={o.Quote} subText={o.Author} onclick={SaveQuote}/>
-          </div>
-          // <Test key={i}>
-          //   <QuoteCard  text={o.Quote} subText={o.Author} />
-          // </Test>
+        {data.map((o, i) => (
+          <Test key={i}>
+            <QuoteCard text={o.Quote} subText={o.Author}/>
+          </Test>
        ))}
-        <BtnCont>
+        {/* <BtnCont>
           {butt_arr.map((o,i) => 
             <PageBtn
               onclick={()=>getQuotes(o)}

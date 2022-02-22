@@ -8,6 +8,7 @@ import TopicCard from '../comps/TopicCard';
 import SearchBar from '../comps/SearchBar';
 import Btn from '../comps/Btn';
 import QuoteCard from '@/comps/QuoteCard';
+import SortTab from '@/comps/SortTab';
 
 
 import Switch from '../comps/Switch';
@@ -56,6 +57,11 @@ export default function Filter() {
     const [art, setArt] = useState(null)
     const [value, setValue] = useState(false);
 
+    const [sbp, setSBP] = useState(false)
+    const [sbp_type, setSBPType] = useState("asc")
+    const [sba, setSBA] = useState(false)
+    const [sba_type, setSBAType] = useState("asc")
+
     const [data, setData] = useState()
     const router = useRouter()
     const getQuotes = async() => {
@@ -72,7 +78,11 @@ export default function Filter() {
                death:death, 
                hope:hope, 
                wisdom:wisdom, 
-                art:art
+                art:art,
+                sort_popularity:sbp,
+                sort_popularity_type:sbp_type,
+                sort_author:sba,
+                sort_author_type:sba_type
            }
        })
            console.log(res.data)
@@ -133,6 +143,16 @@ export default function Filter() {
                 <TopicCard text="Art" src="/TopicCardIcons/art.png" />
             </CardCont>
             <Btn text='Continue' onClick={ getQuotes}/>
+            <SortTab 
+                setSBPType={setSBPType}
+                setSBP={setSBP}
+                sbp={sbp}
+                sbp_type={sbp_type}
+                setSBAType={setSBAType}
+                setSBA={setSBA}
+                sba={sba}
+                sba_type={sba_type}
+            />
            {data && (<div>
              {data.map((o, i) => (
           <div key={i}>
