@@ -116,4 +116,48 @@ export function searching(arr = [], config = { Quote: null }) {
   } else {
     return [];
   }
+
+const quotes = require('./quotes.json')
+
+// filtering(quotes, {humor:"humor", life:"life"})
+
+
+export function sorting(
+  arr = [],
+  config = {key:null, type:null}
+){
+  const {key, type} = config
+  if(key){
+    arr.sort((curr, next)=>{
+      var num1 = Number(curr[key])
+      var num2 = Number(next[key])
+      if(isNaN(curr[key])){
+        num1 = curr[key]
+        num2 = next[key]
+      }
+      if(num1 > num2){
+        if(type && type === "desc"){
+          return -1
+        } else {
+            return 1
+        }
+      }
+      if(num1 < num2){
+        if(type && type === "desc"){
+          return 1
+        } else {
+            return -1
+        }
+      }
+     
+      return 0
+    })
+    // console.log(arr.slice(0,10))
+    return arr
+  }
 }
+
+// sorting(quotes, {
+//   key:"Author",
+//   type:"desc"
+// })

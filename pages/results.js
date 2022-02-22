@@ -43,23 +43,24 @@ const BtnCont = styled.div`
   margin-bottom: 20px;
   width: 100vw;
 `;
+var timer = null
 
 var timer = null;
 export default function results({}) {
   // const [datas, setDatas] = useState([]);
   const [data, setData] = useState([]);
-  const [cutpage, setCutPage] = useState(1);
+//   const [cutpage, setCutPage] = useState(1);
 
-  const itemsPerPage = 10;
-  var butt_arr = [];
+//   const itemsPerPage = 10;
+//   var butt_arr = [];
 
-  var start = 1;
-  for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push((i - 1) / itemsPerPage + 1);
-    start++;
-  }
+//   var start = 1;
+//   for (var i = 1; i < 2000; i += itemsPerPage) {
+//     butt_arr.push((i - 1) / itemsPerPage + 1);
+//     start++;
+//   }
 
-  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+//   butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
 
   // const getQuotes = async (p) => {
   //   const res = await ax.get("/api/quotes", {

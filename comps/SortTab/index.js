@@ -48,9 +48,10 @@ const Text = styled.p`
   font-family: "Inter", sans-serif;
 `;
 
-const SortTab = ({}) => {
+const SortTab = ({setSBP, setSBPType, sbp, sbp_type, setSBA, setSBAType, sba, sba_type}) => {
   const [selected, setSelected] = useState(true);
   const [unselected, setUnselected] = useState(false);
+
 
   return (
     <SortTabCont>
@@ -59,18 +60,22 @@ const SortTab = ({}) => {
         onClick={() => {
           setSelected(true);
           setUnselected(false);
+          setSBP(!sbp)
+          setSBPType(sbp_type === "asc" ? "desc" : "asc")
         }}
       >
-        <Text>Popular</Text>
+        <Text>{sbp_type === "asc" ? "Popularity ↑" : "Popularity ↓"}</Text>
       </SortButton_Pop>
       <SortButton_Aut
         unselect={unselected}
         onClick={() => {
           setSelected(false);
           setUnselected(true);
+          setSBA(!sba)
+          setSBAType(sba_type === "asc" ? "desc" : "asc")
         }}
       >
-        <Text>Authors</Text>
+        <Text>{sba_type === "asc" ? "Author (A-Z)" : "Author (Z-A)"}</Text>
       </SortButton_Aut>
     </SortTabCont>
   );
