@@ -51,12 +51,7 @@ const Input = styled.input`
 const SearchBar = ({
     onChange=()=>{}
 }) => {
-<<<<<<< HEAD
     return <MainCont onChange={onChange}>
-=======
-
-    return <MainCont>
->>>>>>> 89975a8434ccf5a3e280a50219037b9ef080cc46
         <Form>
             <SearchIcon src="/search-black.png"></SearchIcon>
             <Input type="search" placeholder="Search by Keyword..." onChange={onChange}></Input>
