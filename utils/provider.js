@@ -1,5 +1,5 @@
 import { useContext, createContext, useState } from "react";
-import { global_theme } from "./variables";
+import { global_theme, filter_data } from "./variables";
 
 
 const initialStates = {
@@ -10,7 +10,7 @@ const initialStates = {
   setFav: ()=>{}
 }
 const initialData = {
-  data:[],
+  data:"default",
   setData:()=>{},
  
 };

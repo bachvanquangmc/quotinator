@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import ax from "axios";
+import { useState } from "react";
 
 const MainCont = styled.div`
     display: flex;
@@ -44,12 +46,16 @@ const Input = styled.input`
     }
 `;
 
+
+
 const SearchBar = ({
+    onChange=()=>{}
 }) => {
+
     return <MainCont>
         <Form>
             <SearchIcon src="/search-black.png"></SearchIcon>
-            <Input type="search" placeholder="Search"></Input>
+            <Input type="search" placeholder="Search by Keyword..." onChange={onChange}></Input>
         </Form>
     </MainCont>
 }
