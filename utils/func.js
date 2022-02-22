@@ -116,8 +116,7 @@ export function searching(arr = [], config = { Quote: null }) {
   } else {
     return [];
   }
-
-const quotes = require('./quotes.json')
+}
 
 // filtering(quotes, {humor:"humor", life:"life"})
 

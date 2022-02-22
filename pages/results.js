@@ -49,18 +49,22 @@ var timer = null;
 export default function results({}) {
   // const [datas, setDatas] = useState([]);
   const [data, setData] = useState([]);
-//   const [cutpage, setCutPage] = useState(1);
+  const [cutpage, setCutPage] = useState(1);
+  const [sbp, setSBP] = useState(false)
+  const [sbp_type, setSBPType] = useState("asc")
+  const [sba, setSBA] = useState(false)
+  const [sba_type, setSBAType] = useState("asc")
 
-//   const itemsPerPage = 10;
-//   var butt_arr = [];
+  const itemsPerPage = 10;
+  var butt_arr = [];
 
-//   var start = 1;
-//   for (var i = 1; i < 2000; i += itemsPerPage) {
-//     butt_arr.push((i - 1) / itemsPerPage + 1);
-//     start++;
-//   }
+  var start = 1;
+  for (var i = 1; i < 2000; i += itemsPerPage) {
+    butt_arr.push((i - 1) / itemsPerPage + 1);
+    start++;
+  }
 
-//   butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
 
   // const getQuotes = async (p) => {
   //   const res = await ax.get("/api/quotes", {
@@ -91,6 +95,10 @@ export default function results({}) {
             txt: txt,
             // page: p,
             // num: itemsPerPage,
+            sort_popularity:sbp,
+            sort_popularity_type:sbp_type,
+            sort_author:sba,
+            sort_author_type:sba_type
           },
         });
         console.log(res.data);
@@ -107,7 +115,16 @@ export default function results({}) {
       <SubCont>
         <Header header="Results" />
         <SearchBar onChange={(e) => inputFilter(e.target.value)} />
-        <SortTab />
+        <SortTab 
+        setSBPType={setSBPType}
+        setSBP={setSBP}
+        sbp={sbp}
+        sbp_type={sbp_type}
+        setSBAType={setSBAType}
+        setSBA={setSBA}
+        sba={sba}
+        sba_type={sba_type}
+    />
       </SubCont>
 
       <QuotCont>

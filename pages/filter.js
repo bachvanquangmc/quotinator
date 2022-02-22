@@ -9,17 +9,23 @@ import SearchBar from '../comps/SearchBar';
 import Btn from '../comps/Btn';
 import QuoteCard from '@/comps/QuoteCard';
 import SortTab from '@/comps/SortTab';
+import PageBtn from "../comps/PageBtn";
+
 
 import Switch from "../comps/Switch";
 import { useRouter } from "next/router";
 import { useData } from "../utils/provider";
 
 const MainCont = styled.div`
+
+  padding:0 5%;
+
   display: flex;
   flex-direction: column;
-  // background-color: #F2F0EE;
-  height: 100%;
-  padding: 5%;
+  justify-content: flex-start;
+  align-items: space-between;
+  background-color: #f2f0ee;
+  min-height: 100vh;
 `;
 
 const TCMainCont = styled.div`
@@ -34,6 +40,7 @@ const QuoteCont = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    flex-basis:70%;
 
 `;
 
@@ -140,8 +147,7 @@ export default function Filter() {
             <CardCont onClick={()=> setArt(art ? null : "art")}>
                 <TopicCard text="Art" src="/TopicCardIcons/art.png" />
             </CardCont>
-            <Btn text='Continue' onClick={ getQuotes}/>
-            <SortTab 
+            {/* <SortTab 
                 setSBPType={setSBPType}
                 setSBP={setSBP}
                 sbp={sbp}
@@ -150,8 +156,8 @@ export default function Filter() {
                 setSBA={setSBA}
                 sba={sba}
                 sba_type={sba_type}
-            />
-          <Btn
+            /> */}
+          <Btn style={{ flexBasis:"800px"}}
             text="Continue"
             onClick={async () => {
               getQuotes();
@@ -166,7 +172,23 @@ export default function Filter() {
     <Navbar />
 
     <Header header="Base on Your Choice" />
-    <SortTab />
+    <Btn
+            text="Continue"
+            onClick={async () => {
+              getQuotes();
+              setShowQuote(true);
+            }}
+          />
+    <SortTab 
+        setSBPType={setSBPType}
+        setSBP={setSBP}
+        sbp={sbp}
+        sbp_type={sbp_type}
+        setSBAType={setSBAType}
+        setSBA={setSBA}
+        sba={sba}
+        sba_type={sba_type}
+    />
     <QuoteCont>
         {data.map((o, i) => (
           <QuoteCard
@@ -175,6 +197,7 @@ export default function Filter() {
             subText={o.Author} 
           />
         ))}
+        
     </QuoteCont>
   </MainCont>
 
