@@ -10,59 +10,66 @@ import Btn from '../comps/Btn';
 import QuoteCard from '@/comps/QuoteCard';
 import SortTab from '@/comps/SortTab';
 
-
-import Switch from '../comps/Switch';
-import { useRouter } from 'next/router';
+import Switch from "../comps/Switch";
+import { useRouter } from "next/router";
+import { useData } from "../utils/provider";
 
 const MainCont = styled.div`
-    display: flex;
-    flex-direction: column;
-    // background-color: #F2F0EE;
-    height: 100%;
-    padding: 5%;
+  display: flex;
+  flex-direction: column;
+  // background-color: #F2F0EE;
+  height: 100%;
+  padding: 5%;
 `;
 
 const TCMainCont = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
 `;
+
+const QuoteCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+`;
+
 
 const CardCont = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* margin: 30px; */
-    margin: 30px 40px 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 30px; */
+  margin: 30px 40px 10px 0px;
 `;
 
-// const Filtering = async(options) => {
-//     const res = ax.get('./api/quotes.json')
-//     console.log(options)
-// }
 
 export default function Filter() {
-    const [humor, setHumor] = useState(null)
-    const [life, setLife] = useState(null)
-    const [success, setSuccess] = useState(null)
-    const [inspirational, setInspirational] = useState(null)
-    const [religion, setReligion] = useState(null)
-    const [love, setLove] = useState(null)
-    const [philosophy, setPhilosophy] = useState(null)
-    const [books, setBooks] = useState(null)
-    const [death, setDeath] = useState(null)
-    const [hope, setHope] = useState(null)
-    const [wisdom, setWisdom] = useState(null)
-    const [art, setArt] = useState(null)
-    const [value, setValue] = useState(false);
-
+  const [humor, setHumor] = useState(null);
+  const [life, setLife] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [inspirational, setInspirational] = useState(null);
+  const [religion, setReligion] = useState(null);
+  const [love, setLove] = useState(null);
+  const [philosophy, setPhilosophy] = useState(null);
+  const [books, setBooks] = useState(null);
+  const [death, setDeath] = useState(null);
+  const [hope, setHope] = useState(null);
+  const [wisdom, setWisdom] = useState(null);
+  const [art, setArt] = useState(null);
+  const [value, setValue] = useState(false);
+    
+  //sorting 
     const [sbp, setSBP] = useState(false)
     const [sbp_type, setSBPType] = useState("asc")
     const [sba, setSBA] = useState(false)
     const [sba_type, setSBAType] = useState("asc")
+    const [showQuote, setShowQuote] = useState(false);
 
-    const [data, setData] = useState()
+    const [data, setData] = useState([])
     const router = useRouter()
     const getQuotes = async() => {
        const res = await ax.get('./api/quotes', {
@@ -87,23 +94,14 @@ export default function Filter() {
        })
            console.log(res.data)
            setData(res.data)
-    }
+    } 
+    if (showQuote === false) {
+    return (
+      <MainCont>
+        <Navbar />
 
-    return <MainCont>
-    <Navbar/>
-
-        <div className="switch">
-            <Switch 
-            isOn={value}
-            handleToggle={()=>setValue(!value)}
-            />
-        </div>
         <Header header="Select a Category" />
-        {/* <pre>{JSON.stringify(humor)}</pre>
-        <pre>{JSON.stringify(life)}</pre>
-        <pre>{JSON.stringify(success)}</pre> */}
-
-        <SearchBar />
+  
         <TCMainCont>
             {/* <CardCont onClick={()=> setOptions("humor")} > */}
             <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
@@ -153,14 +151,34 @@ export default function Filter() {
                 sba={sba}
                 sba_type={sba_type}
             />
-           {data && (<div>
-             {data.map((o, i) => (
-          <div key={i}>
-            <QuoteCard  text={o.Quote} subText={o.Author} />
-          </div>
-        ))}
-        </div>)}
+          <Btn
+            text="Continue"
+            onClick={async () => {
+              getQuotes();
+              setShowQuote(true);
+            }}
+          />
         </TCMainCont>
+      </MainCont>
+    );
+  } return (
+    <MainCont>
+    <Navbar />
 
-    </MainCont>
-}
+    <Header header="Base on Your Choice" />
+    <SortTab />
+    <QuoteCont>
+        {data.map((o, i) => (
+          <QuoteCard
+            key={i}
+            text={o.Quote}
+            subText={o.Author} 
+          />
+        ))}
+    </QuoteCont>
+  </MainCont>
+
+  );
+
+  }
+
