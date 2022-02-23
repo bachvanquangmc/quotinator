@@ -54,7 +54,7 @@ top: 0;
 
 
 var timer = null;
-export default function results() {
+export default function Results() {
 
   const [data, setData] = useState([]);
   const [currpage, setCurrPage] = useState(1);
