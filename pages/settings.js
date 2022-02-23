@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
-import Switch from "../comps/switch";
 import { useTheme } from "../utils/provider";
 import { Slider } from "@mui/material";
 import { useRouter } from "next/router";
