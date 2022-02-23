@@ -4,6 +4,8 @@ import { GoToPage, filtering, sorting, searching, numbering } from '../../utils/
 export default function handler(req, res) {
   
     var lists = []
+    var mypage = null
+    const num = req.query.num || 15
     const {sort_popularity, sort_popularity_type, sort_author, sort_author_type} = req.query
  
   const {humor, life, success, inspirational, religion, love, philosophy, books, death, hope, wisdom, art, txt, qts} = req.query
@@ -44,6 +46,9 @@ export default function handler(req, res) {
  
         lists = lists.slice(0,10)
     }
+    if(req.query.page){
+      mypage = numbering(quotes, req.query.page, num )
+    }
 
     if(txt){
         lists = searching(quotes, {
@@ -71,5 +76,5 @@ export default function handler(req, res) {
     }
 })
 
-res.status(200).json(lists);
+res.status(200).json(lists, mypage);
 }

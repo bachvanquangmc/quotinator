@@ -1,6 +1,7 @@
 export const global_theme = {
   default: {
     background: "#F2F0EE",
+    nav: "#E5DED6",
     text: "black",
     menu: "#333",
     filter:
@@ -9,6 +10,7 @@ export const global_theme = {
 
   dark: {
     background: "#1A1C1A",
+    nav:"#000",
     text: "white",
     menu: "white",
     filter:

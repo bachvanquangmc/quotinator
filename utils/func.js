@@ -156,10 +156,10 @@ export function sorting(
   }
 }
 
-export function numbering(quo = [], num) {
-  const {qts, setQts} = useQuote();
+export function numbering(quo = [], page = 1, num = 5) {
+  // const {qts, setQts} = useQuote();
   
-  const results = quo.slice(0, num)
+  const results = quo.slice((page - 1) * num, page * 5)
   // console.log(results);
   return results;
 }

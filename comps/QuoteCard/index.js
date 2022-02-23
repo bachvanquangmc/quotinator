@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const QuoteCont = styled.div`
     display: flex;
@@ -54,21 +55,53 @@ const Img = styled.img`
 const QuoteCard = ({
     text = "Don't cry because it's over, smile because it happened.",
     subText = "Dr. Seuss",
+    debug,
+    onChange,
+    checked,
     // imgSrc = "/heart_outline.png" ,
     onclick = () => {}
 }) => {
 
     const [click, setClick] = useState(false)
+    const [copied, setCopied] = useState(false);
 
+    const changeCopied=()=>{
+        setTimeout(()=>{
+            setCopied(false)
+        },1000)
+    }
     return (
         <QuoteCont>
             <TextCont>
-                <Text>"{text}"</Text>
+                <Text 
+                    value={text}
+                    onChange={() => {
+                    setCopied(false);
+                    }}
+                >"{text}"</Text>
                 <SubText> - {subText}</SubText>
             </TextCont>
             <ImgCont>
-                <Img  src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click), onclick} />
-                <Img src="/copy.png"/>
+            <span>
+
+                <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)}>
+
+                </Img>
+                <span>
+                    <input type="checkbox" 
+                        checked={checked}
+                        onChange={onChange}
+                        // style={{visibility:"hidden"}}
+                        />
+                </span>
+            </span>
+                <CopyToClipboard
+                    options={{ debug: debug, message: "" }}
+                    text={text}
+                    onCopy={() => setCopied(true)}
+                >
+                <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"}/>
+                </CopyToClipboard>
             </ImgCont>
         </QuoteCont>
     )

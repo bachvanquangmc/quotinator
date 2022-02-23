@@ -1,16 +1,19 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import ax from "axios";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import ax from 'axios';
+import Navbar from '../comps/Navbar';
+import Header from '../comps/Header';
+import Subheader from '../comps/Subheader';
+import TopicCard from '../comps/TopicCard';
+import SearchBar from '../comps/SearchBar';
+import Btn from '../comps/Btn';
+import QuoteCard from '@/comps/QuoteCard';
+import SortTab from '@/comps/SortTab';
+import { v4 as uuidv4 } from "uuid";
+import { useFav } from "@/utils/provider";
 
-import Navbar from "../comps/Navbar";
-import Header from "../comps/Header";
-import Subheader from "../comps/Subheader";
-import TopicCard from "../comps/TopicCard";
-import SearchBar from "../comps/SearchBar";
-import Btn from "../comps/Btn";
-import QuoteCard from "@/comps/QuoteCard";
-import SortTab from "@/comps/SortTab";
-import PageBtn from "@/comps/PageBtn";
+import PageBtn from "../comps/PageBtn";
+
 
 import Switch from "../comps/Switch";
 import { useRouter } from "next/router";
@@ -19,16 +22,18 @@ import { useData } from "../utils/provider";
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
-  // background-color: #F2F0EE;
-  height: 100%;
-  padding: 5%;
+  justify-content: flex-start;
+  align-items: space-between;
+  min-height: 100vh;
 `;
 
 const TCMainCont = styled.div`
   display: flex;
-  justify-content: flex-start;
+//   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
+  padding:2rem;
+  
 `;
 
 const QuoteCont = styled.div`
@@ -36,6 +41,8 @@ const QuoteCont = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    // flex-basis:70%;
+
 `;
 
 const CardCont = styled.div`
@@ -46,6 +53,11 @@ const CardCont = styled.div`
   margin: 30px 40px 10px 0px;
 `;
 
+const NavBarCont = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+`
 const BtnCont = styled.div`
   display: flex;
   align-items: center;
@@ -80,6 +92,8 @@ export default function Filter() {
   const [cutpage, setCutPage] = useState(1);
 
   const r = useRouter();
+  const {fav, setFav} = useFav()
+
 
   const itemsPerPage = 10;
   var butt_arr = [];
@@ -120,62 +134,81 @@ export default function Filter() {
     setData(res.data);
     setCutPage(p)
   };
+
+  const StoreFav = (checked, obj)  => {
+    console.log(checked, obj)
+    if(checked){
+      const new_fav = {
+        ...fav
+      }
+      new_fav[obj.Quote] = obj
+      setFav(new_fav)
+    } else {
+      const new_fav = {
+        ...fav
+      }
+      delete new_fav[obj.Quote]
+      setFav(new_fav)
+    }
+  }
   if (showQuote === false) {
     return (
       <MainCont>
-        <Navbar />
+          <NavBarCont>
+            <Navbar goBack={()=>router.push('/')}/>
+          </NavBarCont>
 
         <Header header="Select a Category" />
 
         <TCMainCont>
-          {/* <CardCont onClick={()=> setOptions("humor")} > */}
-          <CardCont onClick={() => setHumor(humor ? null : "humor")}>
-            <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
-          </CardCont>
-          <CardCont onClick={() => setLife(life ? null : "life")}>
-            <TopicCard text="Life" src="/TopicCardIcons/life.png" />
-          </CardCont>
-          <CardCont onClick={() => setSuccess(success ? null : "success")}>
-            <TopicCard text="Success" src="/TopicCardIcons/success.png" />
-          </CardCont>
-          <CardCont
-            onClick={() =>
-              setInspirational(inspirational ? null : "inspirational")
-            }
-          >
-            <TopicCard
-              text="Inspirational"
-              src="/TopicCardIcons/inspirational.png"
-            />
-          </CardCont>
-          <CardCont onClick={() => setReligion(religion ? null : "religion")}>
-            <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
-          </CardCont>
-          <CardCont onClick={() => setLove(love ? null : "love")}>
-            <TopicCard text="Love" src="/TopicCardIcons/love.png" />
-          </CardCont>
-          <CardCont
-            onClick={() => setPhilosophy(philosophy ? null : "philosophy")}
-          >
-            <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
-          </CardCont>
-          <CardCont onClick={() => setBooks(books ? null : "books")}>
-            <TopicCard text="Books" src="/TopicCardIcons/books.png" />
-          </CardCont>
-          <CardCont onClick={() => setDeath(death ? null : "death")}>
-            <TopicCard text="Death" src="/TopicCardIcons/death.png" />
-          </CardCont>
-          <CardCont onClick={() => setHope(hope ? null : "hope")}>
-            <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
-          </CardCont>
-          <CardCont onClick={() => setWisdom(wisdom ? null : "wisdom")}>
-            <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
-          </CardCont>
-          <CardCont onClick={() => setArt(art ? null : "art")}>
-            <TopicCard text="Art" src="/TopicCardIcons/art.png" />
-          </CardCont>
-
-          <Btn
+            {/* <CardCont onClick={()=> setOptions("humor")} > */}
+            <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
+                <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
+            </CardCont>
+            <CardCont onClick={()=> setLife(life ? null : "life")}>
+                <TopicCard text="Life" src="/TopicCardIcons/life.png" />
+            </CardCont>
+            <CardCont onClick={()=> setSuccess(success ? null : "success")}>
+                <TopicCard text="Success" src="/TopicCardIcons/success.png" />
+            </CardCont>
+            <CardCont onClick={()=> setInspirational(inspirational ? null : "inspirational")}>
+                <TopicCard text="Inspirational" src="/TopicCardIcons/inspirational.png" />
+            </CardCont>
+            <CardCont onClick={()=> setReligion(religion ? null : "religion")}>
+                <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
+            </CardCont>
+            <CardCont onClick={()=> setLove(love ? null : "love")}>
+                <TopicCard text="Love" src="/TopicCardIcons/love.png" />
+            </CardCont>
+            <CardCont onClick={()=> setPhilosophy(philosophy ? null : "philosophy")}>
+                <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
+            </CardCont>
+            <CardCont onClick={()=> setBooks(books ? null : "books")}>
+                <TopicCard text="Books" src="/TopicCardIcons/books.png" />
+            </CardCont>
+            <CardCont onClick={()=> setDeath(death ? null : "death")}>
+                <TopicCard text="Death" src="/TopicCardIcons/death.png" />
+            </CardCont>
+            <CardCont onClick={()=> setHope(hope ? null : "hope")}>
+                <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
+            </CardCont>
+            <CardCont onClick={()=> setWisdom(wisdom ? null : "wisdom")}>
+                <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
+            </CardCont>
+            <CardCont onClick={()=> setArt(art ? null : "art")}>
+                <TopicCard text="Art" src="/TopicCardIcons/art.png" />
+            </CardCont>
+            {/* <SortTab 
+                setSBPType={setSBPType}
+                setSBP={setSBP}
+                sbp={sbp}
+                sbp_type={sbp_type}
+                setSBAType={setSBAType}
+                setSBA={setSBA}
+                sba={sba}
+                sba_type={sba_type}
+            /> */}
+          <Btn style={{ flexBasis:"800px"}}
             text="Continue"
             onClick={async () => {
               getQuotes();
@@ -185,13 +218,22 @@ export default function Filter() {
         </TCMainCont>
       </MainCont>
     );
-  }
-  return (
+  } return (
     <MainCont>
-      <Navbar />
+        <NavBarCont>
+            <Navbar  goBack={()=>setShowQuote(false)}/>
 
-      <Header header="Based on Your Selection" />
-      <SortTab
+        </NavBarCont>
+
+    <Header header="Base on Your Choice" />
+    <Btn
+            text="Sort your selection"
+            onClick={async () => {
+              getQuotes();
+              setShowQuote(true);
+            }}
+          />
+    <SortTab 
         setSBPType={setSBPType}
         setSBP={setSBP}
         sbp={sbp}
@@ -200,19 +242,25 @@ export default function Filter() {
         setSBA={setSBA}
         sba={sba}
         sba_type={sba_type}
-      />
-      <QuoteCont>
+    />
+    <QuoteCont>
         {data.map((o, i) => (
-          <QuoteCard key={i} text={o.Quote} subText={o.Author} />
-          
+          <QuoteCard
+            key={i}
+            text={o.Quote}
+            subText={o.Author} 
+            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+            onChange={
+            (e)=>StoreFav(e.target.checked, o)
+          }
+          />
         ))}
+        <button onClick={()=>r.push(`/saved/${uuidv4()}`)}>Go to fav</button>
+        
+    </QuoteCont>
+  </MainCont>
 
-      </QuoteCont>
-        {/* <BtnCont>
-          {butt_arr.map((o, i) => (
-            <PageBtn onclick={() => getQuotes(o)} page_num={o} />
-          ))}
-        </BtnCont> */}
-    </MainCont>
   );
+
+  
 }
