@@ -78,7 +78,7 @@ export default function Home() {
             global_theme[theme].filter
           } src="/logo.svg"/>
         </LogoCont>
-        <Title>"Quotinator"</Title>
+        <Title>&ldquo;Quotinator&rdquo;</Title>
       </LogoTitleCont>
       <HeadBtnCont>
         <Subheader subheader="Find your quote by..." fontSize="22"/>
