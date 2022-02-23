@@ -16,33 +16,12 @@ export const global_theme = {
   },
 };
 
-export const filter_data = {
-    default: {
-      humor: null,
-      life: null,
-      success: null,
-      inspirational: null, 
-      religion: null, 
-      love: null, 
-      philosophy: null, 
-      books: null, 
-      death: null, 
-      hope: null, 
-      wisdom: null, 
-      art: null
-    },
-    selected: {
-      humor: 'humor',
-      life: 'life',
-      success: 'success',
-      inspirational: 'inspirational', 
-      religion: 'religion', 
-      love: 'love', 
-      philosophy: 'philosophy', 
-      books: 'books', 
-      death: 'death', 
-      hope: 'hope', 
-      wisdom: 'wisdom', 
-      art: 'art'
-    },
+export const quote_number = {
+  default: {
+    lists: "15"
+  },
+
+  num: {
+    lists: "30"
+  }
 };

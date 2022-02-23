@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import ax from 'axios';
-import Navbar from '../comps/Navbar';
-import Header from '../comps/Header';
-import Subheader from '../comps/Subheader';
-import TopicCard from '../comps/TopicCard';
-import SearchBar from '../comps/SearchBar';
-import Btn from '../comps/Btn';
-import QuoteCard from '@/comps/QuoteCard';
-import SortTab from '@/comps/SortTab';
+import React, { useState } from "react";
+import styled from "styled-components";
+import ax from "axios";
+
+import Navbar from "../comps/Navbar";
+import Header from "../comps/Header";
+import Subheader from "../comps/Subheader";
+import TopicCard from "../comps/TopicCard";
+import SearchBar from "../comps/SearchBar";
+import Btn from "../comps/Btn";
+import QuoteCard from "@/comps/QuoteCard";
+import SortTab from "@/comps/SortTab";
+import PageBtn from "@/comps/PageBtn";
 
 import Switch from "../comps/Switch";
 import { useRouter } from "next/router";
@@ -34,9 +36,7 @@ const QuoteCont = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `;
-
 
 const CardCont = styled.div`
   display: flex;
@@ -46,6 +46,13 @@ const CardCont = styled.div`
   margin: 30px 40px 10px 0px;
 `;
 
+const BtnCont = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100vw;
+`;
 
 export default function Filter() {
   const [humor, setHumor] = useState(null);
@@ -61,96 +68,113 @@ export default function Filter() {
   const [wisdom, setWisdom] = useState(null);
   const [art, setArt] = useState(null);
   const [value, setValue] = useState(false);
-    
-  //sorting 
-    const [sbp, setSBP] = useState(false)
-    const [sbp_type, setSBPType] = useState("asc")
-    const [sba, setSBA] = useState(false)
-    const [sba_type, setSBAType] = useState("asc")
-    const [showQuote, setShowQuote] = useState(false);
 
-    const [data, setData] = useState([])
-    const router = useRouter()
-    const getQuotes = async() => {
-       const res = await ax.get('./api/quotes', {
-           params:{
-               humor:humor,
-               life:life,
-               success:success,
-               inspirational:inspirational, 
-               religion:religion, 
-               love:love, 
-               philosophy:philosophy, 
-               books:books, 
-               death:death, 
-               hope:hope, 
-               wisdom:wisdom, 
-                art:art,
-                sort_popularity:sbp,
-                sort_popularity_type:sbp_type,
-                sort_author:sba,
-                sort_author_type:sba_type
-           }
-       })
-           console.log(res.data)
-           setData(res.data)
-    } 
-    if (showQuote === false) {
+  //sorting
+  const [sbp, setSBP] = useState(false);
+  const [sbp_type, setSBPType] = useState("asc");
+  const [sba, setSBA] = useState(false);
+  const [sba_type, setSBAType] = useState("asc");
+  const [showQuote, setShowQuote] = useState(false);
+
+  const [data, setData] = useState([]);
+  const [cutpage, setCutPage] = useState(1);
+
+  const r = useRouter();
+
+  const itemsPerPage = 10;
+  var butt_arr = [];
+
+  var start = 1;
+  for (var i = 1; i < 20000; i += itemsPerPage) {
+    butt_arr.push((i - 1) / itemsPerPage + 1);
+    start++;
+  }
+
+  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+
+  const getQuotes = async (p) => {
+    const res = await ax.get("./api/quotes", {
+      params: {
+        humor: humor,
+        life: life,
+        success: success,
+        inspirational: inspirational,
+        religion: religion,
+        love: love,
+        philosophy: philosophy,
+        books: books,
+        death: death,
+        hope: hope,
+        wisdom: wisdom,
+        art: art,
+        sort_popularity: sbp,
+        sort_popularity_type: sbp_type,
+        sort_author: sba,
+        sort_author_type: sba_type,
+        page: p,
+        num: itemsPerPage
+      },
+    });
+    console.log(res.data);
+    console.log(p);
+    setData(res.data);
+    setCutPage(p)
+  };
+  if (showQuote === false) {
     return (
       <MainCont>
         <Navbar />
 
         <Header header="Select a Category" />
-  
+
         <TCMainCont>
-            {/* <CardCont onClick={()=> setOptions("humor")} > */}
-            <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
-                <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
-            </CardCont>
-            <CardCont onClick={()=> setLife(life ? null : "life")}>
-                <TopicCard text="Life" src="/TopicCardIcons/life.png" />
-            </CardCont>
-            <CardCont onClick={()=> setSuccess(success ? null : "success")}>
-                <TopicCard text="Success" src="/TopicCardIcons/success.png" />
-            </CardCont>
-            <CardCont onClick={()=> setInspirational(inspirational ? null : "inspirational")}>
-                <TopicCard text="Inspirational" src="/TopicCardIcons/inspirational.png" />
-            </CardCont>
-            <CardCont onClick={()=> setReligion(religion ? null : "religion")}>
-                <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
-            </CardCont>
-            <CardCont onClick={()=> setLove(love ? null : "love")}>
-                <TopicCard text="Love" src="/TopicCardIcons/love.png" />
-            </CardCont>
-            <CardCont onClick={()=> setPhilosophy(philosophy ? null : "philosophy")}>
-                <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
-            </CardCont>
-            <CardCont onClick={()=> setBooks(books ? null : "books")}>
-                <TopicCard text="Books" src="/TopicCardIcons/books.png" />
-            </CardCont>
-            <CardCont onClick={()=> setDeath(death ? null : "death")}>
-                <TopicCard text="Death" src="/TopicCardIcons/death.png" />
-            </CardCont>
-            <CardCont onClick={()=> setHope(hope ? null : "hope")}>
-                <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
-            </CardCont>
-            <CardCont onClick={()=> setWisdom(wisdom ? null : "wisdom")}>
-                <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
-            </CardCont>
-            <CardCont onClick={()=> setArt(art ? null : "art")}>
-                <TopicCard text="Art" src="/TopicCardIcons/art.png" />
-            </CardCont>
-            <Btn text='Continue' onClick={ getQuotes}/>
-            <SortTab 
-                setSBPType={setSBPType}
-                setSBP={setSBP}
-                sbp={sbp}
-                sbp_type={sbp_type}
-                setSBAType={setSBAType}
-                setSBA={setSBA}
-                sba={sba}
-                sba_type={sba_type}
+          {/* <CardCont onClick={()=> setOptions("humor")} > */}
+          <CardCont onClick={() => setHumor(humor ? null : "humor")}>
+            <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
+          </CardCont>
+          <CardCont onClick={() => setLife(life ? null : "life")}>
+            <TopicCard text="Life" src="/TopicCardIcons/life.png" />
+          </CardCont>
+          <CardCont onClick={() => setSuccess(success ? null : "success")}>
+            <TopicCard text="Success" src="/TopicCardIcons/success.png" />
+          </CardCont>
+          <CardCont
+            onClick={() =>
+              setInspirational(inspirational ? null : "inspirational")
+            }
+          >
+            <TopicCard
+              text="Inspirational"
+              src="/TopicCardIcons/inspirational.png"
             />
+          </CardCont>
+          <CardCont onClick={() => setReligion(religion ? null : "religion")}>
+            <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
+          </CardCont>
+          <CardCont onClick={() => setLove(love ? null : "love")}>
+            <TopicCard text="Love" src="/TopicCardIcons/love.png" />
+          </CardCont>
+          <CardCont
+            onClick={() => setPhilosophy(philosophy ? null : "philosophy")}
+          >
+            <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
+          </CardCont>
+          <CardCont onClick={() => setBooks(books ? null : "books")}>
+            <TopicCard text="Books" src="/TopicCardIcons/books.png" />
+          </CardCont>
+          <CardCont onClick={() => setDeath(death ? null : "death")}>
+            <TopicCard text="Death" src="/TopicCardIcons/death.png" />
+          </CardCont>
+          <CardCont onClick={() => setHope(hope ? null : "hope")}>
+            <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
+          </CardCont>
+          <CardCont onClick={() => setWisdom(wisdom ? null : "wisdom")}>
+            <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
+          </CardCont>
+          <CardCont onClick={() => setArt(art ? null : "art")}>
+            <TopicCard text="Art" src="/TopicCardIcons/art.png" />
+          </CardCont>
+
           <Btn
             text="Continue"
             onClick={async () => {
@@ -161,24 +185,34 @@ export default function Filter() {
         </TCMainCont>
       </MainCont>
     );
-  } return (
-    <MainCont>
-    <Navbar />
-
-    <Header header="Base on Your Choice" />
-    <SortTab />
-    <QuoteCont>
-        {data.map((o, i) => (
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author} 
-          />
-        ))}
-    </QuoteCont>
-  </MainCont>
-
-  );
-
   }
+  return (
+    <MainCont>
+      <Navbar />
 
+      <Header header="Based on Your Selection" />
+      <SortTab
+        setSBPType={setSBPType}
+        setSBP={setSBP}
+        sbp={sbp}
+        sbp_type={sbp_type}
+        setSBAType={setSBAType}
+        setSBA={setSBA}
+        sba={sba}
+        sba_type={sba_type}
+      />
+      <QuoteCont>
+        {data.map((o, i) => (
+          <QuoteCard key={i} text={o.Quote} subText={o.Author} />
+          
+        ))}
+
+      </QuoteCont>
+        {/* <BtnCont>
+          {butt_arr.map((o, i) => (
+            <PageBtn onclick={() => getQuotes(o)} page_num={o} />
+          ))}
+        </BtnCont> */}
+    </MainCont>
+  );
+}
