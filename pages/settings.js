@@ -43,7 +43,7 @@ position: -webkit-sticky;
 position: sticky;
 top: 0;
 `
-export default function settings() {
+export default function Settings() {
   const { theme, setTheme } = useTheme();
   const router = useRouter()
   console.log(theme);
