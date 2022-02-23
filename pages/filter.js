@@ -9,6 +9,9 @@ import SearchBar from '../comps/SearchBar';
 import Btn from '../comps/Btn';
 import QuoteCard from '@/comps/QuoteCard';
 import SortTab from '@/comps/SortTab';
+import { v4 as uuidv4 } from "uuid";
+import { useFav } from "@/utils/provider";
+
 import PageBtn from "../comps/PageBtn";
 
 
@@ -89,6 +92,8 @@ export default function Filter() {
   const [cutpage, setCutPage] = useState(1);
 
   const r = useRouter();
+  const {fav, setFav} = useFav()
+
 
   const itemsPerPage = 10;
   var butt_arr = [];
@@ -129,6 +134,23 @@ export default function Filter() {
     setData(res.data);
     setCutPage(p)
   };
+
+  const StoreFav = (checked, obj)  => {
+    console.log(checked, obj)
+    if(checked){
+      const new_fav = {
+        ...fav
+      }
+      new_fav[obj.Quote] = obj
+      setFav(new_fav)
+    } else {
+      const new_fav = {
+        ...fav
+      }
+      delete new_fav[obj.Quote]
+      setFav(new_fav)
+    }
+  }
   if (showQuote === false) {
     return (
       <MainCont>
@@ -196,13 +218,22 @@ export default function Filter() {
         </TCMainCont>
       </MainCont>
     );
-  }
-  return (
+  } return (
     <MainCont>
-      <Navbar />
+        <NavBarCont>
+            <Navbar  goBack={()=>setShowQuote(false)}/>
 
-      <Header header="Based on Your Selection" />
-      <SortTab
+        </NavBarCont>
+
+    <Header header="Base on Your Choice" />
+    <Btn
+            text="Sort your selection"
+            onClick={async () => {
+              getQuotes();
+              setShowQuote(true);
+            }}
+          />
+    <SortTab 
         setSBPType={setSBPType}
         setSBP={setSBP}
         sbp={sbp}
@@ -211,19 +242,25 @@ export default function Filter() {
         setSBA={setSBA}
         sba={sba}
         sba_type={sba_type}
-      />
-      <QuoteCont>
+    />
+    <QuoteCont>
         {data.map((o, i) => (
-          <QuoteCard key={i} text={o.Quote} subText={o.Author} />
-          
+          <QuoteCard
+            key={i}
+            text={o.Quote}
+            subText={o.Author} 
+            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+            onChange={
+            (e)=>StoreFav(e.target.checked, o)
+          }
+          />
         ))}
+        <button onClick={()=>r.push(`/saved/${uuidv4()}`)}>Go to fav</button>
+        
+    </QuoteCont>
+  </MainCont>
 
-      </QuoteCont>
-        {/* <BtnCont>
-          {butt_arr.map((o, i) => (
-            <PageBtn onclick={() => getQuotes(o)} page_num={o} />
-          ))}
-        </BtnCont> */}
-    </MainCont>
   );
+
+  
 }

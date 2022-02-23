@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useTheme } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
 import {router, useRouter} from 'next/router'
+import { v4 as uuidv4 } from "uuid";
 
 
 const NavCont = styled.nav`
@@ -102,7 +103,7 @@ export default function NavBar({
 
     <Ul open={open}>
       <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/home.svg"/>  HOME</Li>
-      <Li onClick={()=>{router.push('/saved')}} open={open}><Icon src="/saved.svg"/> SAVED</Li>
+      <Li onClick={()=>router.push(`/saved/${uuidv4()}`)} open={open}><Icon src="/saved.svg"/> SAVED</Li>
       <Li onClick={()=>{router.push('/settings')}} open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
       <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/logout.svg"/> LOG OUT</Li>
     </Ul>

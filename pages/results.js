@@ -1,7 +1,6 @@
 import react, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ax from "axios";
-import {v4 as uuidv4} from 'uuid'
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SearchBar from "../comps/SearchBar";
@@ -14,6 +13,7 @@ import { useData } from "@/utils/provider";
 import { useFav } from "@/utils/provider";
 import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
+import Btn from "@/comps/Btn";
 
 const MainCont = styled.div`
   display: flex;
@@ -176,15 +176,16 @@ export default function results() {
           </>
           
         ))}
-        {/* <BtnCont>
+         <BtnCont>
           {butt_arr.map((o, i) => (
             <PageBtn 
             // style={{ background: o === cutpage ? "pink" : "white" }}
             // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
             onclick={() => getQuotes(o)} page_num={o} />
           ))}
-        </BtnCont> */}
-
+        </BtnCont>
+        <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
+        {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
     </MainCont>
   );

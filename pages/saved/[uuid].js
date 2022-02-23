@@ -99,7 +99,6 @@ export default function Saved() {
           />
 )}
     <Btn onClick={saveFav} text="Save to your favorite"/>
-     <button >Save to favorite</button>
       </QuotCont>
     </MainCont>
   );
