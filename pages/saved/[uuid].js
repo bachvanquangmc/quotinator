@@ -54,8 +54,8 @@ export default function Saved() {
   const r = useRouter();
   const { uuid } = r.query;
 
+  
   const { fav, setFav } = useFav();
-
   useEffect(()=>{
     if(uuid){
       const GetUUID = async()=>{

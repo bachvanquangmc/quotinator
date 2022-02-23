@@ -178,10 +178,13 @@ export default function Results() {
         ))}
          <BtnCont>
           {butt_arr.map((o, i) => (
-            <PageBtn 
-            // style={{ background: o === cutpage ? "pink" : "white" }}
-            // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
-            onclick={() => getQuotes(o)} page_num={o} />
+            <div key={i}>
+
+              <PageBtn 
+              // style={{ background: o === cutpage ? "pink" : "white" }}
+              // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
+              onclick={() => getQuotes(o)} page_num={o} />
+            </div>
           ))}
         </BtnCont>
         <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
