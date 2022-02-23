@@ -1,5 +1,5 @@
 import { useContext, createContext, useState } from "react";
-import { global_theme, filter_data } from "./variables";
+import { global_theme, filter_data, quote_number } from "./variables";
 
 
 const initialStates = {
@@ -7,9 +7,11 @@ const initialStates = {
   setTheme:()=>{},
    
   fav: {},
-  setFav: ()=>{}
-}
+  setFav: ()=>{},
 
+  qts: "default",
+  setQts:()=>{}
+}
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
 
 export default function AppProvider({children}){
@@ -44,4 +46,7 @@ export function useFav() {
   return { fav, setFav };
   
  }
-
+export function useQuote() {
+  const {qts, setQts} = useContext(MyContext);
+  return {qts, setQts};
+}

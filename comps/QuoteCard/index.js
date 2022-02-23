@@ -57,9 +57,9 @@ const QuoteCard = ({
     subText = "Dr. Seuss",
     debug,
     onChange,
-    checked
+    checked,
     // imgSrc = "/heart_outline.png" ,
-    // onclick = () => {}
+    onclick = () => {}
 }) => {
 
     const [click, setClick] = useState(false)

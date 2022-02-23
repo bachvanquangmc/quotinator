@@ -42,7 +42,6 @@ const QuoteCont = styled.div`
 
 `;
 
-
 const CardCont = styled.div`
   display: flex;
   justify-content: center;
@@ -56,6 +55,14 @@ position: -webkit-sticky;
 position: sticky;
 top: 0;
 `
+const BtnCont = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100vw;
+`;
+
 export default function Filter() {
   const [humor, setHumor] = useState(null);
   const [life, setLife] = useState(null);
@@ -70,41 +77,59 @@ export default function Filter() {
   const [wisdom, setWisdom] = useState(null);
   const [art, setArt] = useState(null);
   const [value, setValue] = useState(false);
-    
-  //sorting 
-    const [sbp, setSBP] = useState(false)
-    const [sbp_type, setSBPType] = useState("asc")
-    const [sba, setSBA] = useState(false)
-    const [sba_type, setSBAType] = useState("asc")
-    const [showQuote, setShowQuote] = useState(false);
 
-    const [data, setData] = useState([])
-    const router = useRouter()
-    const getQuotes = async() => {
-       const res = await ax.get('./api/quotes', {
-           params:{
-               humor:humor,
-               life:life,
-               success:success,
-               inspirational:inspirational, 
-               religion:religion, 
-               love:love, 
-               philosophy:philosophy, 
-               books:books, 
-               death:death, 
-               hope:hope, 
-               wisdom:wisdom, 
-                art:art,
-                sort_popularity:sbp,
-                sort_popularity_type:sbp_type,
-                sort_author:sba,
-                sort_author_type:sba_type
-           }
-       })
-           console.log(res.data)
-           setData(res.data)
-    } 
-    if (showQuote === false) {
+  //sorting
+  const [sbp, setSBP] = useState(false);
+  const [sbp_type, setSBPType] = useState("asc");
+  const [sba, setSBA] = useState(false);
+  const [sba_type, setSBAType] = useState("asc");
+  const [showQuote, setShowQuote] = useState(false);
+
+  const [data, setData] = useState([]);
+  const [cutpage, setCutPage] = useState(1);
+
+  const r = useRouter();
+
+  const itemsPerPage = 10;
+  var butt_arr = [];
+
+  var start = 1;
+  for (var i = 1; i < 20000; i += itemsPerPage) {
+    butt_arr.push((i - 1) / itemsPerPage + 1);
+    start++;
+  }
+
+  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+
+  const getQuotes = async (p) => {
+    const res = await ax.get("./api/quotes", {
+      params: {
+        humor: humor,
+        life: life,
+        success: success,
+        inspirational: inspirational,
+        religion: religion,
+        love: love,
+        philosophy: philosophy,
+        books: books,
+        death: death,
+        hope: hope,
+        wisdom: wisdom,
+        art: art,
+        sort_popularity: sbp,
+        sort_popularity_type: sbp_type,
+        sort_author: sba,
+        sort_author_type: sba_type,
+        page: p,
+        num: itemsPerPage
+      },
+    });
+    console.log(res.data);
+    console.log(p);
+    setData(res.data);
+    setCutPage(p)
+  };
+  if (showQuote === false) {
     return (
       <MainCont>
           <NavBarCont>
@@ -112,7 +137,7 @@ export default function Filter() {
           </NavBarCont>
 
         <Header header="Select a Category" />
-  
+
         <TCMainCont>
             {/* <CardCont onClick={()=> setOptions("humor")} > */}
             <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
@@ -171,22 +196,13 @@ export default function Filter() {
         </TCMainCont>
       </MainCont>
     );
-  } return (
+  }
+  return (
     <MainCont>
-        <NavBarCont>
-            <Navbar  goBack={()=>setShowQuote(false)}/>
+      <Navbar />
 
-        </NavBarCont>
-
-    <Header header="Base on Your Choice" />
-    <Btn
-            text="Continue"
-            onClick={async () => {
-              getQuotes();
-              setShowQuote(true);
-            }}
-          />
-    <SortTab 
+      <Header header="Based on Your Selection" />
+      <SortTab
         setSBPType={setSBPType}
         setSBP={setSBP}
         sbp={sbp}
@@ -195,20 +211,19 @@ export default function Filter() {
         setSBA={setSBA}
         sba={sba}
         sba_type={sba_type}
-    />
-    <QuoteCont>
+      />
+      <QuoteCont>
         {data.map((o, i) => (
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author} 
-          />
+          <QuoteCard key={i} text={o.Quote} subText={o.Author} />
+          
         ))}
-        
-    </QuoteCont>
-  </MainCont>
 
+      </QuoteCont>
+        {/* <BtnCont>
+          {butt_arr.map((o, i) => (
+            <PageBtn onclick={() => getQuotes(o)} page_num={o} />
+          ))}
+        </BtnCont> */}
+    </MainCont>
   );
-
-  }
-
+}

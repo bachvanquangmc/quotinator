@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useData } from "@/utils/provider";
 import { useFav } from "@/utils/provider";
 import { filtering } from "@/utils/func";
+import { v4 as uuidv4 } from "uuid";
 
 const MainCont = styled.div`
   display: flex;
@@ -53,8 +54,8 @@ top: 0;
 
 
 var timer = null;
-export default function results({}) {
-  // const [datas, setDatas] = useState([]);
+export default function results() {
+
   const [data, setData] = useState([]);
   const [currpage, setCurrPage] = useState(1);
   const [sbp, setSBP] = useState(false)
@@ -98,7 +99,7 @@ export default function results({}) {
     }
 
     if (timer === null) {
-      timer = setTimeout(async () => {
+      timer = setTimeout(async (p) => {
         console.log("async call");
         const res = await ax.get("/api/quotes", {
           params: {
@@ -115,7 +116,7 @@ export default function results({}) {
         setData(res.data);
         setCurrPage(p);
         timer = null;
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -141,7 +142,7 @@ export default function results({}) {
         <Navbar goBack={()=>router.push('/')}/>
       </NavBarCont>
       <SubCont>
-        <Header header="Results" />
+        <Header header="Search Your Quote" />
         <SearchBar onChange={(e) => inputFilter(e.target.value)} />
         <SortTab 
         setSBPType={setSBPType}
@@ -175,13 +176,15 @@ export default function results({}) {
           </>
           
         ))}
-
-        <BtnCont>
+        {/* <BtnCont>
           {butt_arr.map((o, i) => (
-            <PageBtn onclick={() => inputFilter(o)} page_num={o} />
+            <PageBtn 
+            // style={{ background: o === cutpage ? "pink" : "white" }}
+            // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
+            onclick={() => getQuotes(o)} page_num={o} />
           ))}
-        </BtnCont>
-        <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button>
+        </BtnCont> */}
+
       </QuotCont>
     </MainCont>
   );

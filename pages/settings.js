@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from 'react';
 
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
@@ -46,6 +47,10 @@ export default function settings() {
   const { theme, setTheme } = useTheme();
   const router = useRouter()
   console.log(theme);
+
+  const [cut, setCut] = useState(10);
+
+
   return (
     <MainCont>
       <NavBarCont>
