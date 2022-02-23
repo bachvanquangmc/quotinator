@@ -5,46 +5,33 @@ import Header from '../comps/Header'
 import Subheader from '../comps/Subheader'
 import QuoteCard from '../comps/QuoteCard';
 import PageBtn from '../comps/PageBtn';
+import { router, useRouter } from 'next/router';
 
 
 const MainCont = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    // background-color: #F2F0EE;
-    height: 100vh;
-    /* width: 375px;
-    min-height: 812px; */
-
-    /* @media only screen and (min-width: 992px) {
-        display:flex;
-        width: 100%;
-        height: auto;
-    } */
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: space-between;
+min-height: 100vh;
 `;
 
-// const NavCont = styled.div`
-//     display: flex;
-//     justify-content:center;
-//     min-width: 320px;
-//     min-height: 40px;
-//     margin-top: 5px;
-// `;
-
 const HeaderCont = styled.div`
-    display: flex;
-    flex-basis: 20%;
-    flex-direction:column;
-    justify-content:center;
-    align-items: flex-start;
-    min-width: 320px;
-    margin: 5px;
+display: flex;
+flex-basis: 20%;
+flex-direction:column;
+justify-content:center;
+align-items: flex-start;
+min-width: 320px;
+margin: 20px;
 `;
 
 const QuoteCont = styled.div`
-    flex-basis: 70%;
-    margin-bottom: 5px;
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
 `;
 
 const FooterCont = styled.div`
@@ -55,15 +42,19 @@ const FooterCont = styled.div`
     align-items: center;
     margin: 20px 0px;
 `;
-
+const NavBarCont = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+`
 
 export default function Saved() {
+    const router = useRouter()
     return (
         <MainCont>
-            {/* <NavCont> */}
-                <Navbar />
-            {/* </NavCont> */}
-
+            <NavBarCont>
+                <Navbar goBack={()=>router.push('/')}/>
+            </NavBarCont>
             <HeaderCont>
                 <Header header="Saved" />
                 <Subheader subheader="Favorite stored quotes" />

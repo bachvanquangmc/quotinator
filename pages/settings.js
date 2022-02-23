@@ -5,6 +5,8 @@ import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
 import Switch from "../comps/switch";
 import { useTheme } from "../utils/provider";
+import { Slider } from "@mui/material";
+import { useRouter } from "next/router";
 
 const MainCont = styled.div`
   display: flex;
@@ -35,12 +37,20 @@ const RowCont = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+const NavBarCont = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+`
 export default function settings() {
   const { theme, setTheme } = useTheme();
+  const router = useRouter()
   console.log(theme);
   return (
     <MainCont>
-      <Navbar />
+      <NavBarCont>
+        <Navbar goBack={()=>router.push('/')}/>
+      </NavBarCont>
       <SubCont>
         <Header header="Settings" />
         <Header
@@ -61,11 +71,10 @@ export default function settings() {
             />
           </RowCont>
           <RowCont>
-            <p style={{ color: "black" }}>TEXT SIZE</p>
-            <SwitchTab />
+            <p style={{ color: "black" }}>NUMBER OF QUOTES</p>
           </RowCont>
           <RowCont>
-            <p style={{ color: "black" }}>NUMBER OF QUOTES</p>
+            <Slider/>
           </RowCont>
         </CardCont>
       </QuotCont>

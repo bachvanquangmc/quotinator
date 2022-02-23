@@ -4,8 +4,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const QuoteCont = styled.div`
     display: flex;
-    // width: 350px;
-    max-width: 600px;
+    min-width: 350px;
+    max-width: 400px;
     justify-content: center;
     background-color: #E5DED6;
     font-family: 'Inter', sans-serif;
@@ -55,7 +55,9 @@ const Img = styled.img`
 const QuoteCard = ({
     text = "Don't cry because it's over, smile because it happened.",
     subText = "Dr. Seuss",
-    debug
+    debug,
+    onChange,
+    checked
     // imgSrc = "/heart_outline.png" ,
     // onclick = () => {}
 }) => {
@@ -80,13 +82,25 @@ const QuoteCard = ({
                 <SubText> - {subText}</SubText>
             </TextCont>
             <ImgCont>
-                <Img  src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)} />
+            <span>
+
+                <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)}>
+
+                </Img>
+                <span>
+                    <input type="checkbox" 
+                        checked={checked}
+                        onChange={onChange}
+                        // style={{visibility:"hidden"}}
+                        />
+                </span>
+            </span>
                 <CopyToClipboard
                     options={{ debug: debug, message: "" }}
                     text={text}
                     onCopy={() => setCopied(true)}
                 >
-                <Img onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"}/>
+                <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"}/>
                 </CopyToClipboard>
             </ImgCont>
         </QuoteCont>

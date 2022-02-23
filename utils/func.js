@@ -156,7 +156,10 @@ export function sorting(
   }
 }
 
-// sorting(quotes, {
-//   key:"Author",
-//   type:"desc"
-// })
+export function numbering(quo = [], page = 1, num = 5) {
+  // const {qts, setQts} = useQuote();
+  
+  const results = quo.slice((page - 1) * num, page * 5)
+  // console.log(results);
+  return results;
+}

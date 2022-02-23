@@ -9,21 +9,15 @@ const initialStates = {
   fav: {},
   setFav: ()=>{}
 }
-const initialData = {
-  data:"default",
-  setData:()=>{},
- 
-};
+
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
-const MyContextData = createContext(initialData) // provide a shared space to use in other pages
 
 export default function AppProvider({children}){
 
   const [theme, setTheme] = useState(initialStates.theme)
-  const [data, setData] = useState(initialData.data)
-  const [fav, setFav] = useState({}); //or (initialStstes.fav)
-  
-  return <MyContext.Provider value={{theme, setTheme, data, setData, fav, setFav}}>
+  const [fav, setFav] = useState(initialStates.fav); //or (initialStstes.fav)
+  console.log('favorite', fav)
+  return <MyContext.Provider value={{theme, setTheme, fav, setFav}}>
     <style jsx global>
       {`
         body{
@@ -43,11 +37,6 @@ export default function AppProvider({children}){
 export function useTheme(){
   const {theme, setTheme} = useContext(MyContext)
   return {theme, setTheme}
-}
-
-export function useData(){
-  const {data, setData} = useContext(MyContextData)
-  return {data, setData}
 }
 
 export function useFav() {

@@ -5,58 +5,50 @@ import Header from "../../comps/Header";
 import Subheader from "../../comps/Subheader";
 import QuoteCard from "../../comps/QuoteCard";
 import PageBtn from "../../comps/PageBtn";
+import Btn from "@/comps/Btn";
 
 import ax from "axios";
 import { useFav } from "@/utils/provider";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  min-height: 100vh;
+`;
+
+const SubCont = styled.div`
+  margin: 20px;
+`;
+
+const QuotCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  background-color: #f2f0ee;
-  width: 375px;
-  min-height: 812px;
-
-  @media only screen and (min-width: 992px) {
-    display: flex;
-    width: 100%;
-    height: auto;
-  }
+`;
+const Test = styled.div`
+  flex-basis: 60%;
 `;
 
-const NavCont = styled.div`
+const BtnCont = styled.div`
   display: flex;
-  min-width: 320px;
-  min-height: 40px;
-  margin-top: 5px;
-`;
-
-const HeaderCont = styled.div`
-  display: flex;
-  flex-basis: 20%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  min-width: 320px;
-  margin: 5px;
-`;
-
-const QuoteCont = styled.div`
-  flex-basis: 70%;
-  margin-bottom: 5px;
-`;
-
-const FooterCont = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
-  margin: 20px 0px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100vw;
 `;
+
+const NavBarCont = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+`
 
 export default function Saved() {
   const r = useRouter();
@@ -64,49 +56,51 @@ export default function Saved() {
 
   const { fav, setFav } = useFav();
 
-  useEffect(() => {
-    if (uuid) {
-      const GetUUID = async () => {
-        const res = await ax.get("/api/save", {
-          params: {
-            uuid,
-            fav,
-          },
-        });
-
-        if (res.data !== false) {
-          setFav(res.data);
+  useEffect(()=>{
+    if(uuid){
+      const GetUUID = async()=>{
+        const res = await ax.get('/api/save', {
+          params:{
+            uuid:uuid
+          }
+        })
+        if(res.data !== false){
+          console.log(res)
+          setFav(res.data)
         }
-      };
-      GetUUID();
+      }
+      GetUUID()
     }
-  }, [uuid]);
+  },[uuid])
+  const saveFav = async()=>{
+    const res = await ax.post('/api/save',{
+      uuid:uuid,
+      fav:fav
+    })
+  }
 
 
   return (
     <MainCont>
-      <NavCont>{/* <Navbar /> */}</NavCont>
-
-      <HeaderCont>
-        <Header header="Saved" />
-        <Subheader subheader="Favorite stored quotes" />
-      </HeaderCont>
-
-      <QuoteCont>
-      {Object.values(fav).map((o, i) => (
-        <div>
-            <QuoteCard 
-            imgSrc="/heart.png" 
-            text={o.Quote} subText={o.Author}
-            />
-        </div>
-      ))}
+        <NavBarCont>
+        <Navbar goBack={()=>r.push('/results')}/>
+      </NavBarCont>
+      <SubCont>
+        <Header header="Your Favorites" />
         
-      </QuoteCont>
+      </SubCont>
+      <QuotCont>
 
-      <FooterCont>
-        <PageBtn />
-      </FooterCont>
+        {Object.values(fav).map((o,i)=>
+          <QuoteCard 
+            key={i}
+            text={o.Quote}
+            subText={o.Author}
+          />
+)}
+    <Btn onClick={saveFav} text="Save to your favorite"/>
+     <button >Save to favorite</button>
+      </QuotCont>
     </MainCont>
   );
 }

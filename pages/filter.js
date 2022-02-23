@@ -17,22 +17,20 @@ import { useRouter } from "next/router";
 import { useData } from "../utils/provider";
 
 const MainCont = styled.div`
-
-  padding:0 5%;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  background-color: #f2f0ee;
   min-height: 100vh;
 `;
 
 const TCMainCont = styled.div`
   display: flex;
-  justify-content: flex-start;
+//   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
+  padding:2rem;
+  
 `;
 
 const QuoteCont = styled.div`
@@ -40,7 +38,7 @@ const QuoteCont = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-    flex-basis:70%;
+    // flex-basis:70%;
 
 `;
 
@@ -53,7 +51,11 @@ const CardCont = styled.div`
   margin: 30px 40px 10px 0px;
 `;
 
-
+const NavBarCont = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+`
 export default function Filter() {
   const [humor, setHumor] = useState(null);
   const [life, setLife] = useState(null);
@@ -105,7 +107,9 @@ export default function Filter() {
     if (showQuote === false) {
     return (
       <MainCont>
-        <Navbar />
+          <NavBarCont>
+            <Navbar goBack={()=>router.push('/')}/>
+          </NavBarCont>
 
         <Header header="Select a Category" />
   
@@ -169,7 +173,10 @@ export default function Filter() {
     );
   } return (
     <MainCont>
-    <Navbar />
+        <NavBarCont>
+            <Navbar  goBack={()=>setShowQuote(false)}/>
+
+        </NavBarCont>
 
     <Header header="Base on Your Choice" />
     <Btn

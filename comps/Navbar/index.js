@@ -4,12 +4,14 @@ import { useTheme } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
 import {router, useRouter} from 'next/router'
 
+
 const NavCont = styled.nav`
   width:100%;
-  height:40px;
+  height:4.5rem;
   display:flex;
   justify-content:space-between;
   padding:20px 0px 20px 20px;
+  background-color:${props => props.navcolor};
 `
 const Ul = styled.ul`
   list-style:none;
@@ -77,14 +79,19 @@ const Icon = styled.img`
   height:20px;
   margin-right:10px;
 `
-export default function NavBar(){
+
+export default function NavBar({
+  goBack
+}){
   const [open, setOpen] = useState(false)
     const {theme, setTheme} = useTheme()
     const router = useRouter()
-  return <NavCont>
+  return <NavCont navcolor={global_theme[theme].nav}>
+    <div onClick={goBack}>
+      Back
+    </div>
     <div style={{cursor:"pointer"}} onClick={()=>{router.push('/')}}>
       Quotinator
-
     </div>
 
     <Burger menucolor={open ? 'black' :  global_theme[theme].menu} open={open} onClick={()=>setOpen(!open)}>
@@ -94,12 +101,10 @@ export default function NavBar(){
     </Burger>
 
     <Ul open={open}>
-
-      
       <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/home.svg"/>  HOME</Li>
       <Li onClick={()=>{router.push('/saved')}} open={open}><Icon src="/saved.svg"/> SAVED</Li>
       <Li onClick={()=>{router.push('/settings')}} open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
-      <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/logout.png"/> LOG OUT</Li>
+      <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/logout.svg"/> LOG OUT</Li>
     </Ul>
   </NavCont>
 }
