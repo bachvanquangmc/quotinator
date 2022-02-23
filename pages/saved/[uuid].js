@@ -10,8 +10,9 @@ import Btn from "@/comps/Btn";
 import ax from "axios";
 import { useFav } from "@/utils/provider";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { useTheme } from "../../utils/provider"
+import {global_theme } from '../../utils/variables'
 
 const MainCont = styled.div`
   display: flex;
@@ -53,7 +54,8 @@ top: 0;
 export default function Saved() {
   const r = useRouter();
   const { uuid } = r.query;
-
+  const [alert, setAlert] = useState(null)
+  const {theme, setTheme} = useTheme()
   
   const { fav, setFav } = useFav();
   useEffect(()=>{
@@ -77,6 +79,7 @@ export default function Saved() {
       uuid:uuid,
       fav:fav
     })
+    setAlert("Save Succsessfuly")
   }
 
 
@@ -99,6 +102,7 @@ export default function Saved() {
           />
 )}
     <Btn onClick={saveFav} text="Save to your favorite"/>
+    {alert && <div style={{color:global_theme[theme].text}}>{alert}</div>}
       </QuotCont>
     </MainCont>
   );

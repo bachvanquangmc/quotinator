@@ -155,7 +155,7 @@ export default function Filter() {
     return (
       <MainCont>
           <NavBarCont>
-            <Navbar goBack={()=>router.push('/')}/>
+            <Navbar goBack={()=>r.push('/')}/>
           </NavBarCont>
 
         <Header header="Select a Category" />
@@ -255,7 +255,7 @@ export default function Filter() {
           }
           />
         ))}
-        <button onClick={()=>r.push(`/saved/${uuidv4()}`)}>Go to fav</button>
+        <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
         
     </QuoteCont>
   </MainCont>
