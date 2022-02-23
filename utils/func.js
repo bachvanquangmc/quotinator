@@ -1,5 +1,5 @@
 const quotes = require("./quotes.json");
-
+import {useQuote} from '@/utils/provider'; 
 export function GoToPage(qts = [], page = 1, num = 5) {
   const results = qts.slice((page - 1) * num, page * num);
   console.log(results);
@@ -116,8 +116,7 @@ export function searching(arr = [], config = { Quote: null }) {
   } else {
     return [];
   }
-
-const quotes = require('./quotes.json')
+}
 
 // filtering(quotes, {humor:"humor", life:"life"})
 
@@ -157,7 +156,10 @@ export function sorting(
   }
 }
 
-// sorting(quotes, {
-//   key:"Author",
-//   type:"desc"
-// })
+export function numbering(quo = [], num) {
+  const {qts, setQts} = useQuote();
+  
+  const results = quo.slice(0, num)
+  // console.log(results);
+  return results;
+}

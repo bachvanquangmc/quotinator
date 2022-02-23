@@ -96,7 +96,6 @@ export default function Saved() {
       {Object.values(fav).map((o, i) => (
         <div>
             <QuoteCard 
-            imgSrc="/heart.png" 
             text={o.Quote} subText={o.Author}
             />
         </div>

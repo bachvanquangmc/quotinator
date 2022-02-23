@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 
 import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
+
+import {useQuote} from "@/utils/provider";
 
 function ValueLabelComponent(props) {
   const { children, value } = props;
@@ -77,9 +80,20 @@ const PrettoSlider = styled(Slider)({
 });
 
 
-export default function CustomizedSlider() {
+export default function CustomizedSlider({ onchange=()=>{}}) {
+
+  // const [num, setNum] = useState(10);
+  // console.log(num);
+
+  const { qts, setQts } = useQuote();
+  console.log(qts);
+
+  const handleChange = (e, qts) => {
+    setQts(qts);
+  }
+
   return (
-    <Box sx={{ width: 200 }}>
+    <Box sx={{ width: 150 }}>
       <Box sx={{ m: 3 }} />
       <PrettoSlider
         valueLabelDisplay="auto"
@@ -87,6 +101,8 @@ export default function CustomizedSlider() {
         defaultValue={25}
         min={10}
         max={50}
+        value={qts}
+        onChange={handleChange}
       />
     </Box>
   );

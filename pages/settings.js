@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { useState } from 'react';
 
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
 import Switch from "../comps/switch";
-import { useTheme } from "../utils/provider";
+import Slider from "@/comps/Slider"
+
+import { useTheme, useQuote } from "../utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -37,7 +40,12 @@ const RowCont = styled.div`
 `;
 export default function settings() {
   const { theme, setTheme } = useTheme();
+  const { qts, setQts } = useQuote();
   console.log(theme);
+
+  const [cut, setCut] = useState(10);
+
+
   return (
     <MainCont>
       <Navbar />
@@ -66,6 +74,10 @@ export default function settings() {
           </RowCont>
           <RowCont>
             <p style={{ color: "black" }}>NUMBER OF QUOTES</p>
+            <Slider 
+            
+            />
+            
           </RowCont>
         </CardCont>
       </QuotCont>

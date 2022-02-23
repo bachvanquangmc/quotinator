@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 const QuoteCont = styled.div`
     display: flex;
-    // width: 350px;
-    max-width: 600px;
+    min-width: 350px;
+    max-width: 400px;
     justify-content: center;
     background-color: #E5DED6;
     font-family: 'Inter', sans-serif;
@@ -55,7 +55,7 @@ const QuoteCard = ({
     text = "Don't cry because it's over, smile because it happened.",
     subText = "Dr. Seuss",
     // imgSrc = "/heart_outline.png" ,
-    // onclick = () => {}
+    onclick = () => {}
 }) => {
 
     const [click, setClick] = useState(false)
@@ -67,7 +67,7 @@ const QuoteCard = ({
                 <SubText> - {subText}</SubText>
             </TextCont>
             <ImgCont>
-                <Img  src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)} />
+                <Img  src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click), onclick} />
                 <Img src="/copy.png"/>
             </ImgCont>
         </QuoteCont>
