@@ -8,14 +8,15 @@ import { useRouter, router } from "next/router";
 import Btn from '../comps/Btn';
 import Header from '../comps/Header'
 import Subheader from '../comps/Subheader'
-
+import { useTheme } from "../utils/provider"
+import {global_theme } from '../utils/variables'
 
 const MainCont = styled.div`
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  background-color: #F2F0EE;
+  // background-color: #F2F0EE;
   height: 100vh;
   /* width: 375px;
   min-height: 812px; */
@@ -39,6 +40,7 @@ const Logo = styled.img`
   width:100%;
   height: 100%;
   object-fit: contain;
+  filter: ${props => props.filter};
 `;
 
 const LogoTitleCont = styled.div`
@@ -66,20 +68,23 @@ const HeadBtnCont = styled.div`
 
 export default function Home() {
   const router = useRouter();
+  const {theme, setTheme} = useTheme()
 
   return (
     <MainCont>
       <LogoTitleCont>
         <LogoCont>
-          <Logo src="/logo.svg"/>
+          <Logo filter={
+            global_theme[theme].filter
+          } src="/logo.svg"/>
         </LogoCont>
-        <Title>"Quotinator"</Title>
+        <Title>&ldquo;Quotinator&rdquo;</Title>
       </LogoTitleCont>
       <HeadBtnCont>
         <Subheader subheader="Find your quote by..." fontSize="22"/>
         {/* <Header header="Find your quote by..." fontsize="23px" margin="15px" ></Header> */}
-        <Btn text="Search" onClick={() => router.push("/")}/>
-        <Btn text="Filter by Category" onClick={() => router.push("/")}/>
+        <Btn text="Search"  onClick={() => router.push("/results")}/>
+        <Btn text="Filter by Category" onClick={() => router.push("/filter")}/>
       </HeadBtnCont>
     </MainCont>
   )

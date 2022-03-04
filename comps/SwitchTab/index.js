@@ -4,6 +4,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { pink } from "@mui/material/colors";
 import styled from 'styled-components';
 
 const SwitchCont = styled.div`
@@ -14,15 +15,17 @@ const SwitchCont = styled.div`
 `;
 
 const SwitchTab = ({
-  Label = "Dark Mode"
+  Label = "Dark Mode",
+  onSwitchClick = ()=>{}
 }) => {
-  return <SwitchCont>
-    <FormControlLabel
+  return <SwitchCont onClick={onSwitchClick}>
+    {/* <FormControlLabel
       value="start"
       control={<Switch color="primary" />}
       label={Label}
       labelPlacement="start"
-    />
+    /> */}
+    <Switch/>
   </SwitchCont>
 };
 

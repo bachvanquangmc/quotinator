@@ -16,7 +16,7 @@ const SortButton_Pop = styled.button`
   align-items: center;
   background-color: ${(props) => (props.select ? "#fff" : "#C8BDB0")};
   box-shadow: ${(props) =>
-    props.select ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+    props.select ? "inset 1px 2px 5px rgba(0, 0, 0, 0.18)" :  "none"};
   border: none;
   cursor: pointer;
 
@@ -33,7 +33,7 @@ const SortButton_Aut = styled.button`
   align-items: center;
   background-color: ${(props) => (props.unselect ? "#fff" : "#C8BDB0")};
   box-shadow: ${(props) =>
-    props.unselect ? "none" : "inset 1px 2px 5px rgba(0, 0, 0, 0.18)"};
+    props.unselect ? "inset 1px 2px 5px rgba(0, 0, 0, 0.18)" :  "none" };
   border: none;
   cursor: pointer;
 
@@ -48,9 +48,10 @@ const Text = styled.p`
   font-family: "Inter", sans-serif;
 `;
 
-const SortTab = ({}) => {
-  const [selected, setSelected] = useState(false);
+const SortTab = ({setSBP, setSBPType, sbp, sbp_type, setSBA, setSBAType, sba, sba_type}) => {
+  const [selected, setSelected] = useState(true);
   const [unselected, setUnselected] = useState(false);
+
 
   return (
     <SortTabCont>
@@ -59,18 +60,22 @@ const SortTab = ({}) => {
         onClick={() => {
           setSelected(true);
           setUnselected(false);
+          setSBP(!sbp)
+          setSBPType(sbp_type === "asc" ? "desc" : "asc")
         }}
       >
-        <Text>Popular</Text>
+        <Text>{sbp_type === "asc" ? "Popularity ↑" : "Popularity ↓"}</Text>
       </SortButton_Pop>
       <SortButton_Aut
         unselect={unselected}
         onClick={() => {
           setSelected(false);
           setUnselected(true);
+          setSBA(!sba)
+          setSBAType(sba_type === "asc" ? "desc" : "asc")
         }}
       >
-        <Text>Authors</Text>
+        <Text>{sba_type === "asc" ? "Author (A-Z)" : "Author (Z-A)"}</Text>
       </SortButton_Aut>
     </SortTabCont>
   );
