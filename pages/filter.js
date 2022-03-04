@@ -28,18 +28,6 @@ const MainCont = styled.div`
 `;
 
 const TCMainCont = styled.div`
-<<<<<<< HEAD
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 10%;
-`;
-
-const CardCont = styled.div`
-    display: flex;
-    margin: 30px 40px 10px 0px;
-=======
   display: flex;
 //   justify-content: flex-start;
   flex-wrap: wrap;
@@ -76,7 +64,6 @@ const BtnCont = styled.div`
   justify-content: center;
   margin-bottom: 20px;
   width: 100vw;
->>>>>>> ab12ed0fd0e38b8474e1593f7792de04d1303e40
 `;
 
 export default function Filter() {
@@ -94,20 +81,6 @@ export default function Filter() {
   const [art, setArt] = useState(null);
   const [value, setValue] = useState(false);
 
-<<<<<<< HEAD
-    // const [value, setValue] = useState(false);
-    return <MainCont>
-        {/* <Navbar/> */}
-        
-        {/* 
-        <div className="switch">
-            <Switch 
-            isOn={value}
-            handleToggle={()=>setValue(!value)}
-            />
-        </div> */}
-        <Header header="Select a Category" />
-=======
   //sorting
   const [sbp, setSBP] = useState(false);
   const [sbp_type, setSBPType] = useState("asc");
@@ -120,7 +93,6 @@ export default function Filter() {
 
   const r = useRouter();
   const {fav, setFav} = useFav()
->>>>>>> ab12ed0fd0e38b8474e1593f7792de04d1303e40
 
 
   const itemsPerPage = 10;
@@ -290,12 +262,5 @@ export default function Filter() {
 
   );
 
-<<<<<<< HEAD
-        <Btn text="Continue" />
-
-    </MainCont>
-}
-=======
   
 }
->>>>>>> ab12ed0fd0e38b8474e1593f7792de04d1303e40
