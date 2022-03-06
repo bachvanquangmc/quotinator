@@ -1,5 +1,5 @@
 import { useContext, createContext, useState } from "react";
-import { global_theme, filter_data, quote_number } from "./variables";
+import { global_theme, quote_number } from "./variables";
 
 
 const initialStates = {
@@ -10,7 +10,11 @@ const initialStates = {
   setFav: ()=>{},
 
   qts: "default",
-  setQts:()=>{}
+  setQts:()=>{},
+
+  quoteData: {},
+  setQuoteData: ()=>{},
+
 }
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
 
@@ -18,8 +22,10 @@ export default function AppProvider({children}){
 
   const [theme, setTheme] = useState(initialStates.theme)
   const [fav, setFav] = useState(initialStates.fav); //or (initialStstes.fav)
+  const [quoteData, setQuoteData] = useState(initialStates.quoteData);
+
   console.log('favorite', fav)
-  return <MyContext.Provider value={{theme, setTheme, fav, setFav}}>
+  return <MyContext.Provider value={{theme, setTheme, fav, setFav, quoteData, setQuoteData}}>
     <style jsx global>
       {`
         body{
@@ -49,4 +55,8 @@ export function useFav() {
 export function useQuote() {
   const {qts, setQts} = useContext(MyContext);
   return {qts, setQts};
+}
+export function useQuoteData() {
+  const { quoteData, setQuoteData } = useContext(MyContext);
+  return { quoteData, setQuoteData };
 }

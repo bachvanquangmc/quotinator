@@ -7,10 +7,10 @@ import SearchBar from "../comps/SearchBar";
 import SortTab from "../comps/SortTab";
 import QuoteCard from "../comps/QuoteCard";
 import PageBtn from "../comps/PageBtn";
-import router from "next/router"
+import router from "next/router";
 import { useRouter } from "next/router";
 import { useData } from "@/utils/provider";
-import { useFav } from "@/utils/provider";
+import { useFav, useQuoteData } from "@/utils/provider";
 import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
@@ -47,117 +47,87 @@ const BtnCont = styled.div`
 `;
 
 const NavBarCont = styled.div`
-position: -webkit-sticky;
-position: sticky;
-top: 0;
-`
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+`;
 
-
-var timer = null;
 export default function Results() {
+
+  useEffect(()=>{
+      const getQts = async () => {
+        const res = await ax.get("/api/quote")
+        if(res.data !== false) {
+          setQuoteData(res.data);
+        }
+      };
+      getQts();
+  }, []);
 
   const [data, setData] = useState([]);
   const [currpage, setCurrPage] = useState(1);
-  const [sbp, setSBP] = useState(false)
-  const [sbp_type, setSBPType] = useState("asc")
-  const [sba, setSBA] = useState(false)
-  const [sba_type, setSBAType] = useState("asc")
-  const router = useRouter()
+  const [sbp, setSBP] = useState(false);
+  const [sbp_type, setSBPType] = useState("asc");
+  const [sba, setSBA] = useState(false);
+  const [sba_type, setSBAType] = useState("asc");
+  const router = useRouter();
 
-  const {fav, setFav} = useFav()
+  const { fav, setFav } = useFav();
+  const { quoteData, setQuoteData } = useQuoteData({});
+
+
 
   const itemsPerPage = 10;
   var butt_arr = [];
 
   var start = 1;
   for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push(((i - 1) / itemsPerPage) + 1);
+    butt_arr.push((i - 1) / itemsPerPage + 1);
     // start++;
   }
 
   butt_arr = butt_arr.slice(currpage - 3 < 0 ? 0 : currpage - 2, currpage + 4);
 
-  // const getQuotes = async (p) => {
-  //   const res = await ax.get("/api/quotes", {
-  //     params: {
-  //       page: p,
-  //       num: itemsPerPage,
-  //     },
-  //   });
-  //   console.log(res.data);
-  //   setData(res.data);
-  //   setCutPage(p);
-  // };
 
-  //search by authors
-  const inputFilter = async (txt, p) => {
-    console.log(txt);
-    console.log(p);
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-
-    if (timer === null) {
-      timer = setTimeout(async (p) => {
-        console.log("async call");
-        const res = await ax.get("/api/quotes", {
-          params: {
-            txt: txt,
-            page:9,
-            num:itemsPerPage,
-            sort_popularity:sbp,
-            sort_popularity_type:sbp_type,
-            sort_author:sba,
-            sort_author_type:sba_type
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        setCurrPage(p);
-        timer = null;
-      }, 500);
+  const StoreFav = (checked, obj) => {
+    console.log(checked, obj);
+    if (checked) {
+      const new_fav = {
+        ...fav,
+      };
+      new_fav[obj.Quote] = obj;
+      setFav(new_fav);
+    } else {
+      const new_fav = {
+        ...fav,
+      };
+      delete new_fav[obj.Quote];
+      setFav(new_fav);
     }
   };
 
-  const StoreFav = (checked, obj)  => {
-    console.log(checked, obj)
-    if(checked){
-      const new_fav = {
-        ...fav
-      }
-      new_fav[obj.Quote] = obj
-      setFav(new_fav)
-    } else {
-      const new_fav = {
-        ...fav
-      }
-      delete new_fav[obj.Quote]
-      setFav(new_fav)
-    }
-  }
   return (
     <MainCont>
       <NavBarCont>
-        <Navbar goBack={()=>router.push('/')}/>
+        <Navbar goBack={() => router.push("/")} />
       </NavBarCont>
       <SubCont>
         <Header header="Search Your Quote" />
-        <SearchBar onChange={(e) => inputFilter(e.target.value)} />
-        <SortTab 
-        setSBPType={setSBPType}
-        setSBP={setSBP}
-        sbp={sbp}
-        sbp_type={sbp_type}
-        setSBAType={setSBAType}
-        setSBA={setSBA}
-        sba={sba}
-        sba_type={sba_type}
-    />
+        {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
+        <SortTab
+          setSBPType={setSBPType}
+          setSBP={setSBP}
+          sbp={sbp}
+          sbp_type={sbp_type}
+          setSBAType={setSBAType}
+          setSBA={setSBA}
+          sba={sba}
+          sba_type={sba_type}
+        />
       </SubCont>
-
+      
       <QuotCont>
-        {data.map((o, i) => (
+        {quoteData && Object.values(quoteData).map((o, i) => (
           <>
           {/* <input type="checkbox" 
           checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
@@ -176,6 +146,7 @@ export default function Results() {
           </>
           
         ))}
+       
          <BtnCont>
           {butt_arr.map((o, i) => (
             <div key={i}>
