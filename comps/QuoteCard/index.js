@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { useDrag, useDrop } from 'react-dnd';
 
 const QuoteCont = styled.div`
     display: flex;
@@ -12,6 +14,13 @@ const QuoteCont = styled.div`
     border: none;
     padding: 8px;
     margin: 20px 0px;
+    ${({ op }) => op && `opacity:${op}`}
+    ${({position, left, top})=>position === 'absolute' && `
+    left:${left}px;
+    top:${top}px;
+    position:${position};
+    z-index: 2;
+    `}
 `;
 
 const TextCont = styled.div`
@@ -59,48 +68,99 @@ const QuoteCard = ({
     onChange,
     checked,
     // imgSrc = "/heart_outline.png" ,
-    onclick = () => {}
+    onclick = () => { },
+
+    children = null,
+    item={}
 }) => {
 
     const [click, setClick] = useState(false)
     const [copied, setCopied] = useState(false);
 
-    const changeCopied=()=>{
-        setTimeout(()=>{
+    const changeCopied = () => {
+        setTimeout(() => {
             setCopied(false)
-        },1000)
+        }, 1000)
     }
+
+    const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
+        // "type" is required. It is used by the "accept" specification of drop targets.
+        type: 'quotecard',
+        item: item,
+        // The collect function utilizes a "monitor" instance (see the Overview for what this is)
+        // to pull important pieces of state from the DnD system.
+
+        // end: (item, monitor) => {
+        //   if(!monitor.didDrop()){
+        //     setPos({
+        //       left: monitor.getClientOffset().x,
+        //       top: monitor.getClientOffset().y,
+        //       position: 'fixed'
+        //     })
+        //   }
+        // },
+
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            coords: monitor.getClientOffset()
+        })
+    }))
+
+    // console.log(coords);
+
+    const style = {
+        left: null,
+        top: null,
+        position: null,
+    }
+
+    if(coords && isDragging) {
+        style.left = coords.x + 10;
+        style.top = coords.y;
+        style.position = 'absolute';
+    }
+
+
     return (
-        <QuoteCont>
+        <QuoteCont ref={dragPreview}
+            op={isDragging ? 0.5 : 1}
+            left={style.left}
+            top={style.top}
+            position={style.position}
+        >
+            <div ref={drag}>
+                {children}
+            </div>
+
             <TextCont>
-                <Text 
+                <Text
                     value={text}
                     onChange={() => {
-                    setCopied(false);
+                        setCopied(false);
                     }}
                 >"{text}"</Text>
                 <SubText> - {subText}</SubText>
             </TextCont>
             <ImgCont>
-            <span>
-
-                <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)}>
-
-                </Img>
                 <span>
-                    <input type="checkbox" 
-                        checked={checked}
-                        onChange={onChange}
+
+                    <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)}>
+
+                    </Img>
+                    <span>
+                        <input type="checkbox"
+                            checked={checked}
+                            onChange={onChange}
                         // style={{visibility:"hidden"}}
                         />
+                    </span>
                 </span>
-            </span>
                 <CopyToClipboard
                     options={{ debug: debug, message: "" }}
                     text={text}
                     onCopy={() => setCopied(true)}
                 >
-                <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"}/>
+                    <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
                 </CopyToClipboard>
             </ImgCont>
         </QuoteCont>
