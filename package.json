@@ -18,14 +18,9 @@
     "react": "17.0.2",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "17.0.2",
-<<<<<<< HEAD
-    "react-hook-form": "^7.26.1",
-    "styled-components": "^5.3.3"
-=======
     "react-hook-form": "^7.27.0",
     "styled-components": "^5.3.3",
     "uuidv4": "^6.2.12"
->>>>>>> ab12ed0fd0e38b8474e1593f7792de04d1303e40
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.0.2",
