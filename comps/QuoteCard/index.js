@@ -3,19 +3,22 @@ import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { useDrag, useDrop } from 'react-dnd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useTheme } from "../../utils/provider"
+import { global_theme } from "../../utils/variables";
 
 const QuoteCont = styled.div`
     display: flex;
     min-width: 350px;
     max-width: 400px;
     justify-content: center;
-    background-color: #E5DED6;
+    background-color:${props => props.bgcolor};
     font-family: 'Inter', sans-serif;
     border: none;
     padding: 8px;
     margin: 20px 0px;
     ${({ op }) => op && `opacity:${op}`}
-    ${({position, left, top})=>position === 'absolute' && `
+    ${({ position, left, top }) => position === 'absolute' && `
     left:${left}px;
     top:${top}px;
     position:${position};
@@ -66,16 +69,20 @@ const QuoteCard = ({
     subText = "Dr. Seuss",
     debug,
     onChange,
-    checked,
+
     // imgSrc = "/heart_outline.png" ,
     onclick = () => { },
 
     children = null,
-    item={}
+    item = {}
 }) => {
+
+    const { theme, setTheme } = useTheme()
 
     const [click, setClick] = useState(false)
     const [copied, setCopied] = useState(false);
+    const [checked, setChecked] = useState(false)
+
 
     const changeCopied = () => {
         setTimeout(() => {
@@ -114,7 +121,7 @@ const QuoteCard = ({
         position: null,
     }
 
-    if(coords && isDragging) {
+    if (coords && isDragging) {
         style.left = coords.x + 10;
         style.top = coords.y;
         style.position = 'absolute';
@@ -132,29 +139,46 @@ const QuoteCard = ({
                 {children}
             </div>
 
-            <TextCont>
-                <Text
-                    value={text}
-                    onChange={() => {
-                        setCopied(false);
-                    }}
-                >"{text}"</Text>
-                <SubText> - {subText}</SubText>
-            </TextCont>
-            <ImgCont>
-                <span>
+            <QuoteCont bgcolor={global_theme[theme].card}>
+                <TextCont>
+                    <Text
+                        value={text}
+                        onChange={() => {
+                            setCopied(false);
+                        }}
+                    >"{text}"</Text>
+                    <SubText> - {subText}</SubText>
+                </TextCont>
+                <ImgCont>
+                    <span>
 
-                    <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)}>
+                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)}>
+
+                        </Img>
+                        <span>
+                            <input type="checkbox"
+                                checked={checked}
+                                onChange={onChange}
+                            // style={{visibility:"hidden"}}
+                            />
+                        </span>
+                    </span>
+                    <Img title='Add to favorite' src={checked ? "/heart.png" : "/heart_outline.png"}
+                        // onClick={()=>setClick(!click)}
+                        onClick={() => setChecked(!false)}
+                        onChange={onChange}
+                    // checked={checked}
+                    >
 
                     </Img>
-                    <span>
-                        <input type="checkbox"
-                            checked={checked}
-                            onChange={onChange}
+                    {/* <span>
+                    <input type="checkbox" 
+                        checked={checked}
+                        onChange={onChange}
                         // style={{visibility:"hidden"}}
                         />
-                    </span>
-                </span>
+                </span> */}
+                </ImgCont>
                 <CopyToClipboard
                     options={{ debug: debug, message: "" }}
                     text={text}
@@ -162,7 +186,7 @@ const QuoteCard = ({
                 >
                     <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
                 </CopyToClipboard>
-            </ImgCont>
+            </QuoteCont>
         </QuoteCont>
     )
 }
