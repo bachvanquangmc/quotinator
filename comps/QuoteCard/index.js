@@ -57,13 +57,15 @@ const QuoteCard = ({
     subText = "Dr. Seuss",
     debug,
     onChange,
-    checked,
+   
     // imgSrc = "/heart_outline.png" ,
     onclick = () => {}
 }) => {
 
     const [click, setClick] = useState(false)
     const [copied, setCopied] = useState(false);
+  const [checked, setChecked] = useState(false)
+
 
     const changeCopied=()=>{
         setTimeout(()=>{
@@ -84,16 +86,21 @@ const QuoteCard = ({
             <ImgCont>
             <span>
 
-                <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={()=>setClick(!click)}>
+                <Img title='Add to favorite' src={checked ? "/heart.png" : "/heart_outline.png"} 
+                // onClick={()=>setClick(!click)}
+                onClick={()=>setChecked(!false)}
+                onChange={onChange}
+                // checked={checked}
+                >
 
                 </Img>
-                <span>
+                {/* <span>
                     <input type="checkbox" 
                         checked={checked}
                         onChange={onChange}
                         // style={{visibility:"hidden"}}
                         />
-                </span>
+                </span> */}
             </span>
                 <CopyToClipboard
                     options={{ debug: debug, message: "" }}

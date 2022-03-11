@@ -15,6 +15,8 @@ import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
 
+import { useSBP } from "@/utils/provider";
+
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
@@ -55,16 +57,22 @@ top: 0;
 
 var timer = null;
 export default function Results() {
+  useEffect(()=>{
+    
+  },[])
 
   const [data, setData] = useState([]);
   const [currpage, setCurrPage] = useState(1);
-  const [sbp, setSBP] = useState(false)
+  // const [sbp, setSBP] = useState(false)
   const [sbp_type, setSBPType] = useState("asc")
   const [sba, setSBA] = useState(false)
   const [sba_type, setSBAType] = useState("asc")
   const router = useRouter()
 
   const {fav, setFav} = useFav()
+  const {sbp, setSBP} = useSBP()
+
+  console.log(sbp)
 
   const itemsPerPage = 10;
   var butt_arr = [];
@@ -92,7 +100,7 @@ export default function Results() {
   //search by authors
   const inputFilter = async (txt, p) => {
     console.log(txt);
-    console.log(p);
+    // console.log(p);
     if (timer) {
       clearTimeout(timer);
       timer = null;
@@ -100,16 +108,15 @@ export default function Results() {
 
     if (timer === null) {
       timer = setTimeout(async (p) => {
-        console.log("async call");
+        // console.log("async call");
         const res = await ax.get("/api/quotes", {
           params: {
             txt: txt,
             page:9,
             num:itemsPerPage,
             sort_popularity:sbp,
-            sort_popularity_type:sbp_type,
-            sort_author:sba,
-            sort_author_type:sba_type
+            // sort_author:sbp,
+            // sort_author_type:sba_type
           },
         });
         console.log(res.data);
@@ -119,6 +126,12 @@ export default function Results() {
       }, 500);
     }
   };
+
+  // useEffect(()=>{
+
+  //   inputFilter()
+  //   // console.log("baba")
+  // },[sbp])
 
   const StoreFav = (checked, obj)  => {
     console.log(checked, obj)
@@ -144,26 +157,11 @@ export default function Results() {
       <SubCont>
         <Header header="Search Your Quote" />
         <SearchBar onChange={(e) => inputFilter(e.target.value)} />
-        <SortTab 
-        setSBPType={setSBPType}
-        setSBP={setSBP}
-        sbp={sbp}
-        sbp_type={sbp_type}
-        setSBAType={setSBAType}
-        setSBA={setSBA}
-        sba={sba}
-        sba_type={sba_type}
-    />
       </SubCont>
 
       <QuotCont>
         {data.map((o, i) => (
           <>
-          {/* <input type="checkbox" 
-          checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-          onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }/> */}
           <QuoteCard
             key={i}
             text={o.Quote}
