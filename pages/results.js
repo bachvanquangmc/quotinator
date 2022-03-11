@@ -192,9 +192,6 @@ export default function Results() {
         <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
-
-      {/* <Chat/>
-      <ChatIcon /> */}
     </MainCont>
   );
 }
