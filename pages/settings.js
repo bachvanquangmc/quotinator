@@ -5,6 +5,7 @@ import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
 import { useTheme } from "../utils/provider";
+import { global_theme } from "../utils/variables";
 import { Slider } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -28,7 +29,7 @@ const QuotCont = styled.div`
 const CardCont = styled.div`
   flex-basis: 90%;
   min-height: 600px;
-  background: #e5ded6;
+  background-color:${props => props.bgcolor};
   margin-bottom: 5rem;
 `;
 const RowCont = styled.div`
@@ -65,7 +66,7 @@ export default function Settings() {
       </SubCont>
 
       <QuotCont>
-        <CardCont>
+        <CardCont bgcolor={global_theme[theme].card}>
           <RowCont>
             <p style={{ color: "black" }}>DARK MODE</p>
             <SwitchTab

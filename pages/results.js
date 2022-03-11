@@ -15,6 +15,9 @@ import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
 
+import { Player } from '@lottiefiles/react-lottie-player';
+
+
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,18 +57,28 @@ const NavBarCont = styled.div`
 
 export default function Results() {
 
+  const [ load, setLoad ] = useState(true);
+
+
   useEffect(()=>{
-      const getQts = async () => {
-        const res = await ax.get("/api/quote")
+
+    setTimeout(()=>{
+      setLoad(false);
+    }, 4000);
+
+
+      const getQts = async (p) => {
+        const res = await ax.get("/api/quotes")
         if(res.data !== false) {
           setQuoteData(res.data);
+          setCurPage(p);
         }
       };
       getQts();
   }, []);
 
   const [data, setData] = useState([]);
-  const [currpage, setCurrPage] = useState(1);
+  const [curpage, setCurPage] = useState(1);
   const [sbp, setSBP] = useState(false);
   const [sbp_type, setSBPType] = useState("asc");
   const [sba, setSBA] = useState(false);
@@ -82,11 +95,11 @@ export default function Results() {
 
   var start = 1;
   for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push((i - 1) / itemsPerPage + 1);
-    // start++;
+    butt_arr.push(((i - 1) / itemsPerPage) + 1);
+    start++;
   }
 
-  butt_arr = butt_arr.slice(currpage - 3 < 0 ? 0 : currpage - 2, currpage + 4);
+  butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
 
 
   const StoreFav = (checked, obj) => {
@@ -105,6 +118,43 @@ export default function Results() {
       setFav(new_fav);
     }
   };
+
+  // const lottieAnim = {
+  //   loop: false,
+  //   autoplay: true,
+  //   animationData: "/loader.json",
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice",
+  //   },
+
+  // }
+
+  // const [lot, setLot] = useState(null);
+
+  if(load === true) {
+    return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
+      <div >
+      {/* 
+        <div>
+          <Player
+            lottieRef={instance => {
+              setLot({ lot: instance }); // the lottie instance is returned in the argument of this prop. set it to your local state
+            }}
+            autoplay={true}
+            loop={true}
+            controls={false}
+            src="/loader.json"
+            style={{ height: '350px', width: '350px' }}
+          ></Player>
+        </div> */}
+        <NavBarCont >
+          <Navbar />
+        </NavBarCont>
+      </div>
+        <p style={{zIndex: 100}}>LOADING....</p>
+
+    </MainCont>
+  }
 
   return (
     <MainCont>
@@ -154,7 +204,7 @@ export default function Results() {
               <PageBtn 
               // style={{ background: o === cutpage ? "pink" : "white" }}
               // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
-              onclick={() => getQuotes(o)} page_num={o} />
+              onclick={() => getQts(o)} page_num={o} />
             </div>
           ))}
         </BtnCont>

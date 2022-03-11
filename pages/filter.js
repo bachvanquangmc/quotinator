@@ -17,7 +17,7 @@ import PageBtn from "../comps/PageBtn";
 
 import Switch from "../comps/Switch";
 import { useRouter } from "next/router";
-import { useData } from "../utils/provider";
+import { useQuoteData } from "../utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -86,13 +86,13 @@ export default function Filter() {
   const [sbp_type, setSBPType] = useState("asc");
   const [sba, setSBA] = useState(false);
   const [sba_type, setSBAType] = useState("asc");
-  const [showQuote, setShowQuote] = useState(false);
 
-  const [data, setData] = useState([]);
   const [cutpage, setCutPage] = useState(1);
 
   const r = useRouter();
+  
   const {fav, setFav} = useFav()
+  const { quoteData, setQuoteData } = useQuoteData({});
 
 
   const itemsPerPage = 10;
@@ -131,7 +131,7 @@ export default function Filter() {
     });
     console.log(res.data);
     console.log(p);
-    setData(res.data);
+    setQuoteData(res.data);
     setCutPage(p)
   };
 
@@ -151,7 +151,6 @@ export default function Filter() {
       setFav(new_fav)
     }
   }
-  if (showQuote === false) {
     return (
       <MainCont>
           <NavBarCont>
@@ -212,55 +211,27 @@ export default function Filter() {
             text="Continue"
             onClick={async () => {
               getQuotes();
-              setShowQuote(true);
+              setQuoteData(quoteData);
+              r.push('/results')
             }}
           />
         </TCMainCont>
       </MainCont>
     );
-  } return (
-    <MainCont>
-        <NavBarCont>
-            <Navbar  goBack={()=>setShowQuote(false)}/>
-
-        </NavBarCont>
-
-    <Header header="Base on Your Choice" />
-    <Btn
-            text="Sort your selection"
-            onClick={async () => {
-              getQuotes();
-              setShowQuote(true);
-            }}
-          />
-    <SortTab 
-        setSBPType={setSBPType}
-        setSBP={setSBP}
-        sbp={sbp}
-        sbp_type={sbp_type}
-        setSBAType={setSBAType}
-        setSBA={setSBA}
-        sba={sba}
-        sba_type={sba_type}
-    />
-    <QuoteCont>
-        {data.map((o, i) => (
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author} 
-            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-            onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }
-          />
-        ))}
-        <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+ 
+    // <QuoteCont>
+    //     {data.map((o, i) => (
+    //       <QuoteCard
+    //         key={i}
+    //         text={o.Quote}
+    //         subText={o.Author} 
+    //         checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+    //         onChange={
+    //         (e)=>StoreFav(e.target.checked, o)
+    //       }
+    //       />
+    //     ))}
+    //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
         
-    </QuoteCont>
-  </MainCont>
-
-  );
-
-  
-}
+    // </QuoteCont>
+};

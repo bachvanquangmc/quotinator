@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { useTheme } from "../../utils/provider"
+import { global_theme } from "../../utils/variables";
 
 const QuoteCont = styled.div`
     display: flex;
     min-width: 350px;
     max-width: 400px;
     justify-content: center;
-    background-color: #E5DED6;
+    background-color:${props => props.bgcolor};
     font-family: 'Inter', sans-serif;
     border: none;
     padding: 8px;
@@ -62,6 +64,8 @@ const QuoteCard = ({
     onclick = () => {}
 }) => {
 
+    const {theme, setTheme} = useTheme()
+
     const [click, setClick] = useState(false)
     const [copied, setCopied] = useState(false);
 
@@ -71,7 +75,7 @@ const QuoteCard = ({
         },1000)
     }
     return (
-        <QuoteCont>
+        <QuoteCont bgcolor={global_theme[theme].card}>
             <TextCont>
                 <Text 
                     value={text}
