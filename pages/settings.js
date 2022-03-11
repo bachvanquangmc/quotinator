@@ -8,6 +8,7 @@ import { useTheme } from "../utils/provider";
 import { global_theme } from "../utils/variables";
 import { Slider } from "@mui/material";
 import { useRouter } from "next/router";
+import { useSBP } from "../utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -50,7 +51,9 @@ export default function Settings() {
 
   const [cut, setCut] = useState(10);
 
+  const {sbp, setSBP} = useSBP()
 
+  console.log(sbp)
   return (
     <MainCont>
       <NavBarCont>
@@ -68,10 +71,26 @@ export default function Settings() {
       <QuotCont>
         <CardCont bgcolor={global_theme[theme].card}>
           <RowCont>
-            <p style={{ color: "black" }}>DARK MODE</p>
+            <p style={{ color: "black" }}>Dark Mode</p>
             <SwitchTab
               onSwitchClick={() => {
                 setTheme(theme === "dark" ? "default" : "dark");
+              }}
+            />
+          </RowCont>
+          <RowCont>
+            <p style={{ color: "black" }}>Display Quotes by Popularity</p>
+            <SwitchTab
+              onSwitchClick={() => {
+               setSBP("Popularity")
+              }}
+            />
+          </RowCont>
+          <RowCont>
+            <p style={{ color: "black" }}>Sort Authors Alphabetically</p>
+            <SwitchTab
+              onSwitchClick={() => {
+                setSBP("Author")
               }}
             />
           </RowCont>

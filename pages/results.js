@@ -15,7 +15,9 @@ import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
 
+
 import { Player } from '@lottiefiles/react-lottie-player';
+import { useSBP } from "@/utils/provider";
 
 
 const MainCont = styled.div`
@@ -56,6 +58,9 @@ const NavBarCont = styled.div`
 `;
 
 export default function Results() {
+  useEffect(()=>{
+    
+  },[])
 
   const [ load, setLoad ] = useState(true);
 
@@ -78,6 +83,7 @@ export default function Results() {
   }, []);
 
   const [data, setData] = useState([]);
+
   const [curpage, setCurPage] = useState(1);
   const [sbp, setSBP] = useState(false);
   const [sbp_type, setSBPType] = useState("asc");
@@ -87,7 +93,9 @@ export default function Results() {
 
   const { fav, setFav } = useFav();
   const { quoteData, setQuoteData } = useQuoteData({});
+  const {sbp, setSBP} = useSBP()
 
+  console.log(sbp)
 
 
   const itemsPerPage = 10;
@@ -99,12 +107,59 @@ export default function Results() {
     start++;
   }
 
-  butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
+  butt_arr = butt_arr.slice(currpage - 3 < 0 ? 0 : currpage - 2, currpage + 4);
 
+  // const getQuotes = async (p) => {
+  //   const res = await ax.get("/api/quotes", {
+  //     params: {
+  //       page: p,
+  //       num: itemsPerPage,
+  //     },
+  //   });
+  //   console.log(res.data);
+  //   setData(res.data);
+  //   setCutPage(p);
+  // };
 
-  const StoreFav = (checked, obj) => {
-    console.log(checked, obj);
-    if (checked) {
+  //search by authors
+  const inputFilter = async (txt, p) => {
+    console.log(txt);
+    // console.log(p);
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+
+    if (timer === null) {
+      timer = setTimeout(async (p) => {
+        // console.log("async call");
+        const res = await ax.get("/api/quotes", {
+          params: {
+            txt: txt,
+            page:9,
+            num:itemsPerPage,
+            sort_popularity:sbp,
+            // sort_author:sbp,
+            // sort_author_type:sba_type
+          },
+        });
+        console.log(res.data);
+        setData(res.data);
+        setCurrPage(p);
+        timer = null;
+      }, 500);
+    }
+  };
+
+  // useEffect(()=>{
+
+  //   inputFilter()
+  //   // console.log("baba")
+  // },[sbp])
+
+  const StoreFav = (checked, obj)  => {
+    console.log(checked, obj)
+    if(checked){
       const new_fav = {
         ...fav,
       };
@@ -163,6 +218,7 @@ export default function Results() {
       </NavBarCont>
       <SubCont>
         <Header header="Search Your Quote" />
+
         {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
         <SortTab
           setSBPType={setSBPType}
@@ -174,16 +230,12 @@ export default function Results() {
           sba={sba}
           sba_type={sba_type}
         />
+
       </SubCont>
       
       <QuotCont>
         {quoteData && Object.values(quoteData).map((o, i) => (
           <>
-          {/* <input type="checkbox" 
-          checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-          onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }/> */}
           <QuoteCard
             key={i}
             text={o.Quote}

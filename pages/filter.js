@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ax from 'axios';
 import Navbar from '../comps/Navbar';
@@ -17,7 +17,11 @@ import PageBtn from "../comps/PageBtn";
 
 import Switch from "../comps/Switch";
 import { useRouter } from "next/router";
+
 import { useQuoteData } from "../utils/provider";
+
+import { useData } from "../utils/provider";
+import { useSBP } from "@/utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -82,10 +86,11 @@ export default function Filter() {
   const [value, setValue] = useState(false);
 
   //sorting
-  const [sbp, setSBP] = useState(false);
   const [sbp_type, setSBPType] = useState("asc");
+
   const [sba, setSBA] = useState(false);
   const [sba_type, setSBAType] = useState("asc");
+
 
   const [cutpage, setCutPage] = useState(1);
 
@@ -93,6 +98,10 @@ export default function Filter() {
   
   const {fav, setFav} = useFav()
   const { quoteData, setQuoteData } = useQuoteData({});
+
+  const {sbp, setSBP} = useSBP()
+
+
 
 
   const itemsPerPage = 10;
@@ -122,9 +131,6 @@ export default function Filter() {
         wisdom: wisdom,
         art: art,
         sort_popularity: sbp,
-        sort_popularity_type: sbp_type,
-        sort_author: sba,
-        sort_author_type: sba_type,
         page: p,
         num: itemsPerPage
       },
@@ -134,6 +140,7 @@ export default function Filter() {
     setQuoteData(res.data);
     setCutPage(p)
   };
+
 
   const StoreFav = (checked, obj)  => {
     console.log(checked, obj)
@@ -197,16 +204,7 @@ export default function Filter() {
             <CardCont onClick={()=> setArt(art ? null : "art")}>
                 <TopicCard text="Art" src="/TopicCardIcons/art.png" />
             </CardCont>
-            {/* <SortTab 
-                setSBPType={setSBPType}
-                setSBP={setSBP}
-                sbp={sbp}
-                sbp_type={sbp_type}
-                setSBAType={setSBAType}
-                setSBA={setSBA}
-                sba={sba}
-                sba_type={sba_type}
-            /> */}
+           
           <Btn style={{ flexBasis:"800px"}}
             text="Continue"
             onClick={async () => {
@@ -232,6 +230,29 @@ export default function Filter() {
     //       />
     //     ))}
     //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+
+  } return (
+    <MainCont>
+        <NavBarCont>
+            <Navbar  goBack={()=>setShowQuote(false)}/>
+        </NavBarCont>
+
+    <Header header="Base on Your Choice" />
+   
+    <QuoteCont>
+        {data.map((o, i) => (
+          <QuoteCard
+            key={i}
+            text={o.Quote}
+            subText={o.Author} 
+            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+            onChange={
+            (e)=>StoreFav(e.target.checked, o)
+          }
+          />
+        ))}
+        <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+
         
     // </QuoteCont>
 };
