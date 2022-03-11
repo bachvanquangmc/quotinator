@@ -5,8 +5,10 @@ import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
 import { useTheme } from "../utils/provider";
+import { global_theme } from "../utils/variables";
 import { Slider } from "@mui/material";
 import { useRouter } from "next/router";
+import { useSBP } from "../utils/provider";
 
 const MainCont = styled.div`
   display: flex;
@@ -28,7 +30,7 @@ const QuotCont = styled.div`
 const CardCont = styled.div`
   flex-basis: 90%;
   min-height: 600px;
-  background: #e5ded6;
+  background-color:${props => props.bgcolor};
   margin-bottom: 5rem;
 `;
 const RowCont = styled.div`
@@ -49,7 +51,9 @@ export default function Settings() {
 
   const [cut, setCut] = useState(10);
 
+  const {sbp, setSBP} = useSBP()
 
+  console.log(sbp)
   return (
     <MainCont>
       <NavBarCont>
@@ -65,12 +69,28 @@ export default function Settings() {
       </SubCont>
 
       <QuotCont>
-        <CardCont>
+        <CardCont bgcolor={global_theme[theme].card}>
           <RowCont>
-            <p style={{ color: "black" }}>DARK MODE</p>
+            <p style={{ color: "black" }}>Dark Mode</p>
             <SwitchTab
               onSwitchClick={() => {
                 setTheme(theme === "dark" ? "default" : "dark");
+              }}
+            />
+          </RowCont>
+          <RowCont>
+            <p style={{ color: "black" }}>Display Quotes by Popularity</p>
+            <SwitchTab
+              onSwitchClick={() => {
+               setSBP("Popularity")
+              }}
+            />
+          </RowCont>
+          <RowCont>
+            <p style={{ color: "black" }}>Sort Authors Alphabetically</p>
+            <SwitchTab
+              onSwitchClick={() => {
+                setSBP("Author")
               }}
             />
           </RowCont>

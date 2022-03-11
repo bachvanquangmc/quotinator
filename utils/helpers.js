@@ -12,3 +12,7 @@ export async function Read() {
   console.log(allfs);
   return allfs;
 }
+
+// export async function Get() {
+
+// }
