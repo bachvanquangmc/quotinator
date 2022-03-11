@@ -14,6 +14,8 @@ import { useFav } from "@/utils/provider";
 import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
+import Chat from '../comps/Chat';
+import ChatIcon from '../comps/ChatIcon';
 
 const MainCont = styled.div`
   display: flex;
@@ -190,6 +192,9 @@ export default function Results() {
         <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
+
+      {/* <Chat/>
+      <ChatIcon /> */}
     </MainCont>
   );
 }

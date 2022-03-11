@@ -11,6 +11,7 @@ import Subheader from '../comps/Subheader'
 import { useTheme } from "../utils/provider"
 import {global_theme } from '../utils/variables'
 
+
 const MainCont = styled.div`
   display:flex;
   flex-direction:column;
