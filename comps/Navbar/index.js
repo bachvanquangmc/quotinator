@@ -53,7 +53,6 @@ const Burger = styled.div`
   justify-content:space-around;
   flex-flow:column nowrap;
   z-index:20;
-
   div{
     width:2rem;
     height:0.25rem;
@@ -62,7 +61,6 @@ const Burger = styled.div`
     border-radius:10px;
     transform-origin: 1px;
     transition: all 0.3s linear;
-
     &:nth-child(1){
       transform:${({open}) => open ? 'rotate(45deg)' : 'rotate(0)'};
     }

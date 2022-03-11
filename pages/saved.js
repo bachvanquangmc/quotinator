@@ -5,7 +5,12 @@ import Header from '../comps/Header'
 import Subheader from '../comps/Subheader'
 import QuoteCard from '../comps/QuoteCard';
 import PageBtn from '../comps/PageBtn';
+import TrashBin from '../comps/TrashBin';
 import { router, useRouter } from 'next/router';
+
+import { TouchBackend } from 'react-dnd-touch-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 
 
 const MainCont = styled.div`
@@ -42,28 +47,48 @@ const FooterCont = styled.div`
     align-items: center;
     margin: 20px 0px;
 `;
+
 const NavBarCont = styled.div`
 position: -webkit-sticky;
 position: sticky;
 top: 0;
-`
+`;
+
+const TrashCont = styled.div`
+    display: flex;
+`;
+
 
 export default function Saved() {
     const router = useRouter()
     return (
         <MainCont>
             <NavBarCont>
-                <Navbar goBack={()=>router.push('/')}/>
+                <Navbar goBack={() => router.push('/')} />
             </NavBarCont>
             <HeaderCont>
                 <Header header="Saved" />
-                <Subheader subheader="Favorite stored quotes" />
+                <Subheader subheader="Favourite stored quotes" />
             </HeaderCont>
 
-            <QuoteCont>
-                <QuoteCard imgSrc="/heart_outline_blk.png" />
-                <QuoteCard imgSrc="/heart_outline_blk.png" />
-            </QuoteCont>
+
+
+            <DndProvider backend={TouchBackend} options={{
+                enableTouchEvents: false,
+                enableMouseEvents: true
+            }}>
+
+                <QuoteCont>
+                    <QuoteCard imgSrc="/heart_outline_blk.png" />
+                    <QuoteCard imgSrc="/heart_outline_blk.png" />
+                </QuoteCont>
+
+                <TrashCont>
+                    <TrashBin />
+                </TrashCont>
+            </DndProvider>
+
+
 
             <FooterCont>
                 <PageBtn />
