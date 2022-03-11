@@ -14,6 +14,7 @@ import Header from "../comps/Header";
 import Subheader from "../comps/Subheader";
 import SearchBar from "@/comps/SearchBar";
 
+
 const MainCont = styled.div`
   display: flex;
   flex-direction: column;

@@ -14,6 +14,8 @@ import { useFav, useQuoteData } from "@/utils/provider";
 import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
+import Chat from '../comps/Chat';
+import ChatIcon from '../comps/ChatIcon';
 
 
 import { Player } from '@lottiefiles/react-lottie-player';
