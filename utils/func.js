@@ -1,5 +1,5 @@
 const quotes = require("./quotes.json");
-import {useQuote} from '@/utils/provider'; 
+// import {useQuote} from '@/utils/provider'; 
 export function GoToPage(qts = [], page = 1, num = 5) {
   const results = qts.slice((page - 1) * num, page * num);
   console.log(results);
@@ -151,10 +151,11 @@ export function sorting(
      
       return 0
     })
-    // console.log(arr.slice(0,10))
+    console.log(arr.slice(0,10))
     return arr
   }
 }
+
 
 export function numbering(quo = [], page = 1, num = 5) {
   // const {qts, setQts} = useQuote();
