@@ -3,12 +3,12 @@ import { GoToPage, filtering, sorting, searching, numbering } from '../../utils/
 
 export default function handler(req, res) {
   
-    var lists = []
+    var lists = null
     var mypage = null
     const num = req.query.num || 15
     const {sort_popularity, sort_author, sort_author_type} = req.query
  
-  const {humor, life, success, inspirational, religion, love, philosophy, books, death, hope, wisdom, art, txt, qts} = req.query
+    const {humor, life, success, inspirational, religion, love, philosophy, books, death, hope, wisdom, art, txt, qts} = req.query
 
     // const quote = quotes.slice(0,10);
     if(humor || life || success || inspirational || religion || love || philosophy || books || death || hope || wisdom || art){
@@ -69,9 +69,10 @@ export default function handler(req, res) {
         
     }
 
-    if(qts){
+    if(req.query.page){
       console.log(qts)
-      lists = numbering(quotes, qts);
+      const num = req.body.num || 10;
+      lists = GoToPage(quotes, req.query.page, 10);
     }
 
     lists = lists.map((o,i)=>{
@@ -79,7 +80,6 @@ export default function handler(req, res) {
         ...o, id:i,
         
     }
-})
-
-res.status(200).json(lists, mypage);
+  })
+  res.status(200).json(lists);
 }

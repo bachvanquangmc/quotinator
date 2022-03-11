@@ -7,6 +7,8 @@ const MainCont = styled.div`
     display: flex;
     /* justify-content: center; */
     /* align-items: center; */
+    width: 50%;
+    margin: 30px;
 `;
 
 const Form = styled.div`
@@ -49,12 +51,13 @@ const Input = styled.input`
 
 
 const SearchBar = ({
-    onChange=()=>{}
+    onChange=()=>{},
+    onKeyPress=()=>{}
 }) => {
-    return <MainCont onChange={onChange}>
+    return <MainCont>
         <Form>
             <SearchIcon src="/search-black.png"></SearchIcon>
-            <Input type="search" placeholder="Search by Keyword..." onChange={onChange}></Input>
+            <Input type="search" placeholder="Search by Keyword..." onChange={onChange} onKeyPress={onKeyPress}></Input>
         </Form>
     </MainCont>
 }
