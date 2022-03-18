@@ -65,7 +65,7 @@ export function useQuote() {
 export function useQuoteData() {
   const { quoteData, setQuoteData } = useContext(MyContext);
   return { quoteData, setQuoteData };
-
+}
 
 export function useSBP(){
   const {sbp, setSBP} = useContext(MyContext)

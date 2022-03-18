@@ -95,11 +95,11 @@ export default function Filter() {
   const [cutpage, setCutPage] = useState(1);
 
   const r = useRouter();
-  
-  const {fav, setFav} = useFav()
+
+  const { fav, setFav } = useFav()
   const { quoteData, setQuoteData } = useQuoteData({});
 
-  const {sbp, setSBP} = useSBP()
+  const { sbp, setSBP } = useSBP()
 
 
 
@@ -142,9 +142,9 @@ export default function Filter() {
   };
 
 
-  const StoreFav = (checked, obj)  => {
+  const StoreFav = (checked, obj) => {
     console.log(checked, obj)
-    if(checked){
+    if (checked) {
       const new_fav = {
         ...fav
       }
@@ -158,101 +158,102 @@ export default function Filter() {
       setFav(new_fav)
     }
   }
-    return (
-      <MainCont>
-          <NavBarCont>
-            <Navbar goBack={()=>r.push('/')}/>
-          </NavBarCont>
-
-        <Header header="Select a Category" />
-
-        <TCMainCont>
-            {/* <CardCont onClick={()=> setOptions("humor")} > */}
-            <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
-                <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
-            </CardCont>
-            <CardCont onClick={()=> setLife(life ? null : "life")}>
-                <TopicCard text="Life" src="/TopicCardIcons/life.png" />
-            </CardCont>
-            <CardCont onClick={()=> setSuccess(success ? null : "success")}>
-                <TopicCard text="Success" src="/TopicCardIcons/success.png" />
-            </CardCont>
-            <CardCont onClick={()=> setInspirational(inspirational ? null : "inspirational")}>
-                <TopicCard text="Inspirational" src="/TopicCardIcons/inspirational.png" />
-            </CardCont>
-            <CardCont onClick={()=> setReligion(religion ? null : "religion")}>
-                <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
-            </CardCont>
-            <CardCont onClick={()=> setLove(love ? null : "love")}>
-                <TopicCard text="Love" src="/TopicCardIcons/love.png" />
-            </CardCont>
-            <CardCont onClick={()=> setPhilosophy(philosophy ? null : "philosophy")}>
-                <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
-            </CardCont>
-            <CardCont onClick={()=> setBooks(books ? null : "books")}>
-                <TopicCard text="Books" src="/TopicCardIcons/books.png" />
-            </CardCont>
-            <CardCont onClick={()=> setDeath(death ? null : "death")}>
-                <TopicCard text="Death" src="/TopicCardIcons/death.png" />
-            </CardCont>
-            <CardCont onClick={()=> setHope(hope ? null : "hope")}>
-                <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
-            </CardCont>
-            <CardCont onClick={()=> setWisdom(wisdom ? null : "wisdom")}>
-                <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
-            </CardCont>
-            <CardCont onClick={()=> setArt(art ? null : "art")}>
-                <TopicCard text="Art" src="/TopicCardIcons/art.png" />
-            </CardCont>
-           
-          <Btn style={{ flexBasis:"800px"}}
-            text="Continue"
-            onClick={async () => {
-              getQuotes();
-              setQuoteData(quoteData);
-              r.push('/results')
-            }}
-          />
-        </TCMainCont>
-      </MainCont>
-    );
- 
-    // <QuoteCont>
-    //     {data.map((o, i) => (
-    //       <QuoteCard
-    //         key={i}
-    //         text={o.Quote}
-    //         subText={o.Author} 
-    //         checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-    //         onChange={
-    //         (e)=>StoreFav(e.target.checked, o)
-    //       }
-    //       />
-    //     ))}
-    //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
-
-  } return (
+  return (
     <MainCont>
-        <NavBarCont>
-            <Navbar  goBack={()=>setShowQuote(false)}/>
-        </NavBarCont>
+      <NavBarCont>
+        <Navbar goBack={() => r.push('/')} />
+      </NavBarCont>
 
-    <Header header="Base on Your Choice" />
-   
-    <QuoteCont>
-        {data.map((o, i) => (
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author} 
-            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-            onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }
-          />
-        ))}
-        <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+      <Header header="Select a Category" />
 
-        
-    // </QuoteCont>
+      <TCMainCont>
+        {/* <CardCont onClick={()=> setOptions("humor")} > */}
+        <CardCont onClick={() => setHumor(humor ? null : "humor")}>
+          <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
+        </CardCont>
+        <CardCont onClick={() => setLife(life ? null : "life")}>
+          <TopicCard text="Life" src="/TopicCardIcons/life.png" />
+        </CardCont>
+        <CardCont onClick={() => setSuccess(success ? null : "success")}>
+          <TopicCard text="Success" src="/TopicCardIcons/success.png" />
+        </CardCont>
+        <CardCont onClick={() => setInspirational(inspirational ? null : "inspirational")}>
+          <TopicCard text="Inspirational" src="/TopicCardIcons/inspirational.png" />
+        </CardCont>
+        <CardCont onClick={() => setReligion(religion ? null : "religion")}>
+          <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
+        </CardCont>
+        <CardCont onClick={() => setLove(love ? null : "love")}>
+          <TopicCard text="Love" src="/TopicCardIcons/love.png" />
+        </CardCont>
+        <CardCont onClick={() => setPhilosophy(philosophy ? null : "philosophy")}>
+          <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
+        </CardCont>
+        <CardCont onClick={() => setBooks(books ? null : "books")}>
+          <TopicCard text="Books" src="/TopicCardIcons/books.png" />
+        </CardCont>
+        <CardCont onClick={() => setDeath(death ? null : "death")}>
+          <TopicCard text="Death" src="/TopicCardIcons/death.png" />
+        </CardCont>
+        <CardCont onClick={() => setHope(hope ? null : "hope")}>
+          <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
+        </CardCont>
+        <CardCont onClick={() => setWisdom(wisdom ? null : "wisdom")}>
+          <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
+        </CardCont>
+        <CardCont onClick={() => setArt(art ? null : "art")}>
+          <TopicCard text="Art" src="/TopicCardIcons/art.png" />
+        </CardCont>
+
+        <Btn style={{ flexBasis: "800px" }}
+          text="Continue"
+          onClick={async () => {
+            getQuotes();
+            setQuoteData(quoteData);
+            r.push('/results')
+          }}
+        />
+      </TCMainCont>
+    </MainCont>
+  );
+
+  // <QuoteCont>
+  //     {data.map((o, i) => (
+  //       <QuoteCard
+  //         key={i}
+  //         text={o.Quote}
+  //         subText={o.Author} 
+  //         checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+  //         onChange={
+  //         (e)=>StoreFav(e.target.checked, o)
+  //       }
+  //       />
+  //     ))}
+  //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+
+// } return (
+//   <MainCont>
+//     <NavBarCont>
+//       <Navbar goBack={() => setShowQuote(false)} />
+//     </NavBarCont>
+
+//     <Header header="Base on Your Choice" />
+
+//     <QuoteCont>
+//       {data.map((o, i) => (
+//         <QuoteCard
+//           key={i}
+//           text={o.Quote}
+//           subText={o.Author}
+//           checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+//           onChange={
+//             (e) => StoreFav(e.target.checked, o)
+//           }
+//         />
+//       ))}
+//       <Btn onClick={() => r.push(`/saved/${uuidv4()}`)} text='Add to Favorite' />
+
+
+//     </QuoteCont>
+//   </MainCont>
 };
