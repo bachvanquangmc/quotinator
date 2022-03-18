@@ -98,22 +98,7 @@ export default function Filter() {
 
   const { fav, setFav } = useFav()
   const { quoteData, setQuoteData } = useQuoteData({});
-
-  const { sbp, setSBP } = useSBP()
-
-
-
-
-  const itemsPerPage = 10;
-  var butt_arr = [];
-
-  var start = 1;
-  for (var i = 1; i < 20000; i += itemsPerPage) {
-    butt_arr.push((i - 1) / itemsPerPage + 1);
-    start++;
-  }
-
-  butt_arr = butt_arr.slice(cutpage - 3 < 0 ? 0 : cutpage - 2, cutpage + 4);
+  const {sbp, setSBP} = useSBP()
 
   const getQuotes = async (p) => {
     const res = await ax.get("./api/quotes", {
@@ -131,14 +116,10 @@ export default function Filter() {
         wisdom: wisdom,
         art: art,
         sort_popularity: sbp,
-        page: p,
-        num: itemsPerPage
       },
     });
     console.log(res.data);
-    console.log(p);
     setQuoteData(res.data);
-    setCutPage(p)
   };
 
 
@@ -223,6 +204,12 @@ export default function Filter() {
   //           <Navbar  goBack={()=>setShowQuote(false)}/>
   //       </NavBarCont>
 
+  // } return (
+  //   <MainCont>
+  //       <NavBarCont>
+  //           <Navbar  goBack={()=>setShowQuote(false)}/>
+  //       </NavBarCont>
+
   //   <Header header="Base on Your Choice" />
    
   //   <QuoteCont>
@@ -240,5 +227,7 @@ export default function Filter() {
   //       <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
 
         
-  //   // </QuoteCont>
-// };
+  //   </QuoteCont>
+  //   </MainCont>
+  
+  

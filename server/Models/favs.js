@@ -1,11 +1,12 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
+const mongoose= require('mongoose')
+const { Schema } = mongoose;
 
-const FavsSchema = new Schema({
-    task: { type: String, default: "None" },
-    date: Date,
-});
+const FavSchema = new Schema({
+  owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
+  quote: {type: String ,required:true, unique:true},
+  author: [String],
+})
 
-const Todo = mongoose.model('Todo', TodoSchema)
+const Fav = mongoose.model('Fav', FavSchema)
 
-module.exports = Todo
+module.exports = Fav
