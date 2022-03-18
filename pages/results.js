@@ -20,6 +20,7 @@ import ChatIcon from '../comps/ChatIcon';
 
 import { Player } from '@lottiefiles/react-lottie-player';
 import { useSBP } from "@/utils/provider";
+import { useTxt } from "@/utils/provider";
 
 
 const MainCont = styled.div`
@@ -60,44 +61,25 @@ const NavBarCont = styled.div`
 `;
 
 export default function Results() {
-  useEffect(()=>{
-    
-  },[])
-
   const [ load, setLoad ] = useState(true);
-
 
   useEffect(()=>{
 
     setTimeout(()=>{
       setLoad(false);
-    }, 4000);
+    }, 1000);
 
-
-      const getQts = async (p) => {
-        const res = await ax.get("/api/quotes")
-        if(res.data !== false) {
-          setQuoteData(res.data);
-          setCurPage(p);
-        }
-      };
-      getQts();
   }, []);
 
   const [data, setData] = useState([]);
 
   const [curpage, setCurPage] = useState(1);
-  const [sbp, setSBP] = useState(false);
-  const [sbp_type, setSBPType] = useState("asc");
-  const [sba, setSBA] = useState(false);
-  const [sba_type, setSBAType] = useState("asc");
   const router = useRouter();
 
   const { fav, setFav } = useFav();
   const { quoteData, setQuoteData } = useQuoteData({});
   const {sbp, setSBP} = useSBP()
-
-  console.log(sbp)
+  const {txt, setTxt} = useTxt()
 
 
   const itemsPerPage = 10;
@@ -105,28 +87,25 @@ export default function Results() {
 
   var start = 1;
   for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push(((i - 1) / itemsPerPage) + 1);
+    butt_arr.push(((i-1) / itemsPerPage) + 1);
     start++;
   }
 
-  butt_arr = butt_arr.slice(currpage - 3 < 0 ? 0 : currpage - 2, currpage + 4);
+  butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
 
-  // const getQuotes = async (p) => {
-  //   const res = await ax.get("/api/quotes", {
-  //     params: {
-  //       page: p,
-  //       num: itemsPerPage,
-  //     },
-  //   });
-  //   console.log(res.data);
-  //   setData(res.data);
-  //   setCutPage(p);
-  // };
-
-  //search by authors
+const nextPage = async (p) => {
+  const res = await ax.get('api/quotes', {
+    params: {
+      txt:txt,
+      page:p,
+      num:itemsPerPage
+    }
+  })
+  setQuoteData(res.data)
+  setCurPage(p)
+}
   const inputFilter = async (txt, p) => {
     console.log(txt);
-    // console.log(p);
     if (timer) {
       clearTimeout(timer);
       timer = null;
@@ -138,26 +117,17 @@ export default function Results() {
         const res = await ax.get("/api/quotes", {
           params: {
             txt: txt,
-            page:9,
-            num:itemsPerPage,
             sort_popularity:sbp,
-            // sort_author:sbp,
-            // sort_author_type:sba_type
+           
           },
         });
         console.log(res.data);
         setData(res.data);
-        setCurrPage(p);
         timer = null;
       }, 500);
     }
   };
 
-  // useEffect(()=>{
-
-  //   inputFilter()
-  //   // console.log("baba")
-  // },[sbp])
 
   const StoreFav = (checked, obj)  => {
     console.log(checked, obj)
@@ -175,18 +145,6 @@ export default function Results() {
       setFav(new_fav);
     }
   };
-
-  // const lottieAnim = {
-  //   loop: false,
-  //   autoplay: true,
-  //   animationData: "/loader.json",
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice",
-  //   },
-
-  // }
-
-  // const [lot, setLot] = useState(null);
 
   if(load === true) {
     return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
@@ -222,23 +180,14 @@ export default function Results() {
         <Header header="Search Your Quote" />
 
         {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
-        <SortTab
-          setSBPType={setSBPType}
-          setSBP={setSBP}
-          sbp={sbp}
-          sbp_type={sbp_type}
-          setSBAType={setSBAType}
-          setSBA={setSBA}
-          sba={sba}
-          sba_type={sba_type}
-        />
-
+    
       </SubCont>
       
       <QuotCont>
         {quoteData && Object.values(quoteData).map((o, i) => (
           <>
-          <QuoteCard
+          <div>{o.Quote}</div>
+          {/* <QuoteCard
             key={i}
             text={o.Quote}
             subText={o.Author}
@@ -246,7 +195,7 @@ export default function Results() {
             onChange={
             (e)=>StoreFav(e.target.checked, o)
           }
-          />
+          /> */}
           </>
           
         ))}
@@ -256,11 +205,14 @@ export default function Results() {
             <div key={i}>
 
               <PageBtn 
-              // style={{ background: o === cutpage ? "pink" : "white" }}
-              // bgColor={{ background: o === cutpage ? "#7b9582" : "white"}}
-              onclick={() => getQts(o)} page_num={o} />
+              bgColor={o === curpage ? "#7b9582" : "white"}
+              numColor={o === curpage ? "#fff" : "#000"}
+              page_num={o}
+              onclick={()=>nextPage(o)}/>
             </div>
           ))}
+          {/* <button onClick={()=>nextPage(1)}>1</button> */}
+        
         </BtnCont>
         <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}

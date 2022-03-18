@@ -16,7 +16,10 @@ const initialStates = {
   setQuoteData: ()=>{},
 
   sbp: "",
-  setSBP: ()=>{}
+  setSBP: ()=>{},
+
+  txt : "",
+  setTxt: ()=>{}
 
 }
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
@@ -27,9 +30,10 @@ export default function AppProvider({children}){
   const [fav, setFav] = useState(initialStates.fav); //or (initialStstes.fav)
   const [quoteData, setQuoteData] = useState(initialStates.quoteData);
    const [sbp, setSBP] = useState(initialStates.sbp)
+   const [txt, setTxt] = useState(initialStates.txt)
   console.log('favorite', fav)
 
-  return <MyContext.Provider value={{theme, setTheme, fav, setFav, quoteData, setQuoteData,sbp, setSBP}}>
+  return <MyContext.Provider value={{theme, setTheme, fav, setFav, quoteData, setQuoteData,sbp, setSBP, txt, setTxt}}>
 
     <style jsx global>
       {`
@@ -66,9 +70,15 @@ export function useQuoteData() {
   const { quoteData, setQuoteData } = useContext(MyContext);
   return { quoteData, setQuoteData };
 
-
+}
 export function useSBP(){
   const {sbp, setSBP} = useContext(MyContext)
   return {sbp, setSBP}
+
+}
+
+export function useTxt(){
+  const {txt, setTxt} = useContext(MyContext)
+  return {txt, setTxt}
 
 }

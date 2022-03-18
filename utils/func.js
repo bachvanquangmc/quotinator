@@ -1,6 +1,6 @@
 const quotes = require("./quotes.json");
 
-import { useQuote } from '@/utils/provider'; 
+// import { useQuote } from '@/utils/provider'; 
 
 export function GoToPage(qts = [], page = 1, num = 5) {
   
@@ -8,7 +8,6 @@ export function GoToPage(qts = [], page = 1, num = 5) {
   console.log(results);
   return results;
 }
-
 export function filtering(
   arr = [],
   config = {
