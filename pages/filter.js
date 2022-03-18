@@ -216,22 +216,8 @@ export default function Filter() {
         </TCMainCont>
       </MainCont>
     );
- 
-    // <QuoteCont>
-    //     {data.map((o, i) => (
-    //       <QuoteCard
-    //         key={i}
-    //         text={o.Quote}
-    //         subText={o.Author} 
-    //         checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-    //         onChange={
-    //         (e)=>StoreFav(e.target.checked, o)
-    //       }
-    //       />
-    //     ))}
-    //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
-
-  // } return (
+  } 
+  // return (
   //   <MainCont>
   //       <NavBarCont>
   //           <Navbar  goBack={()=>setShowQuote(false)}/>
@@ -255,4 +241,4 @@ export default function Filter() {
 
         
   //   // </QuoteCont>
-};
+// };

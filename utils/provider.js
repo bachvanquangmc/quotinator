@@ -19,6 +19,7 @@ const initialStates = {
   setSBP: ()=>{}
 
 }
+
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
 
 export default function AppProvider({children}){
@@ -70,5 +71,4 @@ export function useQuoteData() {
 export function useSBP(){
   const {sbp, setSBP} = useContext(MyContext)
   return {sbp, setSBP}
-
 }
