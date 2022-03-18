@@ -1,20 +1,18 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const router = require("./Routes/todo");
-// const userRouter = require('./Routes/user');
+const router = require("./Routes/favs");
+const userRouter = require("./Routes/users")
 
 const config = require("./config");
 
 
 app.use(express.json());
 
-// app.use(router);
-// app.use(userRouter);
+app.use(router);
+app.use(userRouter);
 
-app.use('/', (req,res)=>{
-    res.send('Bla')
-})
+
 
 mongoose.connect(config.Mongo_url, (err) => {
   if (err) return console.log(err);
