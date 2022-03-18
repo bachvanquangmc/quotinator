@@ -1,9 +1,9 @@
-const express = require('express')
+const express= require('express')
 const router = express.Router()
+const { createFavs } = require('../Controller/favs');
+const { getFavs } = require('../Controller/favs');
 
-const { createFav } = require("../Controller/favs")
+router.post('/favs', createFavs)
 
-router.post('/new/fav',createFav)
-
-
+router.get('/favs/:id', getFavs)
 module.exports = router

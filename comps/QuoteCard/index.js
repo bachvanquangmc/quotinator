@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 
 import { useDrag, useDrop } from 'react-dnd';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTheme } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
 

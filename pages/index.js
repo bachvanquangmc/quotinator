@@ -13,6 +13,7 @@ import Btn from "../comps/Btn";
 import Header from "../comps/Header";
 import Subheader from "../comps/Subheader";
 import SearchBar from "@/comps/SearchBar";
+import { useTxt } from "../utils/provider";
 
 
 const MainCont = styled.div`
@@ -68,6 +69,7 @@ export default function Home() {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { quoteData, setQuoteData } = useQuoteData();
+  const {txt, setTxt} = useTxt()
 
   const inputFilter = async (txt) => {
     console.log(txt);
@@ -80,11 +82,12 @@ export default function Home() {
       timer = setTimeout(async () => {
         const res = await ax.get("/api/quotes", {
           params: {
-            txt: txt,
+            txt: txt
           },
         });
         console.log(res.data);
         setQuoteData(res.data);
+        setTxt(txt)
         timer = null;
       }, 100);
     }

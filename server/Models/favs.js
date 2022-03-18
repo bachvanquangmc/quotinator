@@ -1,12 +1,12 @@
 const mongoose= require('mongoose')
 const { Schema } = mongoose;
 
-const favSchema = new Schema({
-    quote: String,
-    author: String,
-    // owner:  {type: mongoose.Schema.ObjectId, ref: "User"}
-});
+const FavSchema = new Schema({
+  owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
+  quote: {type: String ,required:true, unique:true},
+  author: [String],
+})
 
-const Fav = mongoose.model("Fav",favSchema)
+const Fav = mongoose.model('Fav', FavSchema)
 
 module.exports = Fav
