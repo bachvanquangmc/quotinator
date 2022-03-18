@@ -71,7 +71,6 @@ export default function Results() {
 
   }, []);
 
-  const [data, setData] = useState([]);
 
   const [curpage, setCurPage] = useState(1);
   const router = useRouter();
@@ -214,7 +213,7 @@ const nextPage = async (p) => {
           {/* <button onClick={()=>nextPage(1)}>1</button> */}
         
         </BtnCont>
-        <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
+        {/* <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/> */}
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
     </MainCont>

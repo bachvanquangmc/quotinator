@@ -22,6 +22,7 @@ const initialStates = {
   setTxt: ()=>{}
 
 }
+
 const MyContext = createContext(initialStates) // provide a shared space to use in other pages
 
 export default function AppProvider({children}){
