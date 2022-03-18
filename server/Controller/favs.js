@@ -6,6 +6,7 @@ const createFavs = async (req,res)=>{
 
  fav.quote = body.quote
  fav.author = body.author
+ fav.owner = body.owner
  fav.save((err,data)=>{
   if(err) return res.status(400).send("not created") 
   res.status(201).send(data)
