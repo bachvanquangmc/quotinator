@@ -4,6 +4,7 @@ import NavBar from "../comps/Navbar";
 import Header from "../comps/Header";
 import { useTheme } from "../utils/provider"
 import {global_theme } from '../utils/variables'
+import { useState, useEffect } from 'react';
 
 const Cont = styled.div`
   height:100vh;
@@ -29,6 +30,20 @@ const Item = styled.div`
 
 export default function Login() {
     const {theme, setTheme} = useTheme()
+
+    const [user, setUser] = useState({});
+
+    useEffect(()=>{
+      fetch("http://localhost:3000/login")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        setUser(responseJson.data);
+      });
+    },[])
+
+    let showUser = () => {
+      
+    }
   return (
 
       <Cont>
@@ -47,7 +62,9 @@ export default function Login() {
         </Item>
         <Item>
 
-      <LoginForm/>
+      <LoginForm 
+        onClick={showUser}
+      />
         </Item>
 
       </Cont>

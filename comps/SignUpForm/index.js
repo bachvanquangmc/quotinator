@@ -1,67 +1,140 @@
-import { useForm } from "react-hook-form"
-import styled from "styled-components"
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
+
+import { useState, useEffect } from 'react';
 
 const Form = styled.form`
-  max-width:250px;
-`
+  max-width: 250px;
+`;
 const FormInput = styled.input`
-  width:100%;
+  width: 100%;
   padding: 10px 10px;
-  font-size:15px;
-  margin-top:5px;
-`
+  font-size: 15px;
+  margin-top: 5px;
+`;
 
 const FormCont = styled.div`
-  display:flex;
-  justify-content:center;
-`
-const Label = styled.label``
+  display: flex;
+  justify-content: center;
+`;
+const Label = styled.label``;
 
 const Button = styled.button`
-  background:#7B9582;
-  border:none;
-  width:100%;
-  padding:15px;
-  font-size:16px;
-  margin-top:10px;
-  color:white;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  &:hover{
-    background:#92BE9E;
+  background: #7b9582;
+  border: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 10px;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  &:hover {
+    background: #92be9e;
   }
-  
-`
+`;
 const Error = styled.p`
-  color:red;
+  color: red;
   font-style: italic;
-  font-size:13px;
-`
+  font-size: 13px;
+`;
 
 export default function SignUpForm(){
-  const {register, handleSubmit, formState:{errors}, watch} = useForm()
-  console.log(errors)
-  console.log(watch())
-  return <FormCont>
-    <Form onSubmit={handleSubmit((data)=>{
-      console.log(data)
-    })}>
-     <Label>Email Adress
-        <FormInput {...register("email", {required:"Please provide a properly formated email address"})} placeholder="Email Adress"/>
-      </Label>
-      <Error>{errors.email?.message}</Error>
-      <Label>Username
-        <FormInput {...register("username", {required:"Please provide an username"})} placeholder="Username"/>
-      </Label>
-      <Error>{errors.username?.message}</Error>
-      <Label>Password
-        <FormInput {...register("password", {required:"Password is required", minLength:{
-          value:6,
-          message:"Minimum length is 6."
-        }})} placeholder="Password"/>
-      </Label>
-      <Error>{errors.password?.message}</Error>
-      <Button>Sign Up</Button>
-    </Form>
-  </FormCont>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
+  console.log(errors);
+  console.log(watch());
+
+
+  // const [singup, setSignin] = useState({});
+
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [username, setUsername] = useState("");
+
+  const handleOnSubmit = async(e) => {
+    e.preventDefault();
+    let result = fetch(
+      'http://localhost:3000/signup', {
+        method: 'post',
+        body: JSON.stringify({email,pass,username}),
+      })
+      result = await result.json();
+
+      if(result) {
+        alert('Data saved successfully');
+        setEmail('');
+        setPass('');
+        setUsername('');
+      }
+  }
+  
+//   useEffect(()=>{
+//     fetch("http://localhost:3000/signin")
+//     .then((response)=>response.json())
+//     .then((responseJson) => {
+//       setSignin(responseJson.data);
+//     });
+//   },[]);
+  
+//  let newUser = () => {
+
+//  }
+
+
+  return (
+    <FormCont>
+      <Form
+        onSubmit={handleSubmit((data) => {
+          console.log(data);
+        })}
+      >
+        <Label>
+          Email Adress
+          <FormInput
+            {...register("email", {
+              required: "Please provide a properly formated email address",
+            })}
+            placeholder="Email Adress"
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+          />
+        </Label>
+        <Error>{errors.email?.message}</Error>
+        <Label>
+          Username
+          <FormInput
+            {...register("username", {
+              required: "Please provide an username",
+            })}
+            placeholder="Username"
+            value={username}
+            onChange={(e)=>setUsername(e.target.value)}
+          />
+        </Label>
+        <Error>{errors.username?.message}</Error>
+        <Label>
+          Password
+          <FormInput
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Minimum length is 6.",
+              },
+            })}
+            placeholder="Password"
+            value={pass}
+            onChange={(e)=>setPass(e.target.value)}
+          />
+        </Label>
+        <Error>{errors.password?.message}</Error>
+        <Button onClick={handleOnSubmit}>Sign Up</Button>
+      </Form>
+    </FormCont>
+  );
 }
