@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { useDrag, useDrop } from 'react-dnd';
 import { useTheme } from "../../utils/provider"
@@ -151,9 +150,8 @@ const QuoteCard = ({
                 <ImgCont>
                     <span>
 
-                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)}>
-
-                        </Img>
+                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)} />
+                        
                         <span>
                             <input type="checkbox"
                                 checked={checked}

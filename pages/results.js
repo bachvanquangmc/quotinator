@@ -60,8 +60,8 @@ const NavBarCont = styled.div`
 `;
 
 export default function Results() {
-  useEffect(()=>{
-    
+ 
+  useEffect(()=>{   
   },[])
 
   const [ load, setLoad ] = useState(true);
@@ -73,20 +73,19 @@ export default function Results() {
       setLoad(false);
     }, 4000);
 
-
-      const getQts = async (p) => {
-        const res = await ax.get("/api/quotes")
-        if(res.data !== false) {
-          setQuoteData(res.data);
-          setCurPage(p);
-        }
-      };
-      getQts();
+      // const getQts = async (p) => {
+      //   const res = await ax.get("/api/quotes")
+      //   if(res.data !== false) {
+      //     setQuoteData(res.data);
+      //     setCurPage(p);
+      //   }
+      // };
+      // getQts();
   }, []);
 
-  const [data, setData] = useState([]);
 
   const [curpage, setCurPage] = useState(1);
+  
   const [sbp_type, setSBPType] = useState("asc");
   const [sba, setSBA] = useState(false);
   const [sba_type, setSBAType] = useState("asc");
@@ -96,7 +95,7 @@ export default function Results() {
   const { quoteData, setQuoteData } = useQuoteData({});
   const {sbp, setSBP} = useSBP()
 
-  console.log(sbp)
+  // console.log(sbp)
 
 
   const itemsPerPage = 10;
@@ -109,55 +108,7 @@ export default function Results() {
   }
 
   butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
-
-  // const getQuotes = async (p) => {
-  //   const res = await ax.get("/api/quotes", {
-  //     params: {
-  //       page: p,
-  //       num: itemsPerPage,
-  //     },
-  //   });
-  //   console.log(res.data);
-  //   setData(res.data);
-  //   setCutPage(p);
-  // };
-
-  //search by authors
-  const inputFilter = async (txt, p) => {
-    console.log(txt);
-    // console.log(p);
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-
-    if (timer === null) {
-      timer = setTimeout(async (p) => {
-        // console.log("async call");
-        const res = await ax.get("/api/quotes", {
-          params: {
-            txt: txt,
-            page:9,
-            num:itemsPerPage,
-            sort_popularity:sbp,
-            // sort_author:sbp,
-            // sort_author_type:sba_type
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        setCurrPage(p);
-        timer = null;
-      }, 500);
-    }
-  };
-
-  // useEffect(()=>{
-
-  //   inputFilter()
-  //   // console.log("baba")
-  // },[sbp])
-
+ 
   const StoreFav = (checked, obj)  => {
     console.log(checked, obj)
     if(checked){
@@ -218,16 +169,13 @@ export default function Results() {
         <Navbar goBack={() => router.push("/")} />
       </NavBarCont>
       <SubCont>
-        <Header header="Search Your Quote" />
-
-        {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
-
+        <Header header="Base on your selection" />
       </SubCont>
       
       <QuotCont>
         {quoteData && Object.values(quoteData).map((o, i) => (
           <>
-          <QuoteCard
+          {/* <QuoteCard
             key={i}
             text={o.Quote}
             subText={o.Author}
@@ -235,7 +183,11 @@ export default function Results() {
             onChange={
             (e)=>StoreFav(e.target.checked, o)
           }
-          />
+          /> */}
+          <div
+          >
+            {o.Quote} - {o.Author}
+          </div>
           </>
           
         ))}
@@ -251,7 +203,7 @@ export default function Results() {
             </div>
           ))}
         </BtnCont>
-        <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
+        {/* <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/> */}
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
     </MainCont>
