@@ -87,7 +87,7 @@ export default function Results() {
   const [data, setData] = useState([]);
 
   const [curpage, setCurPage] = useState(1);
-  const [sbp, setSBP] = useState(false);
+  // const [sbp, setSBP] = useState(false);
   const [sbp_type, setSBPType] = useState("asc");
   const [sba, setSBA] = useState(false);
   const [sba_type, setSBAType] = useState("asc");
@@ -109,7 +109,7 @@ export default function Results() {
     start++;
   }
 
-  butt_arr = butt_arr.slice(currpage - 3 < 0 ? 0 : currpage - 2, currpage + 4);
+  butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
 
   // const getQuotes = async (p) => {
   //   const res = await ax.get("/api/quotes", {

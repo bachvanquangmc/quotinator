@@ -231,28 +231,28 @@ export default function Filter() {
     //     ))}
     //     <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
 
-  } return (
-    <MainCont>
-        <NavBarCont>
-            <Navbar  goBack={()=>setShowQuote(false)}/>
-        </NavBarCont>
+  // } return (
+  //   <MainCont>
+  //       <NavBarCont>
+  //           <Navbar  goBack={()=>setShowQuote(false)}/>
+  //       </NavBarCont>
 
-    <Header header="Base on Your Choice" />
+  //   <Header header="Base on Your Choice" />
    
-    <QuoteCont>
-        {data.map((o, i) => (
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author} 
-            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-            onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }
-          />
-        ))}
-        <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
+  //   <QuoteCont>
+  //       {data.map((o, i) => (
+  //         <QuoteCard
+  //           key={i}
+  //           text={o.Quote}
+  //           subText={o.Author} 
+  //           checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+  //           onChange={
+  //           (e)=>StoreFav(e.target.checked, o)
+  //         }
+  //         />
+  //       ))}
+  //       <Btn onClick={()=>r.push(`/saved/${uuidv4()}`)} text='Add to Favorite'/>
 
         
-    // </QuoteCont>
+  //   // </QuoteCont>
 };
