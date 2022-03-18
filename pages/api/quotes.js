@@ -75,11 +75,11 @@ export default function handler(req, res) {
       lists = GoToPage(quotes, req.query.page, 10);
     }
 
-    lists = lists.map((o,i)=>{
-    return {
-        ...o, id:i,
+    // lists = lists.map((o,i)=>{
+    // return {
+    //     ...o, id:i,
         
-    }
-  })
+    // }
+  // })
   res.status(200).json(lists);
 }
