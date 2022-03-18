@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { useDrag, useDrop } from 'react-dnd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -129,15 +128,15 @@ const QuoteCard = ({
 
 
     return (
-        <QuoteCont ref={dragPreview}
-            op={isDragging ? 0.5 : 1}
-            left={style.left}
-            top={style.top}
-            position={style.position}
-        >
-            <div ref={drag}>
-                {children}
-            </div>
+        // <QuoteCont ref={dragPreview}
+        //     op={isDragging ? 0.5 : 1}
+        //     left={style.left}
+        //     top={style.top}
+        //     position={style.position}
+        // >
+        //     <div ref={drag}>
+        //         {children}
+        //     </div>
 
             <QuoteCont bgcolor={global_theme[theme].card}>
                 <TextCont>
@@ -152,9 +151,8 @@ const QuoteCard = ({
                 <ImgCont>
                     <span>
 
-                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)}>
-
-                        </Img>
+                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)} />
+                        
                         <span>
                             <input type="checkbox"
                                 checked={checked}
@@ -187,7 +185,7 @@ const QuoteCard = ({
                     <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
                 </CopyToClipboard>
             </QuoteCont>
-        </QuoteCont>
+        // </QuoteCont>
     )
 }
 
