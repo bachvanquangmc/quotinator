@@ -1,13 +1,10 @@
 
 const Setting = require("../Models/settings");
 
-//get setting, update setting
-
 const saveSetting = async (req, res) => {
   const body = req.body;
 
   const setting = new Setting({
-    // Quang : Human
     owner: body.owner,
     darkmode: body.darkmode,
     displayByPopularity: body.displayByPopularity,
@@ -21,25 +18,10 @@ const saveSetting = async (req, res) => {
   });
 };
 
-const getSetting = (req, res) => {
-  Setting.find(),
-    (err, data) => {
-      if (err) return err;
-      res.json(data);
-    };
-};
-
-const getSettingByUser = (req, res) => {
-  Setting.findById(req.params.id, (err, setting) => {
-    if (err) return res.status(404).send("Can't find a user");
-
-    res.json(setting);
-  });
-};
 
 const updateSetting = async (req, res) => {
-  const {id} = req.body
-   const setting = await Setting.findByIdAndUpdate(_id=id,{
+  const {owner} = req.body
+   const setting = await Setting.findOneAndUpdate({owner:owner},{
         $set:{
             darkmode: req.body.darkmode,
             displayByAuthor: req.body.displayByAuthor,
@@ -49,16 +31,21 @@ const updateSetting = async (req, res) => {
         }
     }, {new:true}).populate('owner')
 
-    // if (err) return res.status(404).send("not found");
-
     res.json(setting);
   
-//   });
+};
+
+
+const getSettingByUser = (req, res) => {
+  Setting.findOne(req.params.owner, (err, setting) => {
+    if (err) return res.status(404).send("Can't find a user");
+
+    res.status(200).send(setting);
+  });
 };
 
 module.exports = {
   saveSetting,
-  getSetting,
   getSettingByUser,
   updateSetting,
 };
