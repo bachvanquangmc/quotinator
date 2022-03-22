@@ -1,6 +1,8 @@
 const mongoose= require('mongoose')
 const Schema  = mongoose.Schema;
 const bcrypt = require('bcryptjs')
+var jwt = require('jsonwebtoken');
+const config = require('config')
 
 const UserSchema = new Schema({
   email: {
@@ -14,21 +16,10 @@ const UserSchema = new Schema({
 }
 });
 
-// UserSchema.pre('save', async function (next){  //dont use arrow function - just use normal 
-    
-//     const user = this
 
-//     bcrypt.genSalt(10, function(err, salt) {
-//         bcrypt.hash(user.password, salt, function(err, hash) {
-//             user.password = hash
-//             next()
-//         });
-//     });
-   
-// })
-
-UserSchema.methods.comparePassword = function(password){
-    return bcrypt.compareSync(password, this.password)
+UserSchema.methods.generateAuthToken = function(){
+  const token = jwt.sign({_id: this._id}, config.get('userPrivateKey'))
+  return token
 }
 
 const User = mongoose.model("User",UserSchema)
