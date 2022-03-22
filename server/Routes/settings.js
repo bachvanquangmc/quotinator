@@ -3,6 +3,7 @@ const express= require('express')
 const router=express.Router()
 
 const { saveSetting, getSetting, getSettingByUser, updateSetting} = require('../Controller/settings')
+
 const authoriseUser = require('../Auth/auth')
 
 router.post('/settings', saveSetting)

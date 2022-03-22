@@ -1,4 +1,3 @@
-
 const Setting = require("../Models/settings");
 
 //get setting, update setting
@@ -38,22 +37,22 @@ const getSettingByUser = (req, res) => {
 };
 
 const updateSetting = async (req, res) => {
-  const {id} = req.body
-   const setting = await Setting.findByIdAndUpdate(_id=id,{
-        $set:{
-            darkmode: req.body.darkmode,
-            displayByAuthor: req.body.displayByAuthor,
-            displayByPopularity: req.body.displayByPopularity,
-            numberOfQuotes: req.body.numberOfQuotes
-            
-        }
-    }, {new:true}).populate('owner')
+  const { id } = req.body
+  const setting = await Setting.findByIdAndUpdate(_id = id, {
+    $set: {
+      darkmode: req.body.darkmode,
+      displayByAuthor: req.body.displayByAuthor,
+      displayByPopularity: req.body.displayByPopularity,
+      numberOfQuotes: req.body.numberOfQuotes
 
-    // if (err) return res.status(404).send("not found");
+    }
+  }, { new: true }).populate('owner')
 
-    res.json(setting);
-  
-//   });
+  // if (err) return res.status(404).send("not found");
+
+  res.json(setting);
+
+  //   });
 };
 
 module.exports = {
