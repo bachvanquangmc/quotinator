@@ -20,8 +20,11 @@ app.use(cors());
 
 mongoose.connect(config.Mongo_url, (err) => {
   if (err) return console.log(err);
-  console.log("connect to db scuessfully");
+  console.log("Connect to db successfully.");
 });
+
 app.listen(3000, () => {
-  console.log("The server is runing on port");
+  
+  console.log("The server is running on port 3000.");
+
 });

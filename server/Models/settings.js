@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -10,8 +9,7 @@ const SettingSchema = new Schema({
     numberOfQuotes: {type: Number, default: 10},
   })
   
-  const Setting = mongoose.model('Setting', SettingSchema)
+const Setting = mongoose.model('Setting', SettingSchema)
 
 module.exports = Setting
-
 
