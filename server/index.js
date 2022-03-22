@@ -5,7 +5,6 @@ const cors = require('cors');
 const router = require("./Routes/favs");
 const userRouter = require("./Routes/users")
 const settingRouter = require("./Routes/settings")
-const cors = require("cors");
 
 
 const config = require("./config");
