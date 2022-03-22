@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   password: String
 });
 
-UserSchema.pre('save',function (next){  //dont use arrow function - just use normal 
+UserSchema.pre('save',function (next){  
     
     const user = this
 

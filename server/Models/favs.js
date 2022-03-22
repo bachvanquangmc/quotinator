@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const FavSchema = new Schema({
   owner: {type: mongoose.Schema.ObjectId, ref: 'User'},
   quote: {type: String ,required:true, unique:true},
-  author: [String],
+  author: String,
 })
 
 const Fav = mongoose.model('Fav', FavSchema)

@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import ax from 'axios';
 
 import { useState, useEffect } from 'react';
 
@@ -56,33 +57,48 @@ export default function SignUpForm(){
   const [pass, setPass] = useState("");
   const [username, setUsername] = useState("");
 
-  const handleOnSubmit = async(e) => {
-    e.preventDefault();
-    let result = fetch(
-      'http://localhost:3000/signup', {
-        method: 'post',
-        body: JSON.stringify({email,pass,username}),
-      })
-      result = await result.json();
+  // const handleOnSubmit = async(e) => {
+  //   e.preventDefault();
+  //   const response = await ax.post(
+  //     'http://localhost:3000/signup', {
+  //       method: 'POST',
+  //       body: JSON.stringify({email,pass}),
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //     }
+  //     })
+      
+  //     const result = await response.json();
+  //     if(result) {
+  //       alert('Data saved successfully');
+  //       setEmail('');
+  //       setPass('');
+  //       setUsername('');
+  //     }
+  // }
 
-      if(result) {
-        alert('Data saved successfully');
-        setEmail('');
-        setPass('');
-        setUsername('');
-      }
+  function newUser() {
+    fetch("http://localhost:3000/signup",{
+      method:"post"
+    }).then(async (r) => console.log(await r.json()))
   }
   
-//   useEffect(()=>{
-//     fetch("http://localhost:3000/signin")
-//     .then((response)=>response.json())
-//     .then((responseJson) => {
-//       setSignin(responseJson.data);
-//     });
-//   },[]);
+  // useEffect(()=>{
+  //   fetch("http://localhost:3000/signup")
+  //   .then((response)=>response.json())
+  //   .then((responseJson) => {
+  //     setSignin(responseJson.data);
+  //   });
+  // },[]);
   
 //  let newUser = () => {
-
+//   ax.post('http://localhost:3000/signup')
+//   .then((response) => response.json())
+//   .then((responseJson) => {
+//     setEmail("");
+//     setPass("");
+//     setUsername("");
+//   })
 //  }
 
 
@@ -133,7 +149,7 @@ export default function SignUpForm(){
           />
         </Label>
         <Error>{errors.password?.message}</Error>
-        <Button onClick={handleOnSubmit}>Sign Up</Button>
+        <Button onClick={newUser}>Sign Up</Button>
       </Form>
     </FormCont>
   );
