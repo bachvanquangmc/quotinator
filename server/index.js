@@ -14,7 +14,6 @@ app.use(cors())
 app.use(router);
 app.use(userRouter);
 app.use(settingRouter)
-app.use(cors());
 
 
 mongoose.connect(config.Mongo_url, (err) => {

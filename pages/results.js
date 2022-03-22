@@ -185,8 +185,8 @@ const nextPage = async (p) => {
       <QuotCont>
         {quoteData && Object.values(quoteData).map((o, i) => (
           <>
-          <div>{o.Quote}</div>
-          {/* <QuoteCard
+          {/* <div>{o.Quote}</div> */}
+          <QuoteCard
             key={i}
             text={o.Quote}
             subText={o.Author}
@@ -194,7 +194,7 @@ const nextPage = async (p) => {
             onChange={
             (e)=>StoreFav(e.target.checked, o)
           }
-          /> */}
+          />
           </>
           
         ))}

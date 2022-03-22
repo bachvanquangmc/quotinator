@@ -25,7 +25,7 @@ if(user) return res.status(400).send('User already registered')
 const login = (req,res) => {
     User.findOne({email:req.body.email}, (err, user)=>{
         if(err) return res.status(404).send("User not found")
-
+        console.log(req.body.email);
 
         res.send(user.comparePassword(req.body.password))
 
