@@ -1,11 +1,10 @@
 const User = require('../Models/users');
-var jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
+
 
 
 
 const signup = async (req,res) => {
-// can also write as  const signup = ({ Body },res) => {}
 let user = await User.findOne({email: req.body.email})
 if(user) return res.status(400).send('User already registered')
 
@@ -17,23 +16,33 @@ if(user) return res.status(400).send('User already registered')
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
     await user.save()
-    res.send({
+
+    const token = user.generateAuthToken()
+
+    res.header('x-auth-token', token).send({
         email: user.email
     })
 }
 
-const login = (req,res) => {
-    User.findOne({email:req.body.email}, (err, user)=>{
-        if(err) return res.status(404).send("User not found")
+const login = async (req,res) => {
+    let user = await User.findOne({email: req.body.email})
+    if(!user) return res.status(400).send('invalid user or password')
+    
+      const validPassword = await bcrypt.compare(req.body.password, user.password)
+      if(!validPassword) return res.status(400).send('invalid user or password')
 
+      const token = user.generateAuthToken()
+      res.send(token)
+    }
 
-        res.send(user.comparePassword(req.body.password))
-
-    })
+const getCurrentUser = async (req,res)=>{
+        const user = await User.findById(req.user._id).select('-password')
+        res.send(user)
 }
 
 
 module.exports = {
     signup,
-    login
+    login,
+    getCurrentUser
 }

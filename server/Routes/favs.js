@@ -5,10 +5,11 @@ const { getFavs } = require('../Controller/favs');
 const { deleteFavs } = require('../Controller/favs');
 const { getQuotes } = require('../Controller/favs');
 const {deleteFavs} = require('../Controller/favs')
+const authoriseUser = require('../Auth/auth')
 
-router.post('/saved', createFavs)
+router.post('/saved', authoriseUser, createFavs)
 
-router.get('/favs/:id', getFavs)
+router.get('/favs/:id', authoriseUser, getFavs)
 
 // end point has to be diff from other, specific
 router.delete('/favs/delete', deleteFavs)
