@@ -11,6 +11,6 @@ router.get('/setting',authoriseUser, getSetting)
 
 router.get('/setting/:id', getSettingByUser)
 
-router.patch('/update/setting', updateSetting)
+router.patch('/setting/update', updateSetting)
 
 module.exports = router

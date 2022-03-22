@@ -5,6 +5,7 @@ const cors = require('cors');
 const router = require("./Routes/favs");
 const userRouter = require("./Routes/users")
 const settingRouter = require("./Routes/settings")
+const QuoteRouter = require('./Routes/quotes')
 
 
 // const config = require("./config");
@@ -20,6 +21,7 @@ app.use(cors())
 app.use(router);
 app.use(userRouter);
 app.use(settingRouter)
+app.use(QuoteRouter)
 
 
 mongoose.connect(config.get("Mongo_url"), (err) => {
