@@ -12,11 +12,7 @@ router.get('/favs/:id', getFavs)
 // end point has to be diff from other, specific
 router.delete('/favs/delete', deleteFavs)
 
-module.exports = router
-
 router.get('/quotes/:author', getQuotes)
-
-router.get('/saved/:id', getFavs)
 
 module.exports = router
 

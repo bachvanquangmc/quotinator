@@ -1,9 +1,9 @@
-const mongoose= require('mongoose')
+const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const FavSchema = new Schema({
-  owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  quote: {type: String ,required:true, unique:true},
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  quote: { type: String, required: true },
   author: String,
 })
 

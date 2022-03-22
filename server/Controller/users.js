@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
 
 
-
 const signup = async (req,res) => {
 // can also write as  const signup = ({ Body },res) => {}
 let user = await User.findOne({email: req.body.email})
