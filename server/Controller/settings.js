@@ -38,12 +38,16 @@ const getSettingByUser = (req, res) => {
 };
 
 const updateSetting = async (req, res) => {
-//   Setting.findByIdAndUpdate(req.body.id, req.body, (err, setting) => {
-   const setting = await Setting.findByIdAndUpdate(req.body._id,{
+  const {id} = req.body
+   const setting = await Setting.findByIdAndUpdate(_id=id,{
         $set:{
-            darkmode: req.body.darkmode
+            darkmode: req.body.darkmode,
+            displayByAuthor: req.body.displayByAuthor,
+            displayByPopularity: req.body.displayByPopularity,
+            numberOfQuotes: req.body.numberOfQuotes
+            
         }
-    })
+    }, {new:true}).populate('owner')
 
     // if (err) return res.status(404).send("not found");
 

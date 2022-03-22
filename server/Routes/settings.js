@@ -6,7 +6,6 @@ const { saveSetting, getSetting, getSettingByUser, updateSetting} = require('../
 const authoriseUser = require('../Auth/auth')
 
 router.post('/settings', saveSetting)
-router.patch('/settings', updateSetting)
 
 router.get('/setting',authoriseUser, getSetting)
 
