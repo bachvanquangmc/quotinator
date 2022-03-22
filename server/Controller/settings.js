@@ -4,6 +4,7 @@ const saveSetting = async (req, res)=>{
   const body = req.body
   
     const setting = new Setting({        // Quang : Human
+      owner: body.owner,
       darkmode: body.darkmode,
       displayByPopularity: body.displayByPopularity,
       displayByAuthor: body.displayByAuthor,
@@ -16,4 +17,12 @@ const saveSetting = async (req, res)=>{
   })
 }
 
-module.exports = {saveSetting}
+async function updateSetting(req, res){
+  const setting = await Setting.findByIdAndUpdate(req.body.owner,{
+    $set: {
+      darkmode: req.body.darkmode
+    }
+  }, {new: true})
+  res.send(setting)
+}
+module.exports = {saveSetting, updateSetting}

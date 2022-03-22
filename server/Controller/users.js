@@ -1,16 +1,24 @@
 const User = require('../Models/users');
 var jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs')
 
 
 
-const signup = (req,res) => {
+const signup = async (req,res) => {
 // can also write as  const signup = ({ Body },res) => {}
-    const user = new User()
-    user.email = req.body.email
-    user.password = req.body.password
-    user.save((err,done)=>{
-        if(err) return res.status(500).send("Signup failed")
-        res.status(201).send('signed up successfully')
+let user = await User.findOne({email: req.body.email})
+if(user) return res.status(400).send('User already registered')
+
+    user = new User({
+        email: req.body.email,
+        password: req.body.password
+    })
+
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(user.password, salt)
+    await user.save()
+    res.send({
+        email: user.email
     })
 }
 

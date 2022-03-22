@@ -17,9 +17,8 @@ const createFavs = async (req,res)=>{
 const getFavs = async (req, res)=> {
   Fav.findById(req.params.id,(err,favs)=>{
     if(err) return res.status(404).send("not found")
-
     res.json(favs)
-})
+}).populate('owner', 'email -_id')
 }
 
 module.exports = {createFavs, getFavs}
