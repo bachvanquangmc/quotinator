@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   password: String
 });
 
-UserSchema.pre('save',function (next){  //dont use arrow function - just use normal 
+UserSchema.pre('save',function (next){  
     
     const user = this
 
@@ -22,7 +22,6 @@ UserSchema.pre('save',function (next){  //dont use arrow function - just use nor
 UserSchema.methods.comparePassword = function(password){
     return bcrypt.compareSync(password, this.password)
 }
-
 const User = mongoose.model("User",UserSchema)
 
 

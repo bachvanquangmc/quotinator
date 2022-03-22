@@ -38,7 +38,9 @@ const Error = styled.p`
   font-size:13px;
 `
 
-export default function LoginForm(){
+export default function LoginForm({
+  onClick=()=>{},
+}){
   const {register, handleSubmit, formState:{errors}, watch} = useForm()
   console.log(errors)
   console.log(watch())
@@ -62,7 +64,7 @@ export default function LoginForm(){
       </Label>
       <Error>{errors.password?.message}</Error>
       <p>Forgot Password?</p>
-      <Button>Login</Button>
+      <Button onClick={onClick}>Login</Button>
       <p>Don't have an account yet? SignUp</p>
     </Form>
   </FormCont>

@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useTheme } from "../../utils/provider"
 import {global_theme } from '../../utils/variables'
+import axios from "axios";
 
 const MainCont = styled.div`
   display: flex;
@@ -58,22 +59,48 @@ export default function Saved() {
   const {theme, setTheme} = useTheme()
   
   const { fav, setFav } = useFav();
-  useEffect(()=>{
-    if(uuid){
-      const GetUUID = async()=>{
-        const res = await ax.get('/api/save', {
-          params:{
-            uuid:uuid
-          }
+  const [favs, setFavs] = useState()
+
+  
+  // useEffect(()=>{
+  //   if(uuid){
+  //     const GetUUID = async()=>{
+  //       const res = await ax.get('/api/save', {
+  //         params:{
+  //           uuid:uuid
+  //         }
+  //       })
+  //       if(res.data !== false){
+  //         console.log(res)
+  //         setFav(res.data)
+  //       }
+  //     }
+  //     GetUUID()
+  //   }
+  // },[uuid])
+
+  // useEffect(()=>{
+    const fetchFavs = () => {
+        // axios
+        //   .get('http://localhost:3000/saved/aa139290-df9e-4889-bb29-27ce03c5fb9c')
+        //   .then((response) => {
+        //     const result = response;
+        //     setFavs(result);
+        //   });
+        //   console.log(favs);
+
+        fetch("http://localhost:3000/saved/6234c32dcaa7d50ac5e362f9")
+        .then((response) => {
+          response.json()
+          console.log(response)
         })
-        if(res.data !== false){
-          console.log(res)
-          setFav(res.data)
-        }
-      }
-      GetUUID()
-    }
-  },[uuid])
+        // .then((responseJson) => {
+        //   setFavs(responseJson.data);
+        //   console.log(responseJson)
+        // });
+        };
+//         fetchFavs
+// },[])
   const saveFav = async()=>{
     const res = await ax.post('/api/save',{
       uuid:uuid,
@@ -102,6 +129,7 @@ export default function Saved() {
           />
 )}
     <Btn onClick={saveFav} text="Save to your favorite"/>
+    <Btn onClick={fetchFavs} text="teste"/>
     {alert && <div style={{color:global_theme[theme].text}}>{alert}</div>}
       </QuotCont>
     </MainCont>
