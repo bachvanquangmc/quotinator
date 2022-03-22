@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -12,3 +13,5 @@ const SettingSchema = new Schema({
   const Setting = mongoose.model('Setting', SettingSchema)
 
 module.exports = Setting
+
+

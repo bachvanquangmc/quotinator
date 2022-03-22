@@ -1,3 +1,4 @@
+
 const Setting = require("../Models/settings");
 
 //get setting, update setting
@@ -57,3 +58,4 @@ module.exports = {
   getSettingByUser,
   updateSetting,
 };
+

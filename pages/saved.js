@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import Navbar from '../comps/Navbar';
 import Header from '../comps/Header'
@@ -11,6 +11,7 @@ import { router, useRouter } from 'next/router';
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
+import axios from 'axios';
 
 
 const MainCont = styled.div`
@@ -67,6 +68,7 @@ export default function Saved() {
     //         method:"get"
     //     })
     // }
+
     return (
         <MainCont>
             <NavBarCont>
@@ -87,6 +89,7 @@ export default function Saved() {
                 <QuoteCont>
                     <QuoteCard imgSrc="/heart_outline_blk.png" />
                     <QuoteCard imgSrc="/heart_outline_blk.png" />
+                    
                 </QuoteCont>
 
                 <TrashCont>

@@ -14,15 +14,12 @@ const signup = (req,res) => {
 }
 
 const login = (req,res) => {
-    User.findOne({email:req.body.email},(err,user)=>{
-        if(err || !user) return res.status(404).send('login failed')
+    User.findOne({email:req.body.email}, (err, user)=>{
+        if(err) return res.status(404).send("User not found")
 
-        if(user.comparePassword(req.body.password)){
-            const token = jwt.sign({id:user._id}, 'thisismysecret');
-            res.send(token)
-        } else {
-            res.send("could not login")
-        }
+
+        res.send(user.comparePassword(req.body.password))
+
     })
 }
 

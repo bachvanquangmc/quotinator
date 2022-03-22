@@ -18,7 +18,7 @@ import Chat from '../comps/Chat';
 import ChatIcon from '../comps/ChatIcon';
 
 
-import { Player } from '@lottiefiles/react-lottie-player';
+// import { Player } from '@lottiefiles/react-lottie-player';
 import { useSBP } from "@/utils/provider";
 import { useTxt } from "@/utils/provider";
 

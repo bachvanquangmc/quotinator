@@ -1,4 +1,5 @@
 const express= require('express')
+
 const router=express.Router()
 
 const { saveSetting, getSetting, getSettingByUser, updateSetting} = require('../Controller/settings')
