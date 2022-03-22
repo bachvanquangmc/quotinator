@@ -1,17 +1,12 @@
-const express= require('express')
-
-const router=express.Router()
-
-const { saveSetting, getSetting, getSettingByUser, updateSetting} = require('../Controller/settings')
-
+const express = require('express')
+const router = express.Router()
+const { saveSetting, getSettingByUser, updateSetting} = require('../Controller/settings')
 const authoriseUser = require('../Auth/auth')
 
-router.post('/settings', saveSetting)
+router.post('/settings', authoriseUser, saveSetting)
 
-router.get('/setting',authoriseUser, getSetting)
+router.get('/setting/:id', authoriseUser, getSettingByUser)
 
-router.get('/setting/:id', getSettingByUser)
-
-router.patch('/update/setting', updateSetting)
+router.patch('/setting/update', authoriseUser, updateSetting)
 
 module.exports = router
