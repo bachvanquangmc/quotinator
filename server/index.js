@@ -7,7 +7,13 @@ const userRouter = require("./Routes/users")
 const settingRouter = require("./Routes/settings")
 
 
-const config = require("./config");
+// const config = require("./config");
+const config = require('config')
+
+if(!config.get('userPrivateKey')){
+  console.error('FATAL ERROR: userPrivateKey is not defined')
+  process.exit(1)
+}
 
 app.use(express.json());
 app.use(cors())
@@ -17,7 +23,7 @@ app.use(settingRouter)
 app.use(cors());
 
 
-mongoose.connect(config.Mongo_url, (err) => {
+mongoose.connect(config.get("Mongo_url"), (err) => {
   if (err) return console.log(err);
   console.log("connect to db scuessfully");
 });

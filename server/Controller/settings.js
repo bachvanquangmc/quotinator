@@ -38,7 +38,6 @@ const getSettingByUser = (req, res) => {
 };
 
 const updateSetting = async (req, res) => {
-//   Setting.findByIdAndUpdate(req.body.id, req.body, (err, setting) => {
   const {id} = req.body
    const setting = await Setting.findByIdAndUpdate(_id=id,{
         $set:{
@@ -48,7 +47,7 @@ const updateSetting = async (req, res) => {
             numberOfQuotes: req.body.numberOfQuotes
             
         }
-    }, {new:true})
+    }, {new:true}).populate('owner')
 
     // if (err) return res.status(404).send("not found");
 

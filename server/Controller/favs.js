@@ -2,11 +2,12 @@ const Fav = require('../Models/favs')
 
 const createFavs = async (req, res) => {
   const body = req.body
-  const fav = new Fav()
+  const fav = await Fav({
+    quote: body.quote,
+    author: body.author,
+    owner: body.owner
+  }).populate('owner')
 
- fav.quote = body.quote
- fav.author = body.author
- fav.owner = body.owner
  fav.save((err,data)=>{
   if(err) return res.status(400).send("not created") 
   res.status(201).send(data)
@@ -30,11 +31,11 @@ const getQuotes = async (req, res) => {
 
 const deleteFavs = async (req, res) => {
   const { id } = req.body
-  await Fav.findByIdAndRemove(id)
+  const result = await Fav.findByIdAndRemove(id)
 
   // res.send("deleted")
 
-  res.end()
+  res.json(result)
 }
 module.exports = { createFavs, getFavs, getQuotes, deleteFavs }
 
