@@ -63,6 +63,12 @@ const TrashCont = styled.div`
 export default function Saved() {
     const router = useRouter()
 
+    // function getFav(){
+    //     fetch("http://localhost:3000/favs/:id", {
+    //         method:"get"
+    //     })
+    // }
+
     return (
         <MainCont>
             <NavBarCont>

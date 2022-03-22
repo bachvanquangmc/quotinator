@@ -26,7 +26,9 @@ const login = (req,res) => {
     User.findOne({email:req.body.email}, (err, user)=>{
         if(err) return res.status(404).send("User not found")
 
+
         res.send(user.comparePassword(req.body.password))
+
     })
 }
 

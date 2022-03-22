@@ -3,6 +3,8 @@ import styled from "styled-components";
 import NavBar from "../comps/Navbar";
 import Header from "../comps/Header"
 
+import { useState, useEffect } from 'react';
+
 const Cont = styled.div`
   height:100vh;
   background:#F2F0EE;
@@ -25,8 +27,9 @@ const Item = styled.div`
 ` 
 
 export default function SignUp() {
-  return (
 
+
+  return (
       <Cont>
         <Item>
 
@@ -41,7 +44,9 @@ export default function SignUp() {
         </Item>
         <Item>
 
-      <SignUpForm/>
+      <SignUpForm 
+      
+      />
         </Item>
 
       </Cont>

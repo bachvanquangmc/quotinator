@@ -88,42 +88,42 @@ const QuoteCard = ({
         }, 1000)
     }
 
-    const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
-        // "type" is required. It is used by the "accept" specification of drop targets.
-        type: 'quotecard',
-        item: item,
-        // The collect function utilizes a "monitor" instance (see the Overview for what this is)
-        // to pull important pieces of state from the DnD system.
+    // const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
+    //     // "type" is required. It is used by the "accept" specification of drop targets.
+    //     type: 'quotecard',
+    //     item: item,
+    //     // The collect function utilizes a "monitor" instance (see the Overview for what this is)
+    //     // to pull important pieces of state from the DnD system.
 
-        // end: (item, monitor) => {
-        //   if(!monitor.didDrop()){
-        //     setPos({
-        //       left: monitor.getClientOffset().x,
-        //       top: monitor.getClientOffset().y,
-        //       position: 'fixed'
-        //     })
-        //   }
-        // },
+    //     // end: (item, monitor) => {
+    //     //   if(!monitor.didDrop()){
+    //     //     setPos({
+    //     //       left: monitor.getClientOffset().x,
+    //     //       top: monitor.getClientOffset().y,
+    //     //       position: 'fixed'
+    //     //     })
+    //     //   }
+    //     // },
 
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-            coords: monitor.getClientOffset()
-        })
-    }))
+    //     collect: (monitor) => ({
+    //         isDragging: monitor.isDragging(),
+    //         coords: monitor.getClientOffset()
+    //     })
+    // }))
 
     // console.log(coords);
 
-    const style = {
-        left: null,
-        top: null,
-        position: null,
-    }
+    // const style = {
+    //     left: null,
+    //     top: null,
+    //     position: null,
+    // }
 
-    if (coords && isDragging) {
-        style.left = coords.x + 10;
-        style.top = coords.y;
-        style.position = 'absolute';
-    }
+    // if (coords && isDragging) {
+    //     style.left = coords.x + 10;
+    //     style.top = coords.y;
+    //     style.position = 'absolute';
+    // }
 
 
     return (

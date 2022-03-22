@@ -95,8 +95,8 @@ export default function Filter() {
   const [cutpage, setCutPage] = useState(1);
 
   const r = useRouter();
-  
-  const {fav, setFav} = useFav()
+
+  const { fav, setFav } = useFav()
   const { quoteData, setQuoteData } = useQuoteData({});
   const {sbp, setSBP} = useSBP()
 
@@ -123,9 +123,9 @@ export default function Filter() {
   };
 
 
-  const StoreFav = (checked, obj)  => {
+  const StoreFav = (checked, obj) => {
     console.log(checked, obj)
-    if(checked){
+    if (checked) {
       const new_fav = {
         ...fav
       }

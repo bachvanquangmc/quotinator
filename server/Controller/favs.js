@@ -1,8 +1,15 @@
 const Fav = require('../Models/favs')
 
-const createFavs = async (req,res)=>{
- const body = req.body
- const fav = new Fav()
+const createFavs = async (req, res) => {
+  const body = req.body
+  const fav = new Fav()
+
+  fav.quote = body.quote
+  fav.author = body.author
+  fav.save((err, data) => {
+    if (err) return res.status(400).send("not created")
+    res.status(201).send(data)
+  })
 
  fav.quote = body.quote
  fav.author = body.author
@@ -12,6 +19,7 @@ const createFavs = async (req,res)=>{
   res.status(201).send(data)
 })
  
+
 }
 
 const getFavs = async (req, res)=> {
@@ -21,4 +29,12 @@ const getFavs = async (req, res)=> {
 }).populate('owner', 'email -_id')
 }
 
-module.exports = {createFavs, getFavs}
+const getQuotes = async (req, res) => {
+  Fav.find(req.body.author,(err,favs)=>{
+    if(err) return res.status(500).send("no quotes found") 
+  })
+}
+
+
+module.exports = { createFavs, getFavs, getQuotes }
+
