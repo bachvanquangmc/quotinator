@@ -1,4 +1,4 @@
-const Fav = require('../Models/favs')
+const Fav = require("../Models/favs");
 
 const createFavs = async (req, res) => {
   const body = req.body
@@ -15,8 +15,8 @@ const createFavs = async (req, res) => {
 }
 
 const deleteFavs = async (req, res) => {
-  const { id } = req.body
-  const result = await Fav.findByIdAndRemove(id)
+  const { id } = req.body;
+  await Fav.findByIdAndRemove(id);
 
   res.status(201).send(result)
 }

@@ -1,4 +1,3 @@
-
 const Setting = require("../Models/settings");
 
 const saveSetting = async (req, res) => {
@@ -44,9 +43,9 @@ const getSettingByUser = (req, res) => {
   });
 };
 
+
 module.exports = {
   saveSetting,
   getSettingByUser,
   updateSetting,
 };
-
