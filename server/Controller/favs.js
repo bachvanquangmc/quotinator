@@ -4,13 +4,6 @@ const createFavs = async (req, res) => {
   const body = req.body
   const fav = new Fav()
 
-  fav.quote = body.quote
-  fav.author = body.author
-
-  fav.save((err, data) => {
-    if (err) return res.status(400).send("not created")
-    res.status(201).send(data)
-  })
 
  fav.quote = body.quote
  fav.author = body.author
@@ -38,10 +31,10 @@ const deleteFavs = async (req, res) => {
 }
 
 const getQuotes = async (req, res) => {
-  Fav.find(req.body.author,(err,favs)=>{
-    if(err) return res.status(500).send("no quotes found") 
-  })
-}
+  const result = await Fav.find({author:req.params.author})
+  res.status(200).send(result) 
+   
+ }
 
 module.exports = {
   createFavs,
