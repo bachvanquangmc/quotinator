@@ -12,8 +12,6 @@ const createFavs = async (req, res) => {
   if(err) return res.status(400).send("not created") 
   res.status(201).send(data)
 })
- 
-
 }
 
 const getFavs = async (req, res)=> {
@@ -22,6 +20,7 @@ const getFavs = async (req, res)=> {
     res.json(favs)
 }).populate('owner', 'email -_id')
 }
+
 
 const getQuotes = async (req, res) => {
   const result = await Fav.find({author:req.params.author})
@@ -37,5 +36,10 @@ const deleteFavs = async (req, res) => {
 
   res.json(result)
 }
-module.exports = { createFavs, getFavs, getQuotes, deleteFavs }
 
+module.exports = {
+  createFavs,
+  getFavs,
+  getQuotes,
+  deleteFavs
+}
