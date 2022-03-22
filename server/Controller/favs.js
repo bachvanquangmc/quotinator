@@ -36,4 +36,6 @@ const getQuotes = async (req, res) => {
   })
 }
 
+
 module.exports = { createFavs, getFavs, getQuotes }
+

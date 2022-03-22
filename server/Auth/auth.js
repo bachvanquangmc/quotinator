@@ -10,5 +10,4 @@ const authoriseUser = (req,res,next)=>{
     })
 }
 
-
 module.exports = authoriseUser
