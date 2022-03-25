@@ -8,8 +8,10 @@ export default async function handler(req, res) {
     await Save(uuid, fav);
 
     res.status(200).json({ name: "quang" });
+
   } else if (req.method === "GET") {
-    const { uuid} = req.query;
+    const { uuid } = req.query;
+    
     try {
       const json = await import(`../../saves/${uuid}.json`);
       res.status(200).json(json);

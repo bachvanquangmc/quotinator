@@ -14,14 +14,15 @@ import { useFav, useQuoteData } from "@/utils/provider";
 import { filtering } from "@/utils/func";
 import { v4 as uuidv4 } from "uuid";
 import Btn from "@/comps/Btn";
-import Chat from '../comps/Chat';
-import ChatIcon from '../comps/ChatIcon';
-
+import Chat from "../comps/Chat";
+import ChatIcon from "../comps/ChatIcon";
 
 // import { Player } from '@lottiefiles/react-lottie-player';
 import { useSBP } from "@/utils/provider";
 import { useTxt } from "@/utils/provider";
 
+import { TouchBackend } from "react-dnd-touch-backend";
+import { DndProvider } from "react-dnd";
 
 const MainCont = styled.div`
   display: flex;
@@ -61,76 +62,50 @@ const NavBarCont = styled.div`
 `;
 
 export default function Results() {
-  const [ load, setLoad ] = useState(true);
+  // const [ load, setLoad ] = useState(true);
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    setTimeout(()=>{
-      setLoad(false);
-    }, 1000);
+  //   setTimeout(()=>{
+  //     setLoad(false);
+  //   }, 1000);
 
-  }, []);
-
+  // }, []);
 
   const [curpage, setCurPage] = useState(1);
   const router = useRouter();
 
   const { fav, setFav } = useFav();
   const { quoteData, setQuoteData } = useQuoteData({});
-  const {sbp, setSBP} = useSBP()
-  const {txt, setTxt} = useTxt()
-
+  const { sbp, setSBP } = useSBP();
+  const { txt, setTxt } = useTxt();
 
   const itemsPerPage = 10;
   var butt_arr = [];
 
   var start = 1;
   for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push(((i-1) / itemsPerPage) + 1);
+    butt_arr.push((i - 1) / itemsPerPage + 1);
     start++;
   }
 
   butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
 
-const nextPage = async (p) => {
-  const res = await ax.get('api/quotes', {
-    params: {
-      txt:txt,
-      page:p,
-      num:itemsPerPage
-    }
-  })
-  setQuoteData(res.data)
-  setCurPage(p)
-}
-  const inputFilter = async (txt, p) => {
-    console.log(txt);
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-
-    if (timer === null) {
-      timer = setTimeout(async (p) => {
-        // console.log("async call");
-        const res = await ax.get("/api/quotes", {
-          params: {
-            txt: txt,
-            sort_popularity:sbp,
-           
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        timer = null;
-      }, 500);
-    }
+  const nextPage = async (p) => {
+    const res = await ax.get("api/quotes", {
+      params: {
+        txt: txt,
+        page: p,
+        num: itemsPerPage,
+      },
+    });
+    setQuoteData(res.data);
+    setCurPage(p);
   };
 
-
-  const StoreFav = (checked, obj)  => {
-    console.log(checked, obj)
-    if(checked){
+  const StoreFav = (checked, obj) => {
+    console.log(checked, obj);
+    if (checked) {
       const new_fav = {
         ...fav,
       };
@@ -145,30 +120,36 @@ const nextPage = async (p) => {
     }
   };
 
-  if(load === true) {
-    return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
-      <div >
-      {/* 
-        <div>
-          <Player
-            lottieRef={instance => {
-              setLot({ lot: instance }); // the lottie instance is returned in the argument of this prop. set it to your local state
-            }}
-            autoplay={true}
-            loop={true}
-            controls={false}
-            src="/loader.json"
-            style={{ height: '350px', width: '350px' }}
-          ></Player>
-        </div> */}
-        <NavBarCont >
-          <Navbar />
-        </NavBarCont>
-      </div>
-        <p style={{zIndex: 100}}>LOADING....</p>
+  // const [check, setCheck] = useState();
 
-    </MainCont>
-  }
+  // useEffect(()=>{
+
+  // },[]);
+
+  // if(load === true) {
+  //   return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
+  //     <div >
+  //     {/*
+  //       <div>
+  //         <Player
+  //           lottieRef={instance => {
+  //             setLot({ lot: instance }); // the lottie instance is returned in the argument of this prop. set it to your local state
+  //           }}
+  //           autoplay={true}
+  //           loop={true}
+  //           controls={false}
+  //           src="/loader.json"
+  //           style={{ height: '350px', width: '350px' }}
+  //         ></Player>
+  //       </div> */}
+  //       <NavBarCont >
+  //         <Navbar />
+  //       </NavBarCont>
+  //     </div>
+  //       <p style={{zIndex: 200}}>LOADING....</p>
+
+  //   </MainCont>
+  // }
 
   return (
     <MainCont>
@@ -176,42 +157,45 @@ const nextPage = async (p) => {
         <Navbar goBack={() => router.push("/")} />
       </NavBarCont>
       <SubCont>
-        <Header header="Search Your Quote" />
-
-        {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
-    
+        <Header header="Results" />
+        <DndProvider
+          backend={TouchBackend}
+          options={{
+            enableTouchEvents: false,
+            enableMouseEvents: true,
+          }}
+        >
+        </DndProvider>
       </SubCont>
-      
+
       <QuotCont>
-        {quoteData && Object.values(quoteData).map((o, i) => (
-          <>
-          {/* <div>{o.Quote}</div> */}
-          <QuoteCard
-            key={i}
-            text={o.Quote}
-            subText={o.Author}
-            checked={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
-            onChange={
-            (e)=>StoreFav(e.target.checked, o)
-          }
-          />
-          </>
-          
-        ))}
-       
-         <BtnCont>
+        {quoteData &&
+          Object.values(quoteData).map((o, i) => (
+            <>
+              <QuoteCard
+                key={i}
+                text={o.Quote}
+                subText={o.Author}
+                saveBtn={fav[o.Quote] !== undefined && fav[o.Quote] !== null}
+                onChange={
+                (e)=>StoreFav(e.target.checked, o)
+                }
+              />
+            </>
+          ))}
+
+        <BtnCont>
           {butt_arr.map((o, i) => (
             <div key={i}>
-
-              <PageBtn 
-              bgColor={o === curpage ? "#7b9582" : "white"}
-              numColor={o === curpage ? "#fff" : "#000"}
-              page_num={o}
-              onclick={()=>nextPage(o)}/>
+              <PageBtn
+                bgColor={o === curpage ? "#7b9582" : "white"}
+                numColor={o === curpage ? "#fff" : "#000"}
+                page_num={o}
+                onclick={() => nextPage(o)}
+              />
             </div>
           ))}
           {/* <button onClick={()=>nextPage(1)}>1</button> */}
-        
         </BtnCont>
         {/* <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/> */}
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
