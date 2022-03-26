@@ -35,14 +35,13 @@ const login = async (req,res) => {
       res.send(token)
     }
 
-const getCurrentUser = async (req,res)=>{
-        const user = await User.findById(req.user._id).select('-password')
-        res.send(user)
-}
+// const getCurrentUser = async (req,res)=>{
+//         const user = await User.findById(req.user._id).select('-password')
+//         res.send(user)
+// }
 
 
 module.exports = {
     signup,
-    login,
-    getCurrentUser
+    login
 }

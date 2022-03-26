@@ -1,0 +1,45 @@
+{
+  "I believe that everything happens for a reason. People change so that you can learn to let go, things go wrong so that you appreciate them when they're right, you believe lies so you eventually learn to trust no one but yourself, and sometimes good things fall apart so better things can fall together.": {
+    "Quote": "I believe that everything happens for a reason. People change so that you can learn to let go, things go wrong so that you appreciate them when they're right, you believe lies so you eventually learn to trust no one but yourself, and sometimes good things fall apart so better things can fall together.",
+    "Author": "Marilyn Monroe",
+    "Tags": [
+      "attributed-no-source "
+    ],
+    "Popularity": 0.05256605256605257,
+    "Category": "",
+    "id": 1
+  },
+  "It does not do to dwell on dreams and forget to live.": {
+    "Quote": "It does not do to dwell on dreams and forget to live.",
+    "Author": "J.K. Rowling,  Harry Potter and the Sorcerer's Stone",
+    "Tags": [
+      "dreams",
+      "life "
+    ],
+    "Popularity": 0.03810703810703811,
+    "Category": "life",
+    "id": 2
+  },
+  "Have you ever been in love? Horrible isn't it? It makes you so vulnerable. It opens your chest and it opens up your heart and it means that someone can get inside you and mess you up.": {
+    "Quote": "Have you ever been in love? Horrible isn't it? It makes you so vulnerable. It opens your chest and it opens up your heart and it means that someone can get inside you and mess you up.",
+    "Author": "Neil Gaiman,  The Sandman, Vol. 9: The Kindly Ones",
+    "Tags": [
+      "love "
+    ],
+    "Popularity": 0.030386030386030386,
+    "Category": "love",
+    "id": 3
+  },
+  "Women and cats will do as they please, and men and dogs should relax and get used to the idea.": {
+    "Quote": "Women and cats will do as they please, and men and dogs should relax and get used to the idea.",
+    "Author": "Robert A. Heinlein",
+    "Tags": [
+      "cats",
+      "humor",
+      "women "
+    ],
+    "Popularity": 0.025792025792025792,
+    "Category": "humor",
+    "id": 4
+  }
+}

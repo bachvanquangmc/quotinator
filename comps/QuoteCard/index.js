@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDrag, useDrop } from 'react-dnd';
 import { useTheme } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
@@ -67,20 +67,16 @@ const QuoteCard = ({
     subText = "Dr. Seuss",
     debug,
     onChange,
-
+    poll=poll,
     // imgSrc = "/heart_outline.png" ,
     onclick = () => { },
-
     children = null,
     item = {}
 }) => {
-
     const { theme, setTheme } = useTheme()
-
     const [click, setClick] = useState(false)
     const [copied, setCopied] = useState(false);
     const [checked, setChecked] = useState(false)
-
 
     const changeCopied = () => {
         setTimeout(() => {
@@ -88,55 +84,7 @@ const QuoteCard = ({
         }, 1000)
     }
 
-    // const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
-    //     // "type" is required. It is used by the "accept" specification of drop targets.
-    //     type: 'quotecard',
-    //     item: item,
-    //     // The collect function utilizes a "monitor" instance (see the Overview for what this is)
-    //     // to pull important pieces of state from the DnD system.
-
-    //     // end: (item, monitor) => {
-    //     //   if(!monitor.didDrop()){
-    //     //     setPos({
-    //     //       left: monitor.getClientOffset().x,
-    //     //       top: monitor.getClientOffset().y,
-    //     //       position: 'fixed'
-    //     //     })
-    //     //   }
-    //     // },
-
-    //     collect: (monitor) => ({
-    //         isDragging: monitor.isDragging(),
-    //         coords: monitor.getClientOffset()
-    //     })
-    // }))
-
-    // console.log(coords);
-
-    // const style = {
-    //     left: null,
-    //     top: null,
-    //     position: null,
-    // }
-
-    // if (coords && isDragging) {
-    //     style.left = coords.x + 10;
-    //     style.top = coords.y;
-    //     style.position = 'absolute';
-    // }
-
-
     return (
-        // <QuoteCont ref={dragPreview}
-        //     op={isDragging ? 0.5 : 1}
-        //     left={style.left}
-        //     top={style.top}
-        //     position={style.position}
-        // >
-        //     <div ref={drag}>
-        //         {children}
-        //     </div>
-
             <QuoteCont bgcolor={global_theme[theme].card}>
                 <TextCont>
                     <Text
@@ -147,42 +95,34 @@ const QuoteCard = ({
                     >"{text}"</Text>
                     <SubText> - {subText}</SubText>
                 </TextCont>
-                <ImgCont>
-                    <span>
-
-                        <Img title='Add to favorite' src={click ? "/heart.png" : "/heart_outline.png"} onClick={() => setClick(!click)} />
-                        
+                <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+                    <ImgCont>
                         <span>
-                            <input type="checkbox"
-                                checked={checked}
-                                onChange={onChange}
-                            // style={{visibility:"hidden"}}
-                            />
+                            <Img title='Add to favorite' src={checked ? "/heart.png" : "/heart_outline.png"} onClick={() => setChecked(!checked)} />
+                                <input type="checkbox"
+                                    checked={checked}
+                                    onChange={onChange}
+                                // style={{visibility:"hidden"}}
+                                />
                         </span>
-                    </span>
-                    <Img title='Add to favorite' src={checked ? "/heart.png" : "/heart_outline.png"}
-                        // onClick={()=>setClick(!click)}
-                        onClick={() => setChecked(!false)}
-                        onChange={onChange}
-                    // checked={checked}
-                    >
-
-                    </Img>
-                    {/* <span>
-                    <input type="checkbox" 
-                        checked={checked}
-                        onChange={onChange}
-                        // style={{visibility:"hidden"}}
+                    </ImgCont>
+                    <div style={{display: poll === false ? "inline-block" : "none"}}>
+                        <CopyToClipboard
+                            options={{ debug: debug, message: "" }}
+                            text={text}
+                            onCopy={() => setCopied(true)}
+                        >
+                            <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
+                        </CopyToClipboard>
+                    </div>
+                    <div style={{display: poll === true ? "inline-block" : "none"}}>
+                        <input type="checkbox"
+                            checked={checked}
+                            onChange={onChange}
                         />
-                </span> */}
-                </ImgCont>
-                <CopyToClipboard
-                    options={{ debug: debug, message: "" }}
-                    text={text}
-                    onCopy={() => setCopied(true)}
-                >
-                    <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
-                </CopyToClipboard>
+                    </div>
+
+                </div>
             </QuoteCont>
         // </QuoteCont>
     )

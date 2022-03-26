@@ -5,13 +5,13 @@ const cors = require('cors');
 const router = require("./Routes/favs");
 const userRouter = require("./Routes/users")
 const settingRouter = require("./Routes/settings")
+const quoteRouter = require('./Routes/quotes')
 
 
-// const config = require("./config");
 const config = require('config')
 
 if(!config.get('userPrivateKey')){
-  console.error('FATAL ERROR: userPrivateKey is not defined')
+  console.error('error: userPrivateKey is not defined')
   process.exit(1)
 }
 
@@ -20,6 +20,7 @@ app.use(cors())
 app.use(router);
 app.use(userRouter);
 app.use(settingRouter)
+app.use(quoteRouter)
 app.use(cors());
 
 

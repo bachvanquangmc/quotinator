@@ -4,13 +4,13 @@ const Setting = require("../Models/settings");
 const saveSetting = async (req, res) => {
   const body = req.body;
 
-  const setting = new Setting({
+  const setting = await Setting({
     owner: body.owner,
     darkmode: body.darkmode,
     displayByPopularity: body.displayByPopularity,
     displayByAuthor: body.displayByAuthor,
     numberOfQuotes: body.numberOfQuotes,
-  });
+  }).populate('owner', 'email -_id');
 
   setting.save((err, data) => {
     if (err) return res.status(400).send("setting not created");
@@ -29,7 +29,7 @@ const updateSetting = async (req, res) => {
             numberOfQuotes: req.body.numberOfQuotes
             
         }
-    }, {new:true}).populate('owner')
+    }, {new:true}).populate('owner', 'email -_id')
 
     res.json(setting);
   
@@ -38,7 +38,7 @@ const updateSetting = async (req, res) => {
 
 const getSettingByUser = (req, res) => {
   Setting.findOne(req.params.owner, (err, setting) => {
-    if (err) return res.status(404).send("Can't find a user");
+    if (err) return res.status(404).send("Can't find the user");
 
     res.status(200).send(setting);
   });
