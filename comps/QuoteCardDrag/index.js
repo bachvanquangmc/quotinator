@@ -36,7 +36,6 @@ const TextCont = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   color: #000;
-  /* padding: 5px; */
 `;
 
 const Text = styled.p`
@@ -77,38 +76,11 @@ const QuoteCard = ({
   text = "Don't cry because it's over, smile because it happened.",
   subText = "Dr. Seuss",
   debug,
-  onChange,
-  saveBtn = () => {},
-
-  // imgSrc = "/heart_outline.png" ,
-  onclick = () => {},
-
   children = null,
   item = {},
 }) => {
   const { theme, setTheme } = useTheme();
-  const { fav, setFav } = useFav();
-
-  const [click, setClick] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [checked, setChecked] = useState(false);
-
-  // const StoreFav = (checked, obj)  => {
-  //   console.log(checked, obj)
-  //   if(checked){
-  //     const new_fav = {
-  //       ...fav,
-  //     };
-  //     new_fav[obj.Quote] = obj;
-  //     setFav(new_fav);
-  //   } else {
-  //     const new_fav = {
-  //       ...fav,
-  //     };
-  //     delete new_fav[obj.Quote];
-  //     setFav(new_fav);
-  //   }
-  // };
 
   const changeCopied = () => {
     setTimeout(() => {
@@ -122,13 +94,10 @@ const QuoteCard = ({
     position: "relative",
   });
 
+  
   const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
-    // "type" is required. It is used by the "accept" specification of drop targets.
     type: "quotecard",
     item,
-    // The collect function utilizes a "monitor" instance (see the Overview for what this is)
-    // to pull important pieces of state from the DnD system.
-
     end: (item, monitor) => {
       if (!monitor.didDrop()) {
         setPos({
@@ -144,8 +113,6 @@ const QuoteCard = ({
       coords: monitor.getClientOffset(),
     }),
   }));
-
-  // console.log(coords);
 
   const style = {
     left: pos.left,

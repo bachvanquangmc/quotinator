@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 import { useDrag, useDrop } from "react-dnd";
 
 const TrashCont = styled.div`
   display: flex;
-  background: #EBD1D1;
+  background: #ebd1d1;
   border-radius: 50%;
   z-index: 1;
   width: ${({ width }) => width || "70px"};
@@ -27,17 +26,12 @@ const TrashBin = ({
   onDropItem = () => {},
 }) => {
 
-  const [trash, handleTrash] = useState(false);  
-
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    // The type (or types) to accept - strings or symbols
     accept: "quotecard",
     drop: (item, monitor) => {
-      console.log("quotecard that's dropped", item, item.Author);
-
+      console.log("quotecard that's dropped", item, item.id);
       onDropItem(item);
     },
-    // Props to collect
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
@@ -45,16 +39,11 @@ const TrashBin = ({
   }));
 
   return (
-    <TrashCont
-      ref={drop}
-      width={canDrop && isOver ? '100px' : '70px'}
-    >
-      <Trash 
+    <TrashCont ref={drop} width={canDrop && isOver ? "100px" : "50px"}>
+      <Trash
         src={
           canDrop && isOver ? "/trashbinopen-black.png" : "/trashbin-black.png"
-          
         }
-        // src="/trashbin-black.png"
       />
       {children}
     </TrashCont>
