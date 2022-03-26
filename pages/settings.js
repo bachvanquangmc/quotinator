@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import { useState } from 'react';
+import { useState } from "react";
+import { Slider } from "@mui/material";
+import { useRouter } from "next/router";
 
 import Navbar from "../comps/Navbar";
 import Header from "../comps/Header";
 import SwitchTab from "../comps/SwitchTab";
+
 import { useTheme } from "../utils/provider";
 import { global_theme } from "../utils/variables";
-import { Slider } from "@mui/material";
-import { useRouter } from "next/router";
 import { useSBP } from "../utils/provider";
 
 const MainCont = styled.div`
@@ -15,7 +16,6 @@ const MainCont = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  // background-color: #f2f0ee;
 `;
 
 const SubCont = styled.div`
@@ -30,7 +30,7 @@ const QuotCont = styled.div`
 const CardCont = styled.div`
   flex-basis: 90%;
   min-height: 600px;
-  background-color:${props => props.bgcolor};
+  background-color: ${(props) => props.bgcolor};
   margin-bottom: 5rem;
 `;
 const RowCont = styled.div`
@@ -40,24 +40,24 @@ const RowCont = styled.div`
   align-items: center;
 `;
 const NavBarCont = styled.div`
-position: -webkit-sticky;
-position: sticky;
-top: 0;
-`
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+`;
 export default function Settings() {
   const { theme, setTheme } = useTheme();
-  const router = useRouter()
+  const router = useRouter();
   console.log(theme);
 
   const [cut, setCut] = useState(10);
 
-  const {sbp, setSBP} = useSBP()
+  const { sbp, setSBP } = useSBP();
 
-  console.log(sbp)
+  console.log(sbp);
   return (
     <MainCont>
       <NavBarCont>
-        <Navbar goBack={()=>router.push('/')}/>
+        <Navbar goBack={() => router.push("/")} />
       </NavBarCont>
       <SubCont>
         <Header header="Settings" />
@@ -90,7 +90,7 @@ export default function Settings() {
             <p style={{ color: "black" }}>Sort Authors Alphabetically</p>
             <SwitchTab
               onSwitchClick={() => {
-                setSBP("Author")
+                setSBP("Author");
               }}
             />
           </RowCont>
@@ -98,7 +98,7 @@ export default function Settings() {
             <p style={{ color: "black" }}>NUMBER OF QUOTES</p>
           </RowCont>
           <RowCont>
-            <Slider/>
+            <Slider />
           </RowCont>
         </CardCont>
       </QuotCont>

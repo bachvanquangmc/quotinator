@@ -1,5 +1,9 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
+import ax from "axios";
+
 import Navbar from "../../comps/Navbar";
 import Header from "../../comps/Header";
 import Subheader from "../../comps/Subheader";
@@ -8,10 +12,8 @@ import PageBtn from "../../comps/PageBtn";
 import Btn from "@/comps/Btn";
 import TrashBin from "@/comps/TrashBin";
 
-import ax from "axios";
+
 import { useFav } from "@/utils/provider";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useTheme } from "../../utils/provider";
 import { global_theme } from "../../utils/variables";
 
@@ -41,17 +43,6 @@ const QuotCont = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Test = styled.div`
-  flex-basis: 60%;
-`;
-
-const BtnCont = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  width: 100vw;
-`;
 
 const NavBarCont = styled.div`
   position: -webkit-sticky;
@@ -59,27 +50,14 @@ const NavBarCont = styled.div`
   top: 0;
 `;
 
-const ImgCont = styled.div`
-  width: 50px;
-  height: 50px;
-
-  &:hover {
-  }
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  boject-fit: cover;
-`;
 
 export default function Saved() {
   const r = useRouter();
   const { uuid } = r.query;
   const [alert, setAlert] = useState(null);
   const { theme, setTheme } = useTheme();
-
   const { fav, setFav } = useFav({});
+  const [id, setId] = useState();
 
   useEffect(() => {
     if (uuid) {
@@ -98,15 +76,15 @@ export default function Saved() {
     }
   }, [uuid]);
 
-  useEffect(()=>{
-    if(uuid) {
+  useEffect(() => {
+    if (uuid) {
       const GetFav = async () => {
-        var i = 1;
-        const res = await ax.get("/api/save",{
-          
-          params: { 
-            uuid: i++, 
-            fav }
+        const res = await ax.get("/api/save", {
+          params: {
+            uuid,
+            fav,
+            id
+          },
         });
         if (res.data !== false) {
           setFav(res.data);
@@ -120,6 +98,7 @@ export default function Saved() {
     const res = await ax.post("/api/save", {
       uuid,
       fav,
+      id
     });
     setAlert("Save Succsessfuly"),
       setTimeout(() => {
@@ -141,34 +120,33 @@ export default function Saved() {
       >
         <SubCont>
           <Header header="Your Favorites" />
-       
         </SubCont>
-        <TrashBin
+        <QuotCont>
+          {Object.values(fav).map((o, i) => (
+            <QuoteCardDrag key={o.id} item={o} text={o.Quote} subText={o.Author} />
+          ))}
+          <Btn onClick={saveFav} text="Save to your favorite" />
+          {alert && (
+            <div style={{ color: global_theme[theme].text }}>{alert}</div>
+          )}
+        </QuotCont>
+
+        <div style={{ position: "fixed", bottom: 10, left: 10 }}>
+          <TrashBin
             onDropItem={(item) => {
-              delete fav[item];
+              delete fav[item.id];
               setFav({
                 ...fav,
               });
             }}
-          > 
-          {/* {Object.values(fav).map((o,i) => {
+          >
+            {/* {Object.values(fav).map((o,i) => {
             if(fav[o.id]) {
               return <React.Fragment key={o.id} />
             }
           })} */}
           </TrashBin>
-        <QuotCont>
-          {Object.values(fav).map((o, i) => (
-            <QuoteCardDrag key={i} item={o} text={o.Quote} subText={o.Author} />
-          ))}
-          <Btn
-            onClick={saveFav}
-            text="Save to your favorite"
-          />
-          {alert && (
-            <div style={{ color: global_theme[theme].text }}>{alert}</div>
-          )}
-        </QuotCont>
+        </div>
       </DndProvider>
     </MainCont>
   );
