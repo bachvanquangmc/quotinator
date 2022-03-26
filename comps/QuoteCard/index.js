@@ -78,7 +78,7 @@ const QuoteCard = ({
   debug,
   onChange,
   saveBtn=()=>{},
-
+  poll=poll,
   // imgSrc = "/heart_outline.png" ,
   onclick = () => {},
 
@@ -130,21 +130,28 @@ const QuoteCard = ({
             />
           </label>
         </Savebtn>
-        <CopyToClipboard
-          options={{ debug: debug, message: "" }}
-          text={text}
-          onCopy={() => setCopied(true)}
-        >
-          <Img
-            title="Copy to clipboard"
-            onClick={changeCopied}
-            src={copied ? "/check.png" : "/copy.png"}
-          />
-        </CopyToClipboard>
+  
+        <div style={{display: poll === false ? "inline-block" : "none"}}>
+                        <CopyToClipboard
+                            options={{ debug: debug, message: "" }}
+                            text={text}
+                            onCopy={() => setCopied(true)}
+                        >
+                            <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
+                        </CopyToClipboard>
+                    </div>
+                    <div style={{display: poll === true ? "inline-block" : "none"}}>
+                        <input type="checkbox"
+                            checked={checked}
+                            onChange={onChange}
+                        />
+                    </div>
+
+            
       </ImgCont>
     </QuoteCont>
-    // </QuoteCont>
   );
 };
 
 export default QuoteCard;
+

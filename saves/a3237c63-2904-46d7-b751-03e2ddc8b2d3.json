@@ -1,0 +1,79 @@
+{
+  "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.": {
+    "Quote": "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.",
+    "Author": "Marilyn Monroe",
+    "Tags": [
+      "attributed-no-source",
+      "best",
+      "life",
+      "love",
+      "mistakes",
+      "out-of-control",
+      "truth",
+      "worst "
+    ],
+    "Popularity": 0.12912212912212911,
+    "Category": "love"
+  },
+  "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.": {
+    "Quote": "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+    "Author": "Albert Einstein",
+    "Tags": [
+      "attributed-no-source",
+      "human-nature",
+      "humor",
+      "infinity",
+      "philosophy",
+      "science",
+      "stupidity",
+      "universe "
+    ],
+    "Popularity": 0.10312710312710313,
+    "Category": "humor"
+  },
+  "If you tell the truth, you don't have to remember anything.": {
+    "Quote": "If you tell the truth, you don't have to remember anything.",
+    "Author": "Mark Twain",
+    "Tags": [
+      "lies",
+      "lying",
+      "memory",
+      "truth "
+    ],
+    "Popularity": 0.06795206795206796,
+    "Category": "truth"
+  },
+  "I'm not afraid of death; I just don't want to be there when it happens.": {
+    "Quote": "I'm not afraid of death; I just don't want to be there when it happens.",
+    "Author": "Woody Allen",
+    "Tags": [
+      "death",
+      "fear",
+      "humor",
+      "life "
+    ],
+    "Popularity": 0.022418022418022418,
+    "Category": "life"
+  },
+  "I'm the one that's got to die when it's time for me to die, so let me live my life the way I want to.": {
+    "Quote": "I'm the one that's got to die when it's time for me to die, so let me live my life the way I want to.",
+    "Author": "Jimi Hendrix,  Jimi Hendrix - Axis: Bold as Love",
+    "Tags": [
+      "death",
+      "life "
+    ],
+    "Popularity": 0.015408015408015409,
+    "Category": "death"
+  },
+  "I wish it need not have happened in my time,\"said Frodo.\"So do I,\"said Gandalf, \"and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.": {
+    "Quote": "I wish it need not have happened in my time,\"said Frodo.\"So do I,\"said Gandalf, \"and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.",
+    "Author": "J.R.R. Tolkien,  The Fellowship of the Ring",
+    "Tags": [
+      "adventuring",
+      "death",
+      "time "
+    ],
+    "Popularity": 0.014193014193014193,
+    "Category": "death"
+  }
+}
