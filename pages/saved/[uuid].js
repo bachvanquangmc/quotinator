@@ -3,17 +3,20 @@ import styled from "styled-components";
 import Navbar from "../../comps/Navbar";
 import Header from "../../comps/Header";
 import Subheader from "../../comps/Subheader";
-import QuoteCard from "../../comps/QuoteCard";
+import QuoteCardDrag from "../../comps/QuoteCardDrag";
 import PageBtn from "../../comps/PageBtn";
 import Btn from "@/comps/Btn";
+import TrashBin from "@/comps/TrashBin";
 
 import ax from "axios";
 import { useFav } from "@/utils/provider";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useTheme } from "../../utils/provider"
-import {global_theme } from '../../utils/variables'
-import axios from "axios";
+import { useTheme } from "../../utils/provider";
+import { global_theme } from "../../utils/variables";
+
+import { TouchBackend } from "react-dnd-touch-backend";
+import { DndProvider } from "react-dnd";
 
 const MainCont = styled.div`
   display: flex;
@@ -21,10 +24,14 @@ const MainCont = styled.div`
   justify-content: flex-start;
   align-items: space-between;
   min-height: 100vh;
+  margin-bottom: 100px;
 `;
 
 const SubCont = styled.div`
   margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const QuotCont = styled.div`
@@ -47,91 +54,122 @@ const BtnCont = styled.div`
 `;
 
 const NavBarCont = styled.div`
-position: -webkit-sticky;
-position: sticky;
-top: 0;
-`
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+`;
+
+const ImgCont = styled.div`
+  width: 50px;
+  height: 50px;
+
+  &:hover {
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  boject-fit: cover;
+`;
 
 export default function Saved() {
   const r = useRouter();
   const { uuid } = r.query;
-  const [alert, setAlert] = useState(null)
-  const {theme, setTheme} = useTheme()
-  
-  const { fav, setFav } = useFav();
-  const [favs, setFavs] = useState()
+  const [alert, setAlert] = useState(null);
+  const { theme, setTheme } = useTheme();
 
-  
-  // useEffect(()=>{
-  //   if(uuid){
-  //     const GetUUID = async()=>{
-  //       const res = await ax.get('/api/save', {
-  //         params:{
-  //           uuid:uuid
-  //         }
-  //       })
-  //       if(res.data !== false){
-  //         console.log(res)
-  //         setFav(res.data)
-  //       }
-  //     }
-  //     GetUUID()
-  //   }
-  // },[uuid])
+  const { fav, setFav } = useFav({});
 
-  // useEffect(()=>{
-    const fetchFavs = () => {
-        // axios
-        //   .get('http://localhost:3000/saved/aa139290-df9e-4889-bb29-27ce03c5fb9c')
-        //   .then((response) => {
-        //     const result = response;
-        //     setFavs(result);
-        //   });
-        //   console.log(favs);
+  useEffect(() => {
+    if (uuid) {
+      const GetUUID = async () => {
+        const res = await ax.get("/api/save", {
+          params: {
+            uuid: uuid,
+          },
+        });
+        if (res.data !== false) {
+          console.log(res);
+          setFav(res.data);
+        }
+      };
+      GetUUID();
+    }
+  }, [uuid]);
 
-        fetch("http://localhost:3000/saved/6234c32dcaa7d50ac5e362f9")
-        .then((response) => {
-          response.json()
-          console.log(response)
-        })
-        // .then((responseJson) => {
-        //   setFavs(responseJson.data);
-        //   console.log(responseJson)
-        // });
-        };
-//         fetchFavs
-// },[])
-  const saveFav = async()=>{
-    const res = await ax.post('/api/save',{
-      uuid:uuid,
-      fav:fav
-    })
-    setAlert("Save Succsessfuly")
-  }
+  useEffect(()=>{
+    if(uuid) {
+      const GetFav = async () => {
+        var i = 1;
+        const res = await ax.get("/api/save",{
+          
+          params: { 
+            uuid: i++, 
+            fav }
+        });
+        if (res.data !== false) {
+          setFav(res.data);
+        }
+      };
+      GetFav();
+    }
+  }, [uuid]);
 
+  const saveFav = async () => {
+    const res = await ax.post("/api/save", {
+      uuid,
+      fav,
+    });
+    setAlert("Save Succsessfuly"),
+      setTimeout(() => {
+        setAlert(null);
+      }, 3000);
+  };
 
   return (
     <MainCont>
-        <NavBarCont>
-        <Navbar goBack={()=>r.push('/results')}/>
+      <NavBarCont>
+        <Navbar goBack={() => r.push("/results")} />
       </NavBarCont>
-      <SubCont>
-        <Header header="Your Favorites" />
-        
-      </SubCont>
-      <QuotCont>
-
-        {Object.values(fav).map((o,i)=>
-          <QuoteCard 
-            key={i}
-            text={o.Quote}
-            subText={o.Author}
+      <DndProvider
+        backend={TouchBackend}
+        options={{
+          enableTouchEvents: false,
+          enableMouseEvents: true,
+        }}
+      >
+        <SubCont>
+          <Header header="Your Favorites" />
+       
+        </SubCont>
+        <TrashBin
+            onDropItem={(item) => {
+              delete fav[item];
+              setFav({
+                ...fav,
+              });
+            }}
+          > 
+          {/* {Object.values(fav).map((o,i) => {
+            if(fav[o.id]) {
+              return <React.Fragment key={o.id} />
+            }
+          })} */}
+          </TrashBin>
+        <QuotCont>
+          {Object.values(fav).map((o, i) => (
+            <QuoteCardDrag key={i} item={o} text={o.Quote} subText={o.Author} />
+          ))}
+          <Btn
+            onClick={saveFav}
+            text="Save to your favorite"
           />
-)}
-    <Btn onClick={saveFav} text="Save to your favorite"/>
-    <Btn onClick={fetchFavs} text="teste"/>
-    {alert && <div style={{color:global_theme[theme].text}}>{alert}</div>}
-      </QuotCont>
+          {alert && (
+            <div style={{ color: global_theme[theme].text }}>{alert}</div>
+          )}
+        </QuotCont>
+      </DndProvider>
     </MainCont>
   );
 }
