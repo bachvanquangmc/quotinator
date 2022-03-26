@@ -1,0 +1,57 @@
+{
+  "Don't cry because it's over, smile because it happened.": {
+    "Quote": "Don't cry because it's over, smile because it happened.",
+    "Author": "Dr. Seuss",
+    "Tags": [
+      "attributed-no-source",
+      "cry",
+      "crying",
+      "experience",
+      "happiness",
+      "joy",
+      "life",
+      "misattributed-dr-seuss",
+      "optimism",
+      "sadness",
+      "smile",
+      "smiling "
+    ],
+    "Popularity": 0.15566615566615566,
+    "Category": "life",
+    "id": 0
+  },
+  "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.": {
+    "Quote": "I'm selfish, impatient and a little insecure. I make mistakes, I am out of control and at times hard to handle. But if you can't handle me at my worst, then you sure as hell don't deserve me at my best.",
+    "Author": "Marilyn Monroe",
+    "Tags": [
+      "attributed-no-source",
+      "best",
+      "life",
+      "love",
+      "mistakes",
+      "out-of-control",
+      "truth",
+      "worst "
+    ],
+    "Popularity": 0.12912212912212911,
+    "Category": "love",
+    "id": 2
+  },
+  "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.": {
+    "Quote": "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+    "Author": "Albert Einstein",
+    "Tags": [
+      "attributed-no-source",
+      "human-nature",
+      "humor",
+      "infinity",
+      "philosophy",
+      "science",
+      "stupidity",
+      "universe "
+    ],
+    "Popularity": 0.10312710312710313,
+    "Category": "humor",
+    "id": 6
+  }
+}

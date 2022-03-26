@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { useTheme } from "../../utils/provider"
+import { useState, useEffect } from "react";
+import { useTheme, useFav } from "../../utils/provider"
 import { global_theme } from "../../utils/variables";
 import {router, useRouter} from 'next/router'
 import { v4 as uuidv4 } from "uuid";
+
+import ax from "axios";
 
 
 const NavCont = styled.nav`
@@ -78,17 +80,51 @@ const Icon = styled.img`
   height:20px;
   margin-right:10px;
 `
+const BackCont = styled.div`
+  visibility: ${props=>props.visible}
+`;
 
 export default function NavBar({
-  goBack
+  goBack,
+  visible="visible"
 }){
   const [open, setOpen] = useState(false)
     const {theme, setTheme} = useTheme()
+    const { fav, setFav } = useFav();
+
     const router = useRouter()
+
+    const { uuid } = router.query;
+
+    useEffect(()=>{
+      if(uuid){
+        const GetUUID = async()=>{
+          const res = await ax.get('/api/save', {
+            params:{
+              uuid
+            }
+          })
+          if(res.data !== false){
+            console.log(res)
+            setFav(res.data)
+          }
+        }
+        GetUUID()
+      }
+    },[uuid])
+
+    const saveFav = async()=>{
+      const res = await ax.post('/api/save',{
+        uuid,
+        fav
+      })
+    }
+
+    
   return <NavCont navcolor={global_theme[theme].nav}>
-    <div onClick={goBack}>
+    <BackCont onClick={goBack} visible={visible}>
       Back
-    </div>
+    </BackCont>
     <div style={{cursor:"pointer"}} onClick={()=>{router.push('/')}}>
       Quotinator
     </div>
@@ -101,7 +137,7 @@ export default function NavBar({
 
     <Ul open={open}>
       <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/home.svg"/>  HOME</Li>
-      <Li onClick={()=>router.push(`/saved/${uuidv4()}`)} open={open}><Icon src="/saved.svg"/> SAVED</Li>
+      <Li onClick={()=>{{router.push(`/saved/${uuidv4()}`)} saveFav}} open={open}><Icon src="/saved.svg"/> SAVED</Li>
       <Li onClick={()=>{router.push('/settings')}} open={open}><Icon src="/settings.svg"/> SETTINGS</Li>
       <Li onClick={()=>{router.push('/')}} open={open}><Icon src="/logout.svg"/> LOG OUT</Li>
     </Ul>
