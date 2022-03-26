@@ -61,16 +61,15 @@ const NavBarCont = styled.div`
 
 const ImgCont = styled.div`
   width: 50px;
-  height:50px;
+  height: 50px;
 
   &:hover {
-
   }
 `;
 
 const Img = styled.img`
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   boject-fit: cover;
 `;
 
@@ -80,7 +79,7 @@ export default function Saved() {
   const [alert, setAlert] = useState(null);
   const { theme, setTheme } = useTheme();
 
-  const { fav, setFav } = useFav();
+  const { fav, setFav } = useFav({});
 
   useEffect(() => {
     if (uuid) {
@@ -96,6 +95,24 @@ export default function Saved() {
         }
       };
       GetUUID();
+    }
+  }, [uuid]);
+
+  useEffect(()=>{
+    if(uuid) {
+      const GetFav = async () => {
+        var i = 1;
+        const res = await ax.get("/api/save",{
+          
+          params: { 
+            uuid: i++, 
+            fav }
+        });
+        if (res.data !== false) {
+          setFav(res.data);
+        }
+      };
+      GetFav();
     }
   }, [uuid]);
 
@@ -115,37 +132,44 @@ export default function Saved() {
       <NavBarCont>
         <Navbar goBack={() => r.push("/results")} />
       </NavBarCont>
-      <SubCont>
-        <DndProvider
-          backend={TouchBackend}
-          options={{
-            enableTouchEvents: false,
-            enableMouseEvents: true,
-          }}
-        >
+      <DndProvider
+        backend={TouchBackend}
+        options={{
+          enableTouchEvents: false,
+          enableMouseEvents: true,
+        }}
+      >
+        <SubCont>
           <Header header="Your Favorites" />
-          <TrashBin 
-            onDropItme={(item) => {
-              delete fav[item.Quote];
+       
+        </SubCont>
+        <TrashBin
+            onDropItem={(item) => {
+              delete fav[item];
               setFav({
-                ...fav
-              })
+                ...fav,
+              });
             }}
+          > 
+          {/* {Object.values(fav).map((o,i) => {
+            if(fav[o.id]) {
+              return <React.Fragment key={o.id} />
+            }
+          })} */}
+          </TrashBin>
+        <QuotCont>
+          {Object.values(fav).map((o, i) => (
+            <QuoteCardDrag key={i} item={o} text={o.Quote} subText={o.Author} />
+          ))}
+          <Btn
+            onClick={saveFav}
+            text="Save to your favorite"
           />
-        </DndProvider>
-      </SubCont>
-      <QuotCont>
-        {Object.values(fav).map((o, i) => (
-          <QuoteCardDrag key={i} text={o.Quote} subText={o.Author} />
-        ))}
-        <Btn onClick={{
-          saveFav 
-          
-          }} text="Save to your favorite" />
-        {alert && (
-          <div style={{ color: global_theme[theme].text }}>{alert}</div>
-        )}
-      </QuotCont>
+          {alert && (
+            <div style={{ color: global_theme[theme].text }}>{alert}</div>
+          )}
+        </QuotCont>
+      </DndProvider>
     </MainCont>
   );
 }

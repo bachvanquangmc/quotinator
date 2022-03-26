@@ -17,9 +17,10 @@ const QuoteCont = styled.div`
   border: none;
   padding: 8px;
   margin: 20px 0px;
-  ${({ op }) => op && `opacity:${op}`}
+  cursor: pointer;
+  ${({ op }) => op && `opacity:${op};`}
   ${({ position, left, top }) =>
-    position === "fixed" &&
+    position === "absolute" &&
     `
     left:${left}px;
     top:${top}px;
@@ -69,6 +70,7 @@ const Img = styled.img`
 const Savebtn = styled.button`
   background: rgba(0, 0, 0, 0);
   border: none;
+  visibility: hidden;
 `;
 
 const QuoteCard = ({
@@ -132,7 +134,7 @@ const QuoteCard = ({
         setPos({
           left: monitor.getClientOffset().x,
           top: monitor.getClientOffset().y,
-          position: "fixed",
+          position: "absolute",
         });
       }
     },
@@ -154,7 +156,7 @@ const QuoteCard = ({
   if (coords && isDragging) {
     style.left = coords.x + 10;
     style.top = coords.y;
-    style.position = "fixed";
+    style.position = "absolute";
   }
 
   return (
@@ -179,24 +181,7 @@ const QuoteCard = ({
         <SubText> - {subText}</SubText>
       </TextCont>
       <ImgCont>
-        <Savebtn
-          onClick={saveBtn}
-          // onChange={onChange}
-        >
-          <label>
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={onChange}
-              style={{ display: "none" }}
-            />
-            <Img
-              title="Add to favorite"
-              src={click ? "/heart.png" : "/heart_outline.png"}
-              onClick={() => setClick(!click)}
-            />
-          </label>
-        </Savebtn>
+        <Savebtn></Savebtn>
 
         <CopyToClipboard
           options={{ debug: debug, message: "" }}
@@ -211,7 +196,6 @@ const QuoteCard = ({
         </CopyToClipboard>
       </ImgCont>
     </QuoteCont>
-    // </QuoteCont>
   );
 };
 

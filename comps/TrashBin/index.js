@@ -7,14 +7,18 @@ import { useDrag, useDrop } from "react-dnd";
 
 const TrashCont = styled.div`
   display: flex;
-  /* background:${({ bg }) => bg || "aqua"}; */
+  background: #EBD1D1;
+  border-radius: 50%;
   z-index: 1;
+  width: ${({ width }) => width || "70px"};
+  heigh: 70px;
+  margin: 20px;
+  padding: 10px;
 `;
 
 const Trash = styled.img`
-  width: 45px;
-  height: 45px;
-//   src:${(props) => (props.src ? "/trashbinopen-black.png" : "/trashbin-black.png")}; 
+  width: 100%;
+  height: 100%;
 `;
 
 const TrashBin = ({
@@ -29,7 +33,7 @@ const TrashBin = ({
     // The type (or types) to accept - strings or symbols
     accept: "quotecard",
     drop: (item, monitor) => {
-      console.log("quotecard that's dropped", item);
+      console.log("quotecard that's dropped", item, item.Author);
 
       onDropItem(item);
     },
@@ -43,14 +47,14 @@ const TrashBin = ({
   return (
     <TrashCont
       ref={drop}
-      bg={canDrop && isOver ? 'pink' : 'aqua'}
+      width={canDrop && isOver ? '100px' : '70px'}
     >
       <Trash 
-        // src={
-        //   canDrop && isOver ? "/trashbinopen-black.png" : "/trashbin-black.png"
-            // handleTrash
-        // }
-        src="/trashbin-black.png"
+        src={
+          canDrop && isOver ? "/trashbinopen-black.png" : "/trashbin-black.png"
+          
+        }
+        // src="/trashbin-black.png"
       />
       {children}
     </TrashCont>
