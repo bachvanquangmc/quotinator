@@ -1,85 +1,91 @@
 import { useContext, createContext, useState } from "react";
 import { global_theme, quote_number } from "./variables";
 
-
 const initialStates = {
-  theme:"default",
-  setTheme:()=>{},
-   
+  theme: "default",
+  setTheme: () => {},
+
   fav: {},
-  setFav: ()=>{},
+  setFav: () => {},
 
   qts: "default",
-  setQts:()=>{},
+  setQts: () => {},
 
   quoteData: {},
-  setQuoteData: ()=>{},
+  setQuoteData: () => {},
 
   sbp: "",
-  setSBP: ()=>{},
+  setSBP: () => {},
 
-  txt : "",
-  setTxt: ()=>{}
+  txt: "",
+  setTxt: () => {},
+};
 
-}
+const MyContext = createContext(initialStates); // provide a shared space to use in other pages
 
-const MyContext = createContext(initialStates) // provide a shared space to use in other pages
-
-export default function AppProvider({children}){
-
-  const [theme, setTheme] = useState(initialStates.theme)
+export default function AppProvider({ children }) {
+  const [theme, setTheme] = useState(initialStates.theme);
   const [fav, setFav] = useState(initialStates.fav); //or (initialStstes.fav)
   const [quoteData, setQuoteData] = useState(initialStates.quoteData);
-   const [sbp, setSBP] = useState(initialStates.sbp)
-   const [txt, setTxt] = useState(initialStates.txt)
-  console.log('favorite', fav)
+  const [sbp, setSBP] = useState(initialStates.sbp);
+  const [txt, setTxt] = useState(initialStates.txt);
+  console.log("favorite", fav);
 
-  return <MyContext.Provider value={{theme, setTheme, fav, setFav, quoteData, setQuoteData,sbp, setSBP, txt, setTxt}}>
+  return (
+    <MyContext.Provider
+      value={{
+        theme,
+        setTheme,
+        fav,
+        setFav,
+        quoteData,
+        setQuoteData,
+        sbp,
+        setSBP,
+        txt,
+        setTxt,
+      }}
+    >
+      <style jsx global>
+        {`
+          body {
+            background-color: ${global_theme[theme].background};
+            color: ${global_theme[theme].text};
+            font-size: ${global_theme[theme].fontsize};
+          }
+        `}
+      </style>
 
-    <style jsx global>
-      {`
-        body{
-          background-color:${global_theme[theme].background};
-          color:${global_theme[theme].text};
-          font-size:${global_theme[theme].fontsize}
-        }
-      `}
-    </style>
-    
-    {children}
-  </MyContext.Provider>
+      {children}
+    </MyContext.Provider>
+  );
 }
 
-
 // use the context to create hooks like useTheme
-export function useTheme(){
-  const {theme, setTheme} = useContext(MyContext)
-  return {theme, setTheme}
+export function useTheme() {
+  const { theme, setTheme } = useContext(MyContext);
+  return { theme, setTheme };
 }
 
 export function useFav() {
   const { fav, setFav } = useContext(MyContext);
   return { fav, setFav };
-  
- }
+}
 export function useQuote() {
-  const {qts, setQts} = useContext(MyContext);
-  return {qts, setQts};
+  const { qts, setQts } = useContext(MyContext);
+  return { qts, setQts };
 }
 
 export function useQuoteData() {
   const { quoteData, setQuoteData } = useContext(MyContext);
   return { quoteData, setQuoteData };
-
 }
-export function useSBP(){
-  const {sbp, setSBP} = useContext(MyContext)
-  return {sbp, setSBP}
-
+export function useSBP() {
+  const { sbp, setSBP } = useContext(MyContext);
+  return { sbp, setSBP };
 }
 
-export function useTxt(){
-  const {txt, setTxt} = useContext(MyContext)
-  return {txt, setTxt}
-
+export function useTxt() {
+  const { txt, setTxt } = useContext(MyContext);
+  return { txt, setTxt };
 }

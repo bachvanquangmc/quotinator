@@ -1,0 +1,80 @@
+{
+  "If you tell the truth, you don't have to remember anything.": {
+    "Quote": "If you tell the truth, you don't have to remember anything.",
+    "Author": "Mark Twain",
+    "Tags": [
+      "lies",
+      "lying",
+      "memory",
+      "truth "
+    ],
+    "Popularity": 0.06795206795206796,
+    "Category": "truth"
+  },
+  "Always forgive your enemies; nothing annoys them so much.": {
+    "Quote": "Always forgive your enemies; nothing annoys them so much.",
+    "Author": "Oscar Wilde",
+    "Tags": [
+      "attributed-no-source",
+      "enemies",
+      "forgiveness",
+      "strategy "
+    ],
+    "Popularity": 0.061497061497061495,
+    "Category": ""
+  },
+  "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.": {
+    "Quote": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+    "Author": "Maya Angelou",
+    "Tags": [
+      "61419 likes "
+    ],
+    "Popularity": 0.06141906141906142,
+    "Category": ""
+  },
+  "default": {
+    "If you tell the truth, you don't have to remember anything.": {
+      "Quote": "If you tell the truth, you don't have to remember anything.",
+      "Author": "Mark Twain",
+      "Tags": [
+        "lies",
+        "lying",
+        "memory",
+        "truth "
+      ],
+      "Popularity": 0.06795206795206796,
+      "Category": "truth"
+    },
+    "Always forgive your enemies; nothing annoys them so much.": {
+      "Quote": "Always forgive your enemies; nothing annoys them so much.",
+      "Author": "Oscar Wilde",
+      "Tags": [
+        "attributed-no-source",
+        "enemies",
+        "forgiveness",
+        "strategy "
+      ],
+      "Popularity": 0.061497061497061495,
+      "Category": ""
+    },
+    "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.": {
+      "Quote": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+      "Author": "Maya Angelou",
+      "Tags": [
+        "61419 likes "
+      ],
+      "Popularity": 0.06141906141906142,
+      "Category": ""
+    }
+  },
+  "Hikayatin mo lahat ng kakilala mo na magkaroon ng kahit isa man lang paboritong libro sa buhay nila. Dahil wala nang mas kawawa pa sa mga taong literado pero hindi nagbabasa.": {
+    "Quote": "Hikayatin mo lahat ng kakilala mo na magkaroon ng kahit isa man lang paboritong libro sa buhay nila. Dahil wala nang mas kawawa pa sa mga taong literado pero hindi nagbabasa.",
+    "Author": "Bob Ong",
+    "Tags": [
+      "inspiration",
+      "reading "
+    ],
+    "Popularity": 0.000561000561000561,
+    "Category": "inspiration"
+  }
+}

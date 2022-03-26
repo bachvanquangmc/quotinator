@@ -1,0 +1,76 @@
+{
+  "When someone loves you, the way they talk about you is different. You feel safe and comfortable.": {
+    "Quote": "When someone loves you, the way they talk about you is different. You feel safe and comfortable.",
+    "Author": "Jess C. Scott,  The Intern",
+    "Tags": [
+      "desire",
+      "emotion",
+      "friendship",
+      "honesty",
+      "imagination",
+      "individuality",
+      "life",
+      "love",
+      "passion",
+      "reality",
+      "relationships",
+      "romance",
+      "truth",
+      "wisdom",
+      "wise-words "
+    ],
+    "Popularity": 0.016423016423016423,
+    "Category": "love"
+  },
+  "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.": {
+    "Quote": "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
+    "Author": "Rumi",
+    "Tags": [
+      "change",
+      "cleverness",
+      "self",
+      "wisdom",
+      "world "
+    ],
+    "Popularity": 0.002611002611002611,
+    "Category": "wisdom"
+  },
+  "default": {
+    "When someone loves you, the way they talk about you is different. You feel safe and comfortable.": {
+      "Quote": "When someone loves you, the way they talk about you is different. You feel safe and comfortable.",
+      "Author": "Jess C. Scott,  The Intern",
+      "Tags": [
+        "desire",
+        "emotion",
+        "friendship",
+        "honesty",
+        "imagination",
+        "individuality",
+        "life",
+        "love",
+        "passion",
+        "reality",
+        "relationships",
+        "romance",
+        "truth",
+        "wisdom",
+        "wise-words "
+      ],
+      "Popularity": 0.016423016423016423,
+      "Category": "love"
+    },
+    "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.": {
+      "Quote": "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
+      "Author": "Rumi",
+      "Tags": [
+        "change",
+        "cleverness",
+        "self",
+        "wisdom",
+        "world "
+      ],
+      "Popularity": 0.002611002611002611,
+      "Category": "wisdom"
+    }
+  }
+}
