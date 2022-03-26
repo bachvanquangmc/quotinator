@@ -104,32 +104,77 @@ export default function Filter() {
     setQuoteData(res.data);
   };
 
-  return (
-    <MainCont>
-      <NavBarCont>
-        <Navbar goBack={() => r.push("/")} />
-      </NavBarCont>
 
-      <Header header="Select a Category" />
+  const StoreFav = (checked, obj) => {
+    console.log(checked, obj)
+    if (checked) {
+      const new_fav = {
+        ...fav
+      }
+      new_fav[obj.Quote] = obj
+      setFav(new_fav)
+    } else {
+      const new_fav = {
+        ...fav
+      }
+      delete new_fav[obj.Quote]
+      setFav(new_fav)
+    }
+  }
+    return (
+      <MainCont>
+          <NavBarCont>
+            <Navbar goBack={()=>r.push('/')}/>
+          </NavBarCont>
 
-      <TCMainCont>
-        <CardCont onClick={() => setHumor(humor ? null : "humor")}>
-          <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
-        </CardCont>
-        <CardCont onClick={() => setLife(life ? null : "life")}>
-          <TopicCard text="Life" src="/TopicCardIcons/life.png" />
-        </CardCont>
-        <CardCont onClick={() => setSuccess(success ? null : "success")}>
-          <TopicCard text="Success" src="/TopicCardIcons/success.png" />
-        </CardCont>
-        <CardCont
-          onClick={() =>
-            setInspirational(inspirational ? null : "inspirational")
-          }
-        >
-          <TopicCard
-            text="Inspirational"
-            src="/TopicCardIcons/inspirational.png"
+        <Header header="Select a Category" />
+
+        <TCMainCont>
+            {/* <CardCont onClick={()=> setOptions("humor")} > */}
+            <CardCont onClick={()=> setHumor(humor ? null : "humor")}>
+                <TopicCard text="Humor" src="/TopicCardIcons/humor.png" />
+            </CardCont>
+            <CardCont onClick={()=> setLife(life ? null : "life")}>
+                <TopicCard text="Life" src="/TopicCardIcons/life.png" />
+            </CardCont>
+            <CardCont onClick={()=> setSuccess(success ? null : "success")}>
+                <TopicCard text="Success" src="/TopicCardIcons/success.png" />
+            </CardCont>
+            <CardCont onClick={()=> setInspirational(inspirational ? null : "inspirational")}>
+                <TopicCard text="Inspirational" src="/TopicCardIcons/inspirational.png" />
+            </CardCont>
+            <CardCont onClick={()=> setReligion(religion ? null : "religion")}>
+                <TopicCard text="Religion" src="/TopicCardIcons/religion.png" />
+            </CardCont>
+            <CardCont onClick={()=> setLove(love ? null : "love")}>
+                <TopicCard text="Love" src="/TopicCardIcons/love.png" />
+            </CardCont>
+            <CardCont onClick={()=> setPhilosophy(philosophy ? null : "philosophy")}>
+                <TopicCard text="Philosophy" src="/TopicCardIcons/philosophy.png" />
+            </CardCont>
+            <CardCont onClick={()=> setBooks(books ? null : "books")}>
+                <TopicCard text="Books" src="/TopicCardIcons/books.png" />
+            </CardCont>
+            <CardCont onClick={()=> setDeath(death ? null : "death")}>
+                <TopicCard text="Death" src="/TopicCardIcons/death.png" />
+            </CardCont>
+            <CardCont onClick={()=> setHope(hope ? null : "hope")}>
+                <TopicCard text="Hope" src="/TopicCardIcons/hope.png" />
+            </CardCont>
+            <CardCont onClick={()=> setWisdom(wisdom ? null : "wisdom")}>
+                <TopicCard text="Wisdom" src="/TopicCardIcons/wisdom.png" />
+            </CardCont>
+            <CardCont onClick={()=> setArt(art ? null : "art")}>
+                <TopicCard text="Art" src="/TopicCardIcons/art.png" />
+            </CardCont>
+           
+          <Btn style={{ flexBasis:"800px"}}
+            text="Continue"
+            onClick={async () => {
+              getQuotes();
+              setQuoteData(quoteData);
+              r.push('/results')
+            }}
           />
         </CardCont>
         <CardCont onClick={() => setReligion(religion ? null : "religion")}>

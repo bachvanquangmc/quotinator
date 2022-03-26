@@ -122,16 +122,16 @@ export default function Poll() {
   return (
     <MainCont>
       <NavBarCont>
-        <Navbar goBack={() => router.push("/")} />
+        <Navbar goBack={() => router.push("/results")} />
       </NavBarCont>
       <PollAleart display={pollDisplay}/>
       <SubCont>
-        <p>Type a question</p>
+        <p>Vote for the best quote</p>
     
       </SubCont>
       
       <QuotCont>
-        <Input type="text" placeholder="Which quote is better for an essay?"/>
+        
         {fav && Object.values(fav).map((o, i) => (
           <>
           <PollCard

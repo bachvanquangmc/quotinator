@@ -11,53 +11,52 @@ export default function handler(req, res) {
   var lists = null;
   const num = req.query.num || 15;
   const { sort_popularity } = req.query;
+    // const quote = quotes.slice(0,10);
+    if(humor || life || success || inspirational || religion || love || philosophy || books || death || hope || wisdom || art ){
+      lists = filtering(quotes, {
+            humor:humor,
+            life:life,
+            success:success,
+            inspirational:inspirational, 
+            religion:religion, 
+            love:love, 
+            philosophy:philosophy, 
+            books:books, 
+            death:death, 
+            hope:hope, 
+            wisdom:wisdom, 
+            art:art
+        })
+        if(sort_popularity){
+          lists = sorting(lists, {
+            key:sort_popularity,
+            type:"asc"
+          })
+        }
+        lists = lists.slice(0,10)
+    }
+       
+    // if(sort_popularity){
+    //   lists = sorting(lists, {
+    //     key:sort_popularity,
+    //     type:"asc"
+    //   })
+    //     lists = lists.slice(0,10)
+    // }
 
-  const {
-    humor,
-    life,
-    success,
-    inspirational,
-    religion,
-    love,
-    philosophy,
-    books,
-    death,
-    hope,
-    wisdom,
-    art,
-    txt,
-  } = req.query;
-
-  if (
-    humor ||
-    life ||
-    success ||
-    inspirational ||
-    religion ||
-    love ||
-    philosophy ||
-    books ||
-    death ||
-    hope ||
-    wisdom ||
-    art
-  ) {
-    lists = filtering(quotes, {
-      humor: humor,
-      life: life,
-      success: success,
-      inspirational: inspirational,
-      religion: religion,
-      love: love,
-      philosophy: philosophy,
-      books: books,
-      death: death,
-      hope: hope,
-      wisdom: wisdom,
-      art: art,
-    });
-    lists = lists.slice(0, 10);
-  }
+  if(txt){
+      lists = searching(quotes, {
+          Quote: txt,
+      })
+      if(sort_popularity){
+        lists = sorting(lists, {
+          key:sort_popularity,
+          type:"asc"
+        })
+      }
+     
+        lists = lists.slice(0,10)
+    
 
   if (sort_popularity) {
     lists = sorting(lists, {
@@ -73,9 +72,9 @@ export default function handler(req, res) {
     });
     if (sort_popularity) {
       lists = sorting(lists, {
-        key: sort_popularity,
-        type: "desc",
-      });
+        key:sort_popularity,
+        type:"asc"
+      })
     }
 
     lists = lists.slice(0, 10);
