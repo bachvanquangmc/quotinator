@@ -82,7 +82,7 @@ export default function Settings() {
             <p style={{ color: "black" }}>Display Quotes by Popularity</p>
             <SwitchTab
               onSwitchClick={() => {
-               setSBP("Popularity")
+               setSBP("default")
               }}
             />
           </RowCont>

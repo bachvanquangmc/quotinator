@@ -123,6 +123,7 @@ export default function Filter() {
   };
 
 
+
   const StoreFav = (checked, obj) => {
     console.log(checked, obj)
     if (checked) {

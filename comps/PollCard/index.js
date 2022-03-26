@@ -94,7 +94,7 @@ const PollCard = ({
                     <Text>"{text}"</Text>
                     <SubText> - {subText}</SubText>
                 </TextCont>
-                  <Img img={img} src='/x.png'/>
+                  {/* <Img img={img} src='/x.png'/> */}
                 <div style={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
                     <Num num={num}>{count}</Num>
                 </div>

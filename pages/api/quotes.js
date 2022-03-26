@@ -10,8 +10,8 @@ export default function handler(req, res) {
     const {humor, life, success, inspirational, religion, love, philosophy, books, death, hope, wisdom, art, txt} = req.query
 
     // const quote = quotes.slice(0,10);
-    if(humor || life || success || inspirational || religion || love || philosophy || books || death || hope || wisdom || art){
-        lists = filtering(quotes, {
+    if(humor || life || success || inspirational || religion || love || philosophy || books || death || hope || wisdom || art ){
+      lists = filtering(quotes, {
             humor:humor,
             life:life,
             success:success,
@@ -25,27 +25,33 @@ export default function handler(req, res) {
             wisdom:wisdom, 
             art:art
         })
-        lists = lists.slice(0,10)
-    }
-       
-    if(sort_popularity){
-      lists = sorting(lists, {
-        key:sort_popularity,
-        type:"desc"
-      })
-        lists = lists.slice(0,10)
-    }
-
-    if(txt){
-        lists = searching(quotes, {
-            Quote: txt,
-        })
         if(sort_popularity){
           lists = sorting(lists, {
             key:sort_popularity,
-            type:"desc"
+            type:"asc"
           })
         }
+        lists = lists.slice(0,10)
+    }
+       
+    // if(sort_popularity){
+    //   lists = sorting(lists, {
+    //     key:sort_popularity,
+    //     type:"asc"
+    //   })
+    //     lists = lists.slice(0,10)
+    // }
+
+  if(txt){
+      lists = searching(quotes, {
+          Quote: txt,
+      })
+      if(sort_popularity){
+        lists = sorting(lists, {
+          key:sort_popularity,
+          type:"asc"
+        })
+      }
      
         lists = lists.slice(0,10)
     }
@@ -58,7 +64,7 @@ export default function handler(req, res) {
     if(sort_popularity){
       lists = sorting(lists, {
         key:sort_popularity,
-        type:"desc"
+        type:"asc"
       })
     }
    

@@ -69,22 +69,26 @@ const NavBarCont = styled.div`
 
 export default function Results() {
   // const [ load, setLoad ] = useState(true);
+  const [mysock, setMysock] = useState(null)
+
 
   useEffect(()=>{
-
-    // setTimeout(()=>{
-    //   setLoad(false);
-    // }, 1000);
 
     const socket = io('http://localhost:8888')
     socket.on('joined', (id)=>{
       setPollDisplay("inline-block")
     })
 
-    setMySoc(socket)
+    setMysock(socket)
 
   }, []);
 
+  const emitToIO = async ()=>{
+    if(mysock !== null){
+      mysock.emit("user_ready")
+      router.push(`/poll`)
+    }
+  }
 
 
   const [curpage, setCurPage] = useState(1);
@@ -116,6 +120,7 @@ export default function Results() {
         txt: txt,
         page: p,
         num: itemsPerPage,
+        sort_popularity: sbp,
       },
     });
     setQuoteData(res.data);
@@ -229,7 +234,7 @@ export default function Results() {
           <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
         </div>
         <div style={{display:poll === true ? "inline-block" : "none"}} >
-          <Btn onClick={()=>router.push(`/poll`)} text="Start Poll"/>
+          <Btn onClick={emitToIO} text="Start Poll"/>
         </div>     
         {/* <button onClick={()=>router.push(`/saved/${uuidv4()}`)}>Go to fav</button> */}
       </QuotCont>
