@@ -27,6 +27,8 @@ import { useSBP } from "@/utils/provider";
 import { useTxt } from "@/utils/provider";
 import { set } from "react-hook-form";
 
+import { TouchBackend } from "react-dnd-touch-backend";
+import { DndProvider } from "react-dnd";
 
 const MainCont = styled.div`
   display: flex;
@@ -66,13 +68,13 @@ const NavBarCont = styled.div`
 `;
 
 export default function Results() {
-  const [ load, setLoad ] = useState(true);
+  // const [ load, setLoad ] = useState(true);
 
   useEffect(()=>{
 
-    setTimeout(()=>{
-      setLoad(false);
-    }, 1000);
+    // setTimeout(()=>{
+    //   setLoad(false);
+    // }, 1000);
 
     const socket = io('http://localhost:8888')
     socket.on('joined', (id)=>{
@@ -82,6 +84,7 @@ export default function Results() {
     setMySoc(socket)
 
   }, []);
+
 
 
   const [curpage, setCurPage] = useState(1);
@@ -101,51 +104,27 @@ export default function Results() {
 
   var start = 1;
   for (var i = 1; i < 2000; i += itemsPerPage) {
-    butt_arr.push(((i-1) / itemsPerPage) + 1);
+    butt_arr.push((i - 1) / itemsPerPage + 1);
     start++;
   }
 
   butt_arr = butt_arr.slice(curpage - 3 < 0 ? 0 : curpage - 2, curpage + 4);
 
-const nextPage = async (p) => {
-  const res = await ax.get('api/quotes', {
-    params: {
-      txt:txt,
-      page:p,
-      num:itemsPerPage
-    }
-  })
-  setQuoteData(res.data)
-  setCurPage(p)
-}
-  const inputFilter = async (txt, p) => {
-    console.log(txt);
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-
-    if (timer === null) {
-      timer = setTimeout(async (p) => {
-        // console.log("async call");
-        const res = await ax.get("/api/quotes", {
-          params: {
-            txt: txt,
-            sort_popularity:sbp,
-           
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        timer = null;
-      }, 500);
-    }
+  const nextPage = async (p) => {
+    const res = await ax.get("api/quotes", {
+      params: {
+        txt: txt,
+        page: p,
+        num: itemsPerPage,
+      },
+    });
+    setQuoteData(res.data);
+    setCurPage(p);
   };
 
-
-  const StoreFav = (checked, obj)  => {
-    console.log(checked, obj)
-    if(checked){
+  const StoreFav = (checked, obj) => {
+    console.log(checked, obj);
+    if (checked) {
       const new_fav = {
         ...fav,
       };
@@ -164,30 +143,36 @@ const nextPage = async (p) => {
     setPoll(true)
   }
 
-  if(load === true) {
-    return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
-      <div >
-      {/* 
-        <div>
-          <Player
-            lottieRef={instance => {
-              setLot({ lot: instance }); // the lottie instance is returned in the argument of this prop. set it to your local state
-            }}
-            autoplay={true}
-            loop={true}
-            controls={false}
-            src="/loader.json"
-            style={{ height: '350px', width: '350px' }}
-          ></Player>
-        </div> */}
-        <NavBarCont >
-          <Navbar />
-        </NavBarCont>
-      </div>
-        <p style={{zIndex: 100}}>LOADING....</p>
+  // const [check, setCheck] = useState();
 
-    </MainCont>
-  }
+  // useEffect(()=>{
+
+  // },[]);
+
+  // if(load === true) {
+  //   return <MainCont style={{background: 'rgba(0, 0, 0, 0.2)', height: '100wh' }}>
+  //     <div >
+  //     {/*
+  //       <div>
+  //         <Player
+  //           lottieRef={instance => {
+  //             setLot({ lot: instance }); // the lottie instance is returned in the argument of this prop. set it to your local state
+  //           }}
+  //           autoplay={true}
+  //           loop={true}
+  //           controls={false}
+  //           src="/loader.json"
+  //           style={{ height: '350px', width: '350px' }}
+  //         ></Player>
+  //       </div> */}
+  //       <NavBarCont >
+  //         <Navbar />
+  //       </NavBarCont>
+  //     </div>
+  //       <p style={{zIndex: 200}}>LOADING....</p>
+
+  //   </MainCont>
+  // }
 
   return (
     <MainCont>
@@ -196,14 +181,20 @@ const nextPage = async (p) => {
       </NavBarCont>
       <PollAleart display={pollDisplay} onClick={() => router.push("/vote")}/>
       <SubCont>
-        <Header header="Search Your Quote" />
+        
+      <Header header="Results" />
         <p style={{display:poll === false ? "inline-block" : "none"}} onClick={()=>startPoll()}>Want to start a poll? Click here!</p>
         <p style={{display:poll === true ? "inline-block" : "none"}}>Select quote(s) to vote</p>
-
-        {/* <SearchBar onChange={(e) => inputFilter(e.target.value)} /> */}
-    
+        <DndProvider
+          backend={TouchBackend}
+          options={{
+            enableTouchEvents: false,
+            enableMouseEvents: true,
+          }}
+        >
+        </DndProvider>
       </SubCont>
-      
+
       <QuotCont>
         {quoteData && Object.values(quoteData).map((o, i) => (
           <>
@@ -233,7 +224,6 @@ const nextPage = async (p) => {
             </div>
           ))}
           {/* <button onClick={()=>nextPage(1)}>1</button> */}
-        
         </BtnCont>
         <div style={{display:poll === false ? "inline-block" : "none"}} >
           <Btn onClick={()=>router.push(`/saved/${uuidv4()}`)} text="Go to Favorite"/>
