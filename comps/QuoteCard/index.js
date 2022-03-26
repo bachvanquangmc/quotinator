@@ -116,7 +116,7 @@ const QuoteCard = ({
       <Savebtn
           onClick={saveBtn}
         >
-          <label>
+          <label style={{display: poll === false ? "inline-block" : "none"}}>
             <input
               type="checkbox"
               checked={checked}
@@ -131,6 +131,9 @@ const QuoteCard = ({
           </label>
         </Savebtn>
   
+        <Savebtn
+          onClick={saveBtn}
+        >
         <div style={{display: poll === false ? "inline-block" : "none"}}>
                         <CopyToClipboard
                             options={{ debug: debug, message: "" }}
@@ -140,12 +143,21 @@ const QuoteCard = ({
                             <Img title='Copy to clipboard' onClick={changeCopied} src={copied ? "/check.png" : "/copy.png"} />
                         </CopyToClipboard>
                     </div>
+                    <label>
                     <div style={{display: poll === true ? "inline-block" : "none"}}>
                         <input type="checkbox"
                             checked={checked}
                             onChange={onChange}
+                            style={{ display: "none" }}
                         />
+                         <Img
+              title="Add to favorite"
+              src={click ? "/checked.png" : "/unchecked.png"}
+              onClick={() => setClick(!click)}
+            />
                     </div>
+                    </label>
+                    </Savebtn>
 
             
       </ImgCont>

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useRouter, router } from "next/router";
 import ax from "axios";
 
-import { useTheme, useQuoteData } from "../utils/provider";
+import { useTheme, useQuoteData, useSBP } from "../utils/provider";
 import { global_theme } from "../utils/variables";
 
 import Btn from "../comps/Btn";
@@ -79,6 +79,8 @@ export default function Home() {
   const { theme, setTheme } = useTheme();
   const { quoteData, setQuoteData } = useQuoteData();
   const { txt, setTxt } = useTxt();
+  const {sbp, setSBP} = useSBP()
+
 
   const inputFilter = async (txt) => {
     console.log(txt);
@@ -92,6 +94,7 @@ export default function Home() {
         const res = await ax.get("/api/quotes", {
           params: {
             txt: txt,
+            sort_popularity: sbp,
           },
         });
         console.log(res.data);
